@@ -1,4 +1,5 @@
 // * Project02 *//
+// JavaFXTemplate.java
 // ****************************************************************************/
 // University of Illinois at Chicago
 // Class: CS 342, FALL 2021
