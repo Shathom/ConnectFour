@@ -12,9 +12,7 @@
 // developmenet in JavaFx and trying your hand at event driven programming.
 // ****************************************************************************/
 public class GameLogic {
-	int row;
-	int column;
-	int player;
+
 	
 	
 	
