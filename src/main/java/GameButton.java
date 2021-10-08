@@ -1,5 +1,7 @@
+import javafx.scene.control.Button;
+
 // * Project02 *//
-// Button.java
+// GameButton.java
 // ****************************************************************************/
 // University of Illinois at Chicago
 // Class: CS 342, FALL 2021
@@ -12,8 +14,11 @@
 // developmenet in JavaFx and trying your hand at event driven programming.
 // ****************************************************************************/
 
-public class Button {
-
+public class GameButton extends Button {
+	int row;
+	int column;
+	
+	int player;
 	
 	// test
 }
