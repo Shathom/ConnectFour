@@ -29,6 +29,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -69,6 +70,8 @@ public class JavaFXTemplate extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Connect 4");
+		Image appIcon = new Image("04e3f399f686e98a363c7cb5036ed0ae.png");
+		primaryStage.getIcons().add(appIcon);
 		
 		sceneChangeBtn = new Button("START GAME");
 		sceneChangeBtn.setStyle("-fx-font-size: 1.5em");
