@@ -102,7 +102,7 @@ public class JavaFXTemplate extends Application {
 	public void addGrid(GridPane grid) {
 		for(int x = 0; x<7; x++) {				
 			for(int i = 0; i<6; i++) {
-				Button b1 = new Button();				
+				Button b1 = new Button();	 // GameButton (not Button) 			
 				b1.setPrefWidth(200);
 				b1.setOnAction(myHandler);
 				b1.setStyle("-fx-font-size: 50;" +"-fx-background-color:yellow;" + "-fx-border-color: black;"+
@@ -124,7 +124,6 @@ public class JavaFXTemplate extends Application {
 		VBox paneCenter = new VBox(10, text, sceneChangeBtn);
 		pane.setCenter(paneCenter);
 		pane.setStyle("-fx-background-color:yellow;" + "-fx-font-family: 'serif'");
-		// jkjkljkjkljkl
 
 		
 		
