@@ -9,7 +9,7 @@
 // Connect Four JavaFX GUI
 // Implement the classic game of Connect Four. This is a simple game to
 // understand and play which should allow you to focus on learning GUI
-// developmenet in JavaFx and trying your hand at event driven programming.
+// development in JavaFx and trying your hand at event driven programming.
 // ****************************************************************************/
 public class GameLogic {
 

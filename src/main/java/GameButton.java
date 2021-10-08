@@ -11,13 +11,13 @@ import javafx.scene.control.Button;
 // Connect Four JavaFX GUI
 // Implement the classic game of Connect Four. This is a simple game to
 // understand and play which should allow you to focus on learning GUI
-// developmenet in JavaFx and trying your hand at event driven programming.
+// development in JavaFx and trying your hand at event driven programming.
 // ****************************************************************************/
 
 public class GameButton extends Button {
-	private int row = 0;
-	private int column = 0;
-	private int player = 0;
+	int row = 0;
+	int column = 0;
+	int player = 0;
 	
 	GameButton(int row, int column, int player){
 		Button gameButton = new Button();
@@ -25,6 +25,8 @@ public class GameButton extends Button {
 		this.column = column;
 		this.player = player;
 	}
+	
+	
 	
 	
 }

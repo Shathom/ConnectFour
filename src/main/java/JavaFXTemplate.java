@@ -9,7 +9,7 @@
 // Connect Four JavaFX GUI
 // Implement the classic game of Connect Four. This is a simple game to
 // understand and play which should allow you to focus on learning GUI
-// developmenet in JavaFx and trying your hand at event driven programming.
+// development in JavaFx and trying your hand at event driven programming.
 // ****************************************************************************/
 
 import java.util.HashMap;
@@ -100,14 +100,14 @@ public class JavaFXTemplate extends Application {
 	 * method to populate a GridPane with buttons and attach a handler to each button
 	 */	
 	public void addGrid(GridPane grid) {
-		for(int x = 0; x<7; x++) {				
-			for(int i = 0; i<6; i++) {
+		for(int col = 0; col<7; col++) {				
+			for(int row = 0; row<6; row++) {
 				Button b1 = new Button();	 // GameButton (not Button) 			
 				b1.setPrefWidth(200);
 				b1.setOnAction(myHandler);
 				b1.setStyle("-fx-font-size: 50;" +"-fx-background-color:yellow;" + "-fx-border-color: black;"+
 							"-fx-text-fill:red;");
-				grid.add(b1, x, i);				 
+				grid.add(b1, col, row);				 
 			}
 		}
 	}
