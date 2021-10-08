@@ -41,7 +41,8 @@ import javafx.stage.Stage;
 
 public class JavaFXTemplate extends Application {
 
-	private Button b1, sceneChangeBtn, anotherGameB, exitB;
+	private Button sceneChangeBtn, anotherGameB, exitB;
+	private GameButton b1;
 	private TextField t1;
 	private MenuBar menu;
 	private EventHandler<ActionEvent> myHandler;
@@ -102,7 +103,9 @@ public class JavaFXTemplate extends Application {
 	public void addGrid(GridPane grid) {
 		for(int col = 0; col<7; col++) {				
 			for(int row = 0; row<6; row++) {
-				Button b1 = new Button();	 // GameButton (not Button) 			
+				b1 = new GameButton(row, col, 3);	 // GameButton (not Button) 
+//				b1 = new GameButton(row, col, 2);
+
 				b1.setPrefWidth(200);
 				b1.setOnAction(myHandler);
 				b1.setStyle("-fx-font-size: 50;" +"-fx-background-color:yellow;" + "-fx-border-color: black;"+

@@ -20,7 +20,7 @@ public class GameButton extends Button {
 	int player = 0;
 	
 	GameButton(int row, int column, int player){
-		Button gameButton = new Button();
+		Button GameButton = new Button();
 		this.row = row;
 		this.column = column;
 		this.player = player;
