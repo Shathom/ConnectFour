@@ -15,10 +15,16 @@ import javafx.scene.control.Button;
 // ****************************************************************************/
 
 public class GameButton extends Button {
-	int row;
-	int column;
+	private int row = 0;
+	private int column = 0;
+	private int player = 0;
 	
-	int player;
+	GameButton(int row, int column, int player){
+		Button gameButton = new Button();
+		this.row = row;
+		this.column = column;
+		this.player = player;
+	}
 	
-	// test
+	
 }
