@@ -181,14 +181,11 @@ public class JavaFXTemplate extends Application {
 		
 		//event handler is attached to each button in the GridPane
 		buttonHandler = new EventHandler<ActionEvent>() {			
-			public void handle(ActionEvent e) {
-				System.out.println("button pressed: " + ((GameButton)e.getSource()).getText());
-				b1 = (GameButton)e.getSource();
-				//b1.setPrefWidth(500);
+
 
 			public void handle(ActionEvent e) {
 				System.out.println("button pressed: " + ((GameButton)e.getSource()).getText());
-				this.b1 = (GameButton)e.getSource();
+				b1 = (GameButton)e.getSource();
 				b1.setPrefWidth(500);
 				
 				// to use GameLogicClass-
@@ -231,12 +228,12 @@ public class JavaFXTemplate extends Application {
 			}
 		};
 		
-//		reverseMoveHandler = new EventHandler<ActionEvent>() {
-//			public void handle(ActionEvent e) {
-//				
-//			}
-//			
-//		};
+		reverseMoveHandler = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				
+			}
+			
+		};
 		
 		reverse.setOnAction(reverseMoveHandler);
 		displayPlayer = new ListView<String>(observableList);
