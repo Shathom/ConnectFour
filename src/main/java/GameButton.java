@@ -31,7 +31,7 @@ public class GameButton extends Button {
 		this.column = column;
 		this.player = player;
 		playerMove = new Coordinate(row, column);
-		moves.push(playerMove);
+//		moves.push(playerMove);
 	}
 	
 	public void reverseMove() {
