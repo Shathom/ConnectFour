@@ -111,7 +111,7 @@ public class JavaFXTemplate extends Application {
 				if(row == 5) {
 					b1.isValid = true;
 				}
-				
+				b1.player = 0;
 //				b1 = new GameButton(row, col, 2);
 
 				b1.setPrefWidth(200);
@@ -188,13 +188,27 @@ public class JavaFXTemplate extends Application {
 				b1 = (GameButton)e.getSource();
 				b1.setPrefWidth(500);
 				if(b1.isValid) {
+					if(b1.player == 0) {
+						b1.player = 1;
+					} else if(b1.player == 1){
+						b1.player = 0;
+					}
 					displayPlayer.getItems().add(b1.player + " pressed" + b1.row + ", " + b1.column);
+					// need method to change row-1, column's isValid to true ***
+					
+					
 					b1.setText("P");
+					
 //					b1.setText(b1.player + " pressed" + b1.row + ", " + b1.column);
 //					displayPlayer.getItems().add("1st player's turn");
 //					b1.setText("X");
 //					counter = 1;
 				} else if (!b1.isValid){
+					if(b1.player == 0) {
+						b1.player = 1;
+					} else if(b1.player == 1){
+						b1.player = 0;
+					}
 					displayPlayer.getItems().add(b1.player + " not a valid move please try again!");
 //					b1.setText("");
 //					b1.setText(b1.player + " not a valid move please try again!");
