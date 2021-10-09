@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
 class ConnectFourTests {
 	
 	GameButton b1;
-	GameButton b2;
+	//GameButton b2;
 	
 	// for easier initializations after each test
 	@BeforeEach
@@ -38,12 +38,12 @@ class ConnectFourTests {
 	void TestGameButtonConstructor2() {
 	for(int col = 0; col < 7; col++) {				
 		for(int row = 0; row < 6; row++) {
-			b2 = new GameButton(row, col, 2);
+			GameButton b2 = new GameButton(row, col, 2);
 			assertEquals(col, b2.column, "Oops, number of columns for GameButton class is not correct!");
 			assertEquals(row, b2.row, "Oops, number of rows for GameButton class is not correct!");	
 			assertEquals(2, b2.player, "Oops, number of rows for GameButton class is not correct!");	
 		}
 	}
-	}
+}
 	
 }

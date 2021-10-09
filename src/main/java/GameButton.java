@@ -15,9 +15,9 @@ import javafx.scene.control.Button;
 // ****************************************************************************/
 
 public class GameButton extends Button {
-	int row = 0;
-	int column = 0;
-	int player = 0;
+	public int row;
+	public int column;
+	public int player;
 	
 	GameButton(int row, int column, int player){
 		Button gameButton = new Button();
