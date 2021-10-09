@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import javafx.scene.control.Button;
 
 
-class MyTests {
+class ConnectFourTests {
 	
 	GameButton b1;
 	//GameButton b2;
