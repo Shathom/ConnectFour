@@ -54,6 +54,8 @@ public class JavaFXTemplate extends Application {
 	private Text text;
 	private Menu mOne, mTwo, mThree;
 	private MenuItem start, exit, reverse, original, tOne, tTwo, how;
+	private int playerTurn = 1; 
+
 	
 	
 	
@@ -186,20 +188,32 @@ public class JavaFXTemplate extends Application {
 				System.out.println("button pressed: " + ((GameButton)e.getSource()).getText());
 				b1 = (GameButton)e.getSource();
 				//b1.setPrefWidth(500);
+		myHandler = new EventHandler<ActionEvent>() {			
+			private GameButton b1;
+
+			public void handle(ActionEvent e) {
+				System.out.println("button pressed: " + ((GameButton)e.getSource()).getText());
+				this.b1 = (GameButton)e.getSource();
+				b1.setPrefWidth(500);
+				
+				// to use GameLogicClass-
+				GameLogic.isValidMove(b1.isValid, b1.column, b1.row);
+
+				
 				if(b1.isValid) {
-					if(b1.player == 0) {
-						b1.player = 1;
-						//b1.setStyle("-fx-background-color: Blue");
-					} else if(b1.player == 1){
-						b1.player = 0;
-						//b1.setStyle("-fx-background-color: Red");
-					}
-					displayPlayer.getItems().add(b1.player + " pressed" + b1.row + ", " + b1.column);
-					// need method to change row-1, column's isValid to true ***
-					
-					
-					b1.setText("P");
-					
+//					if(b1.player == 0) {
+//						b1.player = 1;
+//						//b1.setStyle("-fx-background-color: Blue");
+//					} else if(b1.player == 1){
+//						b1.player = 0;
+//						//b1.setStyle("-fx-background-color: Red");
+//					}
+//					displayPlayer.getItems().add(b1.player + " pressed" + b1.row + ", " + b1.column);
+//					// need method to change row-1, column's isValid to true ***
+//					
+//					
+//					b1.setText("P");
+//					
 //					b1.setText(b1.player + " pressed" + b1.row + ", " + b1.column);
 //					displayPlayer.getItems().add("1st player's turn");
 //					b1.setText("X");
