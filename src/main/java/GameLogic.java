@@ -19,10 +19,9 @@ public class GameLogic {
 	
 	
 	
-	// take postion in grid and then evaluate if it is correct
+	// take position in grid and then evaluate if it is correct
 	// pass the position of the button to gameButton
-	// save the state of the game and a data structre to see what has occured on the grid
+	// save the state of the game and a data structure to see what has occurred on the grid
 	// don't need to include javaFX elements
-	// everything in this methods should be static!
 
 }

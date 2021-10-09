@@ -46,7 +46,8 @@ public class JavaFXTemplate extends Application {
 	private GameButton b1;
 	private TextField t1;
 	private MenuBar menu;
-	private EventHandler<ActionEvent> myHandler;
+	private EventHandler<ActionEvent> buttonHandler;
+	private EventHandler<ActionEvent> reverseMoveHandler;
 	Stage window;
 	private int counter = 0;
 	HashMap<String, Scene> sceneMap;
@@ -111,11 +112,9 @@ public class JavaFXTemplate extends Application {
 				if(row == 5) {
 					b1.isValid = true;
 				}
-				b1.player = 0;
-//				b1 = new GameButton(row, col, 2);
 
 				b1.setPrefWidth(200);
-				b1.setOnAction(myHandler);
+				b1.setOnAction(buttonHandler);
 				b1.setStyle("-fx-font-size: 50;" +"-fx-background-color:yellow;" + "-fx-border-color: black;"+
 							"-fx-text-fill:red;");
 				grid.add(b1, col, row);				 
@@ -182,16 +181,18 @@ public class JavaFXTemplate extends Application {
 
 		
 		//event handler is attached to each button in the GridPane
-		myHandler = new EventHandler<ActionEvent>() {			
+		buttonHandler = new EventHandler<ActionEvent>() {			
 			public void handle(ActionEvent e) {
 				System.out.println("button pressed: " + ((GameButton)e.getSource()).getText());
 				b1 = (GameButton)e.getSource();
-				b1.setPrefWidth(500);
+				//b1.setPrefWidth(500);
 				if(b1.isValid) {
 					if(b1.player == 0) {
 						b1.player = 1;
+						//b1.setStyle("-fx-background-color: Blue");
 					} else if(b1.player == 1){
 						b1.player = 0;
+						//b1.setStyle("-fx-background-color: Red");
 					}
 					displayPlayer.getItems().add(b1.player + " pressed" + b1.row + ", " + b1.column);
 					// need method to change row-1, column's isValid to true ***
@@ -217,8 +218,18 @@ public class JavaFXTemplate extends Application {
 //					b1.setText("O");
 				}				
 				b1.setDisable(true);
+				
 			}
 		};
+		
+		reverseMoveHandler = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				
+			}
+			
+		};
+		
+		reverse.setOnAction(reverseMoveHandler);
 		displayPlayer = new ListView<String>(observableList);
 		GridPane grid = new GridPane();
 		grid.setPrefWidth(400);

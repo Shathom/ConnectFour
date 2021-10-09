@@ -13,8 +13,6 @@ import javafx.scene.control.Button;
 
 class ConnectFourTests {
 	
-	GameButton b1;
-	//GameButton b2;
 	
 	// for easier initializations after each test
 	@BeforeEach
