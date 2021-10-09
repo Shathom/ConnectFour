@@ -18,7 +18,7 @@ public class GameButton extends Button {
 	int row = 0;
 	int column = 0;
 	int player = 0;
-	
+	boolean isValid = false; // to check whether the move is valid 
 	GameButton(int row, int column, int player){
 		Button gameButton = new Button();
 		this.row = row;

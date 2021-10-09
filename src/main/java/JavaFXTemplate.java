@@ -106,7 +106,12 @@ public class JavaFXTemplate extends Application {
 	public void addGrid(GridPane grid) {
 		for(int col = 0; col<7; col++) {				
 			for(int row = 0; row<6; row++) {
-				b1 = new GameButton(row, col, 3);	 // GameButton (not Button) 
+
+				b1 = new GameButton(row, col, 0);	 // GameButton (not Button) 
+				if(row == 5) {
+					b1.isValid = true;
+				}
+				
 //				b1 = new GameButton(row, col, 2);
 
 				b1.setPrefWidth(200);
@@ -179,14 +184,20 @@ public class JavaFXTemplate extends Application {
 		//event handler is attached to each button in the GridPane
 		myHandler = new EventHandler<ActionEvent>() {			
 			public void handle(ActionEvent e) {
-				System.out.println("button pressed: " + ((Button)e.getSource()).getText());
-				Button b1 = (Button)e.getSource();
+				System.out.println("button pressed: " + ((GameButton)e.getSource()).getText());
+				b1 = (GameButton)e.getSource();
 				b1.setPrefWidth(500);
-				if(counter == 0) {
+				if(b1.isValid) {
+					displayPlayer.getItems().add(b1.player + " pressed" + b1.row + ", " + b1.column);
+					b1.setText("P");
+//					b1.setText(b1.player + " pressed" + b1.row + ", " + b1.column);
 //					displayPlayer.getItems().add("1st player's turn");
 //					b1.setText("X");
 //					counter = 1;
-				} else if (counter == 1){
+				} else if (!b1.isValid){
+					displayPlayer.getItems().add(b1.player + " not a valid move please try again!");
+//					b1.setText("");
+//					b1.setText(b1.player + " not a valid move please try again!");
 //					displayPlayer.getItems().add("2nd player's turn");
 //					counter = 0;
 //					b1.setText("O");

@@ -12,10 +12,11 @@
 // development in JavaFx and trying your hand at event driven programming.
 // ****************************************************************************/
 public class GameLogic {
-
-	
-	
 	
 	// everything in this methods should be static!
 
+	
+	
+	
+	
 }
