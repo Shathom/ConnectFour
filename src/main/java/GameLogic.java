@@ -15,13 +15,23 @@ public class GameLogic {
 	
 	// everything in this methods should be static!
 
+	public static boolean isValidMove(boolean isValid, int column, int row) {
+		
+		if(isValid) {
+			return true;
+		} else {
+			return false;
+		}		
+		
+		
+	}
 	
 	
 	
-	
-	// take position in grid and then evaluate if it is correct
+	// take postion in grid and then evaluate if it is correct
 	// pass the position of the button to gameButton
-	// save the state of the game and a data structure to see what has occurred on the grid
+	// save the state of the game and a data structre to see what has occured on the grid
 	// don't need to include javaFX elements
+	// everything in this methods should be static!
 
 }
