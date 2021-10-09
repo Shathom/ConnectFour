@@ -136,9 +136,6 @@ public class JavaFXTemplate extends Application {
 		VBox paneCenter = new VBox(10, text, sceneChangeBtn);
 		pane.setCenter(paneCenter);
 		pane.setStyle("-fx-background-color:yellow;" + "-fx-font-family: 'serif'");
-
-		
-		
 		return new Scene(pane, 1000,800);
 	}
 	
@@ -188,8 +185,6 @@ public class JavaFXTemplate extends Application {
 				System.out.println("button pressed: " + ((GameButton)e.getSource()).getText());
 				b1 = (GameButton)e.getSource();
 				//b1.setPrefWidth(500);
-		myHandler = new EventHandler<ActionEvent>() {			
-			private GameButton b1;
 
 			public void handle(ActionEvent e) {
 				System.out.println("button pressed: " + ((GameButton)e.getSource()).getText());
@@ -236,12 +231,12 @@ public class JavaFXTemplate extends Application {
 			}
 		};
 		
-		reverseMoveHandler = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				
-			}
-			
-		};
+//		reverseMoveHandler = new EventHandler<ActionEvent>() {
+//			public void handle(ActionEvent e) {
+//				
+//			}
+//			
+//		};
 		
 		reverse.setOnAction(reverseMoveHandler);
 		displayPlayer = new ListView<String>(observableList);
@@ -284,3 +279,5 @@ public class JavaFXTemplate extends Application {
 	}
 
 }
+
+
