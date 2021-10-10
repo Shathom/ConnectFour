@@ -244,7 +244,7 @@ public class JavaFXTemplate extends Application {
 				((GameButton)e.getSource()).getText();
 				reverse = (MenuItem)e.getSource();
 				b1.reverseMove();
-				// Is this right? how do we know b1 is player 1 or player 2?
+				// I'm not sure if this is correct?
 			}
 			
 		};
