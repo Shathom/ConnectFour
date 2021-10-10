@@ -110,7 +110,7 @@ public class JavaFXTemplate extends Application {
 		for(int col = 0; col<7; col++) {				
 			for(int row = 0; row<6; row++) {
 
-				b1 = new GameButton(row, col, 0, false, false);	 // GameButton (not Button) 
+				b1 = new GameButton(row, col, 0, false, false);	 // GameButton (not a Button) 
 				if(row == 5) {
 					b1.isValid = true;
 				}
@@ -197,13 +197,16 @@ public class JavaFXTemplate extends Application {
 						b1.playerTurn = true;
 						if(playerTurns % 2 == 0) {
 							b1.player = 1;
-							b1.nowValidButton(b1.row-1, b1.column, true);
+							b1.nowValidButton(b1.row-1, b1.column);
+							b1.addArray();
+//							displayPlayer.getItems().add(b1.printaddArray()  ));
+
 							
 					        b1.setStyle("-fx-background-color: MediumSeaGreen");	        							
 						} else {
 							b1.player = 2;
 					        b1.setStyle("-fx-background-color: red");
-							b1.nowValidButton(b1.row-1, b1.column, true);
+							b1.nowValidButton(b1.row-1, b1.column);
 
 						}
 					}
@@ -225,6 +228,9 @@ public class JavaFXTemplate extends Application {
 			}
 		};
 		
+		// Haeun: I think this event handler should be outside of the b1's event handler.
+		// Since it happens when the menu item button gets pressed
+		//		mTwo.getItems().add(reverse); -> this one 
 		reverseMoveHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				((GameButton)e.getSource()).getText();
