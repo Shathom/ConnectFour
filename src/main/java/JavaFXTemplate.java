@@ -230,7 +230,10 @@ public class JavaFXTemplate extends Application {
 		
 		reverseMoveHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				
+				((GameButton)e.getSource()).getText();
+				reverse = (MenuItem)e.getSource();
+				b1.reverseMove();
+				// Is this right? how do we know b1 is player 1 or player 2?
 			}
 			
 		};
