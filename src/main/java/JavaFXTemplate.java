@@ -54,7 +54,7 @@ public class JavaFXTemplate extends Application {
 	private Text text;
 	private Menu mOne, mTwo, mThree;
 	private MenuItem start, exit, reverse, original, tOne, tTwo, how;
-	private int playerTurn = 1; 
+	private int playerTurns = 1; 
 
 	
 	
@@ -110,7 +110,7 @@ public class JavaFXTemplate extends Application {
 		for(int col = 0; col<7; col++) {				
 			for(int row = 0; row<6; row++) {
 
-				b1 = new GameButton(row, col, 0);	 // GameButton (not Button) 
+				b1 = new GameButton(row, col, 0, false, false);	 // GameButton (not Button) 
 				if(row == 5) {
 					b1.isValid = true;
 				}
@@ -189,33 +189,44 @@ public class JavaFXTemplate extends Application {
 				b1.setPrefWidth(500);
 				
 				// to use GameLogicClass-
-				GameLogic.isValidMove(b1.isValid, b1.column, b1.row);
+//				GameLogic.isValidMove(b1.isValid, b1.column, b1.row);
 
 				
-				if(b1.isValid) {
-//					if(b1.player == 0) {
-//						b1.player = 1;
-//						//b1.setStyle("-fx-background-color: Blue");
-//					} else if(b1.player == 1){
-//						b1.player = 0;
-//						//b1.setStyle("-fx-background-color: Red");
-//					}
-//					displayPlayer.getItems().add(b1.player + " pressed" + b1.row + ", " + b1.column);
-//					// need method to change row-1, column's isValid to true ***
-//					
-//					
-//					b1.setText("P");
-//					
+//				if(b1.isValid) {
+				if(GameLogic.isValidMove(b1.isValid, b1.column, b1.row)) {
+					if(!b1.playerTurn) {
+						playerTurns++;
+						b1.playerTurn = true;
+						if(playerTurns % 2 == 0) {
+							b1.player = 1;
+							
+						} else {
+							b1.player = 2;
+						}
+					}
+					//b1.setStyle("-fx-background-color: Blue");
+					//b1.setStyle("-fx-background-color: Red");
+
+					displayPlayer.getItems().add(b1.player + " player pressed (" + b1.row + ", " + b1.column + ")");
+					// need method to change row-1, column's isValid to true ***
+					
+					
+					b1.setText("P");
+					
 //					b1.setText(b1.player + " pressed" + b1.row + ", " + b1.column);
 //					displayPlayer.getItems().add("1st player's turn");
-//					b1.setText("X");
-//					counter = 1;
-				} else if (!b1.isValid){
-					if(b1.player == 0) {
+					counter = 1;
+				} else if (!GameLogic.isValidMove(b1.isValid, b1.column, b1.row)){
+					if(playerTurns % 2 == 0) {
+						b1.player = 2;
+						
+					} else {
 						b1.player = 1;
-					} else if(b1.player == 1){
-						b1.player = 0;
-					}
+					}//					if(b1.player == 0) {
+//						b1.player = 1;
+//					} else if(b1.player == 1){
+//						b1.player = 0;
+//					}
 					displayPlayer.getItems().add(b1.player + " not a valid move please try again!");
 //					b1.setText("");
 //					b1.setText(b1.player + " not a valid move please try again!");
@@ -279,5 +290,3 @@ public class JavaFXTemplate extends Application {
 	}
 
 }
-
-

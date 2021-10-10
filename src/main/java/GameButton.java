@@ -21,15 +21,17 @@ public class GameButton extends Button {
 	public int column = 0;
 	public int player = 0;
 	public boolean isValid = false; // to check whether the move is valid 
-	//public boolean turn = false;
+	public boolean playerTurn = false;
 	public Coordinate playerMove;
 	public Stack<Coordinate> moves;
 
-	GameButton (int row, int column, int player){
+	GameButton (int row, int column, int player, boolean isValid, boolean playerTurn){
 		Button gameButton = new Button();
 		this.row = row;
 		this.column = column;
 		this.player = player;
+		this.isValid = false;
+		this.playerTurn = false;
 		playerMove = new Coordinate(row, column);
 		moves.push(playerMove);
 	}
