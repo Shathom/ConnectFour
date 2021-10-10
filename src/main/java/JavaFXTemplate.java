@@ -227,7 +227,10 @@ public class JavaFXTemplate extends Application {
 		
 		reverseMoveHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				
+				((GameButton)e.getSource()).getText();
+				reverse = (MenuItem)e.getSource();
+				b1.reverseMove();
+				// I'm not sure if this is correct?
 			}
 			
 		};

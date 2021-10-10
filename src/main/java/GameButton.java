@@ -33,7 +33,7 @@ public class GameButton extends Button {
 		this.isValid = false;
 		this.playerTurn = false;
 		playerMove = new Coordinate(row, column);
-//		moves.push(playerMove);
+		moves.push(playerMove);
 	}
 	
 	public void nowValidButton(int row, int column, boolean isValid) {
