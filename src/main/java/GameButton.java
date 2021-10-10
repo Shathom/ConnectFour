@@ -36,6 +36,12 @@ public class GameButton extends Button {
 //		moves.push(playerMove);
 	}
 	
+	public void nowValidButton(int row, int column, boolean isValid) {
+		this.isValid = true;
+		
+	}
+	
+	
 	public void reverseMove() {
 		moves.pop();
 	}

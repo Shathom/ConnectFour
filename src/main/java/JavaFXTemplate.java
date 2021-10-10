@@ -191,51 +191,37 @@ public class JavaFXTemplate extends Application {
 				// to use GameLogicClass-
 //				GameLogic.isValidMove(b1.isValid, b1.column, b1.row);
 
-				
-//				if(b1.isValid) {
 				if(GameLogic.isValidMove(b1.isValid, b1.column, b1.row)) {
 					if(!b1.playerTurn) {
 						playerTurns++;
 						b1.playerTurn = true;
 						if(playerTurns % 2 == 0) {
 							b1.player = 1;
+							b1.nowValidButton(b1.row-1, b1.column, true);
 							
+					        b1.setStyle("-fx-background-color: MediumSeaGreen");	        							
 						} else {
 							b1.player = 2;
+					        b1.setStyle("-fx-background-color: red");
+							b1.nowValidButton(b1.row-1, b1.column, true);
+
 						}
 					}
-					//b1.setStyle("-fx-background-color: Blue");
-					//b1.setStyle("-fx-background-color: Red");
-
+					b1.setDisable(true);
 					displayPlayer.getItems().add(b1.player + " player pressed (" + b1.row + ", " + b1.column + ")");
 					// need method to change row-1, column's isValid to true ***
-					
-					
-					b1.setText("P");
-					
-//					b1.setText(b1.player + " pressed" + b1.row + ", " + b1.column);
-//					displayPlayer.getItems().add("1st player's turn");
+
 					counter = 1;
 				} else if (!GameLogic.isValidMove(b1.isValid, b1.column, b1.row)){
 					if(playerTurns % 2 == 0) {
-						b1.player = 2;
-						
+						b1.player = 2;						
 					} else {
 						b1.player = 1;
-					}//					if(b1.player == 0) {
-//						b1.player = 1;
-//					} else if(b1.player == 1){
-//						b1.player = 0;
-//					}
+
+					}
+					b1.setDisable(false);
 					displayPlayer.getItems().add(b1.player + " not a valid move please try again!");
-//					b1.setText("");
-//					b1.setText(b1.player + " not a valid move please try again!");
-//					displayPlayer.getItems().add("2nd player's turn");
-//					counter = 0;
-//					b1.setText("O");
 				}				
-				b1.setDisable(true);
-				
 			}
 		};
 		

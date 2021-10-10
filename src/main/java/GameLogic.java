@@ -18,6 +18,12 @@ public class GameLogic {
 	public static boolean isValidMove(boolean isValid, int column, int row) {
 		
 		if(isValid) {
+			if (isValid) {
+				row = row -1;
+				
+
+				
+			}
 			return true;
 		} else {
 			return false;
