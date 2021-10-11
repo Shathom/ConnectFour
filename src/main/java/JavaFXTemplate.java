@@ -242,7 +242,7 @@ public class JavaFXTemplate extends Application {
 		borderPane.setBottom(displayPlayer);
 		borderPane.setCenter(root1);	
 		
-		start.setOnAction(e-> { addGrid(grid); displayPlayer.getItems().clear();
+		start.setOnAction(e-> {displayPlayer.getItems().clear();
 								for(int i = 0; i<3; i++) {
 									grid.getChildren().clear();
 									} addGrid(grid); counter = 0;});
