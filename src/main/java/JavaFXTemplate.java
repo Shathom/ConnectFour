@@ -198,6 +198,8 @@ public class JavaFXTemplate extends Application {
 						}
 					}
 					b1.setDisable(true);
+					displayPlayer.getItems().clear();
+
 					displayPlayer.getItems().add(b1.player + " player pressed (" + b1.row + ", " + b1.column + ")");
 					// not sure how to set to visible only the latest message added to the listview. the
 					// below function doesn't work :(
@@ -219,6 +221,8 @@ public class JavaFXTemplate extends Application {
 
 					}
 					b1.setDisable(false);
+					displayPlayer.getItems().clear();
+
 					displayPlayer.getItems().add(b1.player + " not a valid move please try again!");
 					// not sure how to set to visible only the latest message added to the listview. the
 					// below function doesn't work :(
