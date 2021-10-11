@@ -24,8 +24,8 @@ public class GameButton extends Button {
 	public boolean isValid = false; // to check whether the move is valid 
 	public boolean playerTurn = false;
 	public Coordinate playerMove;
-	public Stack<Coordinate> moves;
-	public ArrayList<Coordinate> validMoveCheck;
+	public Stack<Coordinate> moves = new Stack<Coordinate>();
+	public ArrayList<Coordinate> validMoveCheck = new ArrayList<Coordinate>();
 
 	GameButton (int row, int column, int player, boolean isValid, boolean playerTurn){
 		Button gameButton = new Button();
@@ -35,12 +35,11 @@ public class GameButton extends Button {
 		this.isValid = false;
 		this.playerTurn = false;
 		playerMove = new Coordinate(row, column);
-//		moves.push(playerMove);
+		moves.push(playerMove);
 	}
 	
 	public void nowValidButton(int row, int column) {
 		this.isValid = true;
-		
 	}
 	
 	public void addArray() {
@@ -49,9 +48,7 @@ public class GameButton extends Button {
         for(int i=0;i<array.size();i++){
             System.out.println(array);
         }	
-		
 	}
-	
 	
 	public void reverseMove() {
 		moves.pop();

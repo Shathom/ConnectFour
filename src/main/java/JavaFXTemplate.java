@@ -109,7 +109,7 @@ public class JavaFXTemplate extends Application {
 					b1.isValid = true;
 				}
 				b1.setPrefWidth(200);
-				b1.setPrefHeight(500);
+				b1.setPrefHeight(100);
 				b1.setOnAction(buttonHandler);
 				b1.setStyle("-fx-font-size: 50;" +
 				"-fx-background-color:yellow;" + 
@@ -198,8 +198,8 @@ public class JavaFXTemplate extends Application {
 						}
 					}
 					b1.setDisable(true);
-					displayPlayer.getItems().clear();
-					displayPlayer.getItems().add(b1.player + " player pressed (" + b1.row + ", " + b1.column + ")");
+					//displayPlayer.getItems().clear();
+					displayPlayer.getItems().add("Player " + b1.player + " pressed " + b1.row + ", " + b1.column + ". Valid move.");
 			
 					
 					// need method to change row-1, column's isValid to true ***
@@ -214,6 +214,7 @@ public class JavaFXTemplate extends Application {
 					}
 					b1.setDisable(false);
 					displayPlayer.getItems().clear();
+					displayPlayer.getItems().add("Player " + b1.player + " moved to " + b1.row + ", " + b1.column + ". This is NOT a valid move. Player " + b1.player + " pick again.");
 				}				
 			}
 		};
@@ -229,8 +230,10 @@ public class JavaFXTemplate extends Application {
 		
 		reverse.setOnAction(reverseMoveHandler);
 		displayPlayer = new ListView<String>(observableList);
+		displayPlayer.setMaxHeight(150);
 		GridPane grid = new GridPane();
 		grid.setPrefWidth(400);
+		grid.setPrefHeight(800);
 		grid.setAlignment(Pos.CENTER);
 		addGrid(grid);
 		HBox root1 = new HBox(grid);
