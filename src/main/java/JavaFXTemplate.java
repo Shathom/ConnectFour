@@ -198,7 +198,7 @@ public class JavaFXTemplate extends Application {
 						}
 					}
 					b1.setDisable(true);
-					//displayPlayer.getItems().clear();
+					displayPlayer.getItems().clear();
 					displayPlayer.getItems().add("Player " + b1.player + " pressed " + b1.row + ", " + b1.column + ". Valid move.");
 			
 					
@@ -239,7 +239,6 @@ public class JavaFXTemplate extends Application {
 		HBox root1 = new HBox(grid);
 		root1.setAlignment(Pos.CENTER);
 		
-		//displayPlayer.getItems();
 		displayPlayer.setStyle("-fx-border-size: 200;" + "-fx-border-color: pink;" + "-fx-font-size:25;" + "-fx-font-family: 'serif'");
 
 		borderPane.setBottom(displayPlayer);
