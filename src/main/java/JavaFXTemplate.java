@@ -194,7 +194,6 @@ public class JavaFXTemplate extends Application {
 							b1.player = 2;
 					        b1.setStyle("-fx-background-color: #ff0000");
 							b1.nowValidButton(b1.row-1, b1.column);
-
 						}
 					}
 					b1.setDisable(true);
@@ -221,11 +220,8 @@ public class JavaFXTemplate extends Application {
 		
 		reverseMoveHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				((GameButton)e.getSource()).getText();
-				reverse = (MenuItem)e.getSource();
 				b1.reverseMove();
 			}
-			
 		};
 		
 		reverse.setOnAction(reverseMoveHandler);
