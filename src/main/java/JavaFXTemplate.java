@@ -55,12 +55,7 @@ public class JavaFXTemplate extends Application {
 	private Menu mOne, mTwo, mThree;
 	private MenuItem start, exit, reverse, original, tOne, tTwo, how;
 	private int playerTurns = 1; 
-
-	
-	
-	
 	ListView<String> displayPlayer;
-	
 	static ObservableList<String> observableList = FXCollections.observableArrayList();
 	
 	public static void main(String[] args) {
@@ -109,15 +104,16 @@ public class JavaFXTemplate extends Application {
 	public void addGrid(GridPane grid) {
 		for(int col = 0; col<7; col++) {				
 			for(int row = 0; row<6; row++) {
-
-				b1 = new GameButton(row, col, 0, false, false);	 // GameButton (not a Button) 
+				b1 = new GameButton(row, col, 0, false, false);
 				if(row == 5) {
 					b1.isValid = true;
 				}
-
 				b1.setPrefWidth(200);
+				b1.setPrefHeight(500);
 				b1.setOnAction(buttonHandler);
-				b1.setStyle("-fx-font-size: 50;" +"-fx-background-color:yellow;" + "-fx-border-color: black;"+
+				b1.setStyle("-fx-font-size: 50;" +
+				"-fx-background-color:yellow;" + 
+				"-fx-border-color: black;"+
 							"-fx-text-fill:red;");
 				grid.add(b1, col, row);				 
 			}
@@ -181,16 +177,10 @@ public class JavaFXTemplate extends Application {
 		
 		//event handler is attached to each button in the GridPane
 		buttonHandler = new EventHandler<ActionEvent>() {			
-
-
 			public void handle(ActionEvent e) {
 				System.out.println("button pressed: " + ((GameButton)e.getSource()).getText());
 				b1 = (GameButton)e.getSource();
-				b1.setPrefWidth(500);
-				
-				// to use GameLogicClass-
-//				GameLogic.isValidMove(b1.isValid, b1.column, b1.row);
-
+			
 				if(GameLogic.isValidMove(b1.isValid, b1.column, b1.row)) {
 					if(!b1.playerTurn) {
 						playerTurns++;
@@ -199,19 +189,25 @@ public class JavaFXTemplate extends Application {
 							b1.player = 1;
 							b1.nowValidButton(b1.row-1, b1.column);
 							b1.addArray();
-//							displayPlayer.getItems().add(b1.printaddArray()  ));
-
-							
-					        b1.setStyle("-fx-background-color: MediumSeaGreen");	        							
+					        b1.setStyle("-fx-background-color: Blue");	        							
 						} else {
 							b1.player = 2;
-					        b1.setStyle("-fx-background-color: red");
+					        b1.setStyle("-fx-background-color: #ff0000");
 							b1.nowValidButton(b1.row-1, b1.column);
 
 						}
 					}
 					b1.setDisable(true);
 					displayPlayer.getItems().add(b1.player + " player pressed (" + b1.row + ", " + b1.column + ")");
+					// not sure how to set to visible only the latest message added to the listview. the
+					// below function doesn't work :(
+					ObservableList selectedList = displayPlayer.getSelectionModel().getSelectedIndices();
+			        for(Object o : selectedList){
+			            if (selectedList.indexOf(o) != 0) {
+			            	selectedList.remove(o);
+			            }
+			        }
+					
 					// need method to change row-1, column's isValid to true ***
 
 					counter = 1;
@@ -224,19 +220,23 @@ public class JavaFXTemplate extends Application {
 					}
 					b1.setDisable(false);
 					displayPlayer.getItems().add(b1.player + " not a valid move please try again!");
+					// not sure how to set to visible only the latest message added to the listview. the
+					// below function doesn't work :(
+					ObservableList selectedList = displayPlayer.getSelectionModel().getSelectedIndices();
+			        for(Object o : selectedList){
+			            if (selectedList.indexOf(o) != 0) {
+			            	selectedList.remove(o);
+			            }
+			        }
 				}				
 			}
 		};
 		
-		// Haeun: I think this event handler should be outside of the b1's event handler.
-		// Since it happens when the menu item button gets pressed
-		//		mTwo.getItems().add(reverse); -> this one 
 		reverseMoveHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				((GameButton)e.getSource()).getText();
 				reverse = (MenuItem)e.getSource();
 				b1.reverseMove();
-				// I'm not sure if this is correct?
 			}
 			
 		};
@@ -250,10 +250,10 @@ public class JavaFXTemplate extends Application {
 		HBox root1 = new HBox(grid);
 		root1.setAlignment(Pos.CENTER);
 		
-		displayPlayer.getItems();
+		//displayPlayer.getItems();
 		displayPlayer.setStyle("-fx-border-size: 200;" + "-fx-border-color: pink;" + "-fx-font-size:25;" + "-fx-font-family: 'serif'");
 
-		root1.getChildren().add(displayPlayer);
+		borderPane.setBottom(displayPlayer);
 		borderPane.setCenter(root1);	
 		
 		start.setOnAction(e-> { addGrid(grid); displayPlayer.getItems().clear();
