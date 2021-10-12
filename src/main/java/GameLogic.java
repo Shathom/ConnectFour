@@ -20,7 +20,13 @@ public class GameLogic {
 	
 	// everything in this methods should be static!
 	public static Coordinate playerMove;
+	public static Coordinate player1Move;
+	public static Coordinate player2Move;
+
 	public static Stack<Coordinate> moves = new Stack<Coordinate>();
+	public static Stack<Coordinate> movesPlayer1 = new Stack<Coordinate>();
+	public static Stack<Coordinate> movesPlayer2 = new Stack<Coordinate>();
+
 	public static ArrayList<Coordinate> validMoveCheck = new ArrayList<Coordinate>();
 	
 	
@@ -28,7 +34,21 @@ public class GameLogic {
 		playerMove = new Coordinate(row, column);
 		moves.push(playerMove);
 	}
-
+	
+	// stack that stores first player's move
+	public static void player1Stack(int row, int column) {
+		player1Move = new Coordinate(row, column);
+		movesPlayer1.push(player1Move);
+	}
+		
+	
+	// stack that stores second player's move
+	public static void player2Stack(int row, int column) {
+		player2Move = new Coordinate(row, column);
+		movesPlayer2.push(player2Move);
+	}
+		
+	
 	public static boolean isValidMove(boolean isValid, int column, int row) {
 		if(isValid) {
 			if (isValid) {
