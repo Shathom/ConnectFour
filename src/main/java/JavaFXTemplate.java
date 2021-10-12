@@ -180,12 +180,14 @@ public class JavaFXTemplate extends Application {
 						gameButton.playerTurn = true;
 						if (playerTurns % 2 == 0) {
 							gameButton.player = 1;
+							GameLogic.setInStack(gameButton.row, gameButton.column);
 							gameButton.nowValidButton(gameButton.row - 1, gameButton.column);
 							//gameButton.addArray();
 							// above doesn't work after the transfer
 							gameButton.setStyle("-fx-background-color: Blue");
 						} else {
 							gameButton.player = 2;
+							GameLogic.setInStack(gameButton.row, gameButton.column);
 							gameButton.setStyle("-fx-background-color: #ff0000");
 							gameButton.nowValidButton(gameButton.row - 1, gameButton.column);
 						}

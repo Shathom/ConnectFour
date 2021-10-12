@@ -24,7 +24,7 @@ public class GameLogic {
 	public static ArrayList<Coordinate> validMoveCheck = new ArrayList<Coordinate>();
 	
 	
-	GameLogic (int row, int column){
+	public static void setInStack(int row, int column) {
 		playerMove = new Coordinate(row, column);
 		moves.push(playerMove);
 	}
