@@ -19,18 +19,12 @@ import javafx.scene.control.Button;
 public class GameLogic {
 	
 	// everything in this methods should be static!
-	public Coordinate playerMove;
-	public Stack<Coordinate> moves = new Stack<Coordinate>();
-	public ArrayList<Coordinate> validMoveCheck = new ArrayList<Coordinate>();
+	public static Coordinate playerMove;
+	public static Stack<Coordinate> moves = new Stack<Coordinate>();
+	public static ArrayList<Coordinate> validMoveCheck = new ArrayList<Coordinate>();
 	
 	
-	GameLogic (int row, int column, int player, boolean isValid, boolean playerTurn){
-//		Button gameButton = new Button();
-//		this.row = row;
-//		this.column = column;
-//		this.player = player;
-//		this.isValid = false;
-//		this.playerTurn = false;
+	GameLogic (int row, int column){
 		playerMove = new Coordinate(row, column);
 		moves.push(playerMove);
 	}
@@ -45,6 +39,23 @@ public class GameLogic {
 			return false;
 		}		
 	}
+	
+	public static void addArray() {
+		ArrayList<Coordinate> array = new ArrayList<Coordinate>();   
+		array.add(playerMove);
+        for(int i=0;i<array.size();i++){
+            System.out.println(array);
+        }	
+	}
+	
+	public static void reverseMove() {
+		moves.pop();
+	}
+	
+	public static Coordinate returnPrevMove() {
+		return moves.peek();
+	}
+	
 	
 	
 	
