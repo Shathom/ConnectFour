@@ -105,6 +105,7 @@ public class JavaFXTemplate extends Application {
 				gameButton = new GameButton(row, col, 0, false, false);
 				if (row == 5) {
 					gameButton.isValid = true;
+
 				}
 				gameButton.setPrefWidth(200);
 				gameButton.setPrefHeight(100);
@@ -181,6 +182,12 @@ public class JavaFXTemplate extends Application {
 						if (playerTurns % 2 == 0) {
 							gameButton.player = 1;
 							GameLogic.setInStack(gameButton.row, gameButton.column);
+							GameLogic.player1Stack(gameButton.row, gameButton.column);
+							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row, gameButton.column);
+							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row-1, gameButton.column);
+
+							
+
 							gameButton.nowValidButton(gameButton.row - 1, gameButton.column);
 							//gameButton.addArray();
 							// above doesn't work after the transfer
@@ -188,8 +195,13 @@ public class JavaFXTemplate extends Application {
 						} else {
 							gameButton.player = 2;
 							GameLogic.setInStack(gameButton.row, gameButton.column);
+							GameLogic.player2Stack(gameButton.row, gameButton.column);
 							gameButton.setStyle("-fx-background-color: #ff0000");
 							gameButton.nowValidButton(gameButton.row - 1, gameButton.column);
+							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row, gameButton.column);
+							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row-1, gameButton.column);
+
+							System.out.println("prints valid move coordinate: " + gameButton.row + " , " + gameButton.column);
 						}
 					}
 					gameButton.setDisable(true);
