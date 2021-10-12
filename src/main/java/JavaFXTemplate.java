@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -99,7 +100,7 @@ public class JavaFXTemplate extends Application {
 	 * method to populate a GridPane with buttons and attach a handler to each
 	 * button
 	 */
-	public void addGrid(GridPane grid) {
+	public void fillGrid(GridPane grid) {
 		for (int col = 0; col < 7; col++) {
 			for (int row = 0; row < 6; row++) {
 				gameButton = new GameButton(row, col, 0, false, false);
@@ -174,7 +175,7 @@ public class JavaFXTemplate extends Application {
 		// event handler is attached to each button in the GridPane
 		buttonHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				gameButton = (GameButton) e.getSource();
+				gameButton = (GameButton)e.getSource();
 				if (GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
 					if (!gameButton.playerTurn) {
 						playerTurns++;
@@ -185,9 +186,6 @@ public class JavaFXTemplate extends Application {
 							GameLogic.player1Stack(gameButton.row, gameButton.column);
 							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row, gameButton.column);
 							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row-1, gameButton.column);
-
-							
-
 							gameButton.nowValidButton(gameButton.row - 1, gameButton.column);
 							//gameButton.addArray();
 							// above doesn't work after the transfer
@@ -197,6 +195,7 @@ public class JavaFXTemplate extends Application {
 							GameLogic.setInStack(gameButton.row, gameButton.column);
 							GameLogic.player2Stack(gameButton.row, gameButton.column);
 							gameButton.setStyle("-fx-background-color: #ff0000");
+							gameButton.setStyle("-fx-background-color: Red");
 							gameButton.nowValidButton(gameButton.row - 1, gameButton.column);
 							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row, gameButton.column);
 							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row-1, gameButton.column);
@@ -226,52 +225,68 @@ public class JavaFXTemplate extends Application {
 				}
 			}
 		};
+		
 
-		reverseMoveHandler = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				GameLogic.reverseMove();
-				Coordinate prevMove = GameLogic.returnPrevMove();
-				gameButton.row = prevMove.x;
-				gameButton.column = prevMove.y;
-				displayPlayer.getItems().clear();
-				displayPlayer.getItems()
-						.add("Player " + gameButton.player + " pressed " + gameButton.row + ", " + gameButton.column + ". Valid move.");
-				// not sure how to update the Player to the previous Player, or whether we even need to.... 
-
-				
-			}
-		};
-
-		reverse.setOnAction(reverseMoveHandler);
 		displayPlayer = new ListView<String>(observableList);
 		displayPlayer.setMaxHeight(150);
 		GridPane grid = new GridPane();
 		grid.setPrefWidth(400);
 		grid.setPrefHeight(800);
 		grid.setAlignment(Pos.CENTER);
-		addGrid(grid);
+		fillGrid(grid);
 		HBox root1 = new HBox(grid);
 		root1.setAlignment(Pos.CENTER);
-
 		displayPlayer.setStyle(
 				"-fx-border-size: 200;" + "-fx-border-color: pink;" + "-fx-font-size:25;" + "-fx-font-family: 'serif'");
 
 		borderPane.setBottom(displayPlayer);
 		borderPane.setCenter(root1);
-
+		
+		reverseMoveHandler = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				Coordinate coord = GameLogic.reverseMove();
+				if (coord == null) {
+					displayPlayer.getItems().clear();
+					displayPlayer.getItems().add("No moves to undo!");
+				}
+				GameButton revButton = getButtonByCoordinates(coord.x, coord.y, grid);
+				displayPlayer.getItems().clear();
+				displayPlayer.getItems().add("Player " + revButton.player + " pressed " 
+				+ revButton.row + ", " + revButton.column + ". Valid move.");
+				revButton.setStyle("-fx-font-size: 50;" 
+					+ "-fx-background-color:yellow;" 
+					+ "-fx-border-color: black;"
+					+ "-fx-text-fill:red;");
+				revButton.setDisable(false);
+			}
+		};
+		
 		start.setOnAction(e -> {
 			displayPlayer.getItems().clear();
 			for (int i = 0; i < 3; i++) {
 				grid.getChildren().clear();
 			}
-			addGrid(grid);
+			fillGrid(grid);
 			counter = 0;
 		});
 
+		reverse.setOnAction(reverseMoveHandler);
 		Scene scene = new Scene(borderPane, 1000, 800);
 		scene.getRoot().setStyle("-fx-font-family: 'serif'");
 		return scene;
 
+	}
+	
+	public GameButton getButtonByCoordinates(int row, int column, GridPane grid) {
+		GameButton buttonToReverse = null;
+		ObservableList<Node> allButtons = grid.getChildren();
+		for (Node node: allButtons) {
+			if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+				buttonToReverse = (GameButton)node;
+				break;
+			}
+		}
+		return buttonToReverse;
 	}
 
 	public Scene ResultScene() {

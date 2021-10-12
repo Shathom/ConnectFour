@@ -104,13 +104,16 @@ public class GameLogic {
         }	
 	}
 	
-	public static void reverseMove() {
-		moves.pop();
+	public static Coordinate reverseMove() {
+		Coordinate popedMove = null;
+		if (moves.isEmpty()) {
+			return popedMove;
+		} else {
+			popedMove = moves.pop();
+		}
+		return popedMove;
 	}
-	
-	public static Coordinate returnPrevMove() {
-		return moves.peek();
-	}
+
 	
 	
 	
