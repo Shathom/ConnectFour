@@ -49,6 +49,8 @@ public class JavaFXTemplate extends Application {
 	private MenuBar menu;
 	private EventHandler<ActionEvent> buttonHandler;
 	private EventHandler<ActionEvent> reverseMoveHandler;
+	private EventHandler<ActionEvent> makeValidHandler;
+
 	Stage window;
 	private int counter = 0;
 	HashMap<String, Scene> sceneMap;
@@ -111,6 +113,7 @@ public class JavaFXTemplate extends Application {
 				gameButton.setPrefWidth(200);
 				gameButton.setPrefHeight(100);
 				gameButton.setOnAction(buttonHandler);
+
 				gameButton.setStyle("-fx-font-size: 50;" + "-fx-background-color:yellow;" + "-fx-border-color: black;"
 						+ "-fx-text-fill:red;");
 				grid.add(gameButton, col, row);
@@ -184,9 +187,11 @@ public class JavaFXTemplate extends Application {
 							gameButton.player = 1;
 							GameLogic.setInStack(gameButton.row, gameButton.column);
 							GameLogic.player1Stack(gameButton.row, gameButton.column);
-							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row, gameButton.column);
-							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row-1, gameButton.column);
+							GameLogic.validMoveStack(gameButton.isValid, gameButton.row, gameButton.column);
+							GameLogic.validMoveStack(gameButton.isValid, gameButton.row-1, gameButton.column);
 							gameButton.nowValidButton(gameButton.row - 1, gameButton.column);
+							gameButton.setOnAction(makeValidHandler);
+
 							//gameButton.addArray();
 							// above doesn't work after the transfer
 							gameButton.setStyle("-fx-background-color: Blue");
@@ -197,10 +202,11 @@ public class JavaFXTemplate extends Application {
 							gameButton.setStyle("-fx-background-color: #ff0000");
 							gameButton.setStyle("-fx-background-color: Red");
 							gameButton.nowValidButton(gameButton.row - 1, gameButton.column);
-							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row, gameButton.column);
-							GameLogic.vaidMoveStack(gameButton.isValid, gameButton.row-1, gameButton.column);
-
-							System.out.println("prints valid move coordinate: " + gameButton.row + " , " + gameButton.column);
+							GameLogic.validMoveStack(gameButton.isValid, gameButton.row, gameButton.column);
+							GameLogic.validMoveStack(gameButton.isValid, gameButton.row-1, gameButton.column);
+							GameLogic.isValidMove2(gameButton.isValid, 4, 5);
+							System.out.printf("is row-1 valid move?" + gameButton.isValid, " also the row:" + gameButton.row);
+////							System.out.println("prints valid move coordinate: " + gameButton.row + " , " + gameButton.column);
 						}
 					}
 					gameButton.setDisable(true);
@@ -218,6 +224,7 @@ public class JavaFXTemplate extends Application {
 						gameButton.player = 1;
 
 					}
+					
 					gameButton.setDisable(false);
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems().add("Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
@@ -258,8 +265,51 @@ public class JavaFXTemplate extends Application {
 					+ "-fx-border-color: black;"
 					+ "-fx-text-fill:red;");
 				revButton.setDisable(false);
+				
+			}
+			
+		};
+		makeValidHandler = new EventHandler<ActionEvent> () {
+			public void handle(ActionEvent e) {
+//				GameLogic.validMoveStack(gameButton.isValid, gameButton.column, gameButton.row);
+//				GameButton vButton = getButtonBy
+				System.out.println("prints valid move coordinate from the moveValidHandler: " + gameButton.isValid);
+//				GameLogic.isValidMove2(gameButton.isValid, gameButton.column, gameButton.row);
+//				boolean coord = GameLogic.isValidMove2(gameButton.isValid, gameButton.column, gameButton.row);
+				Coordinate coord = GameLogic.forValidButton();
+				if(coord == null) {
+					displayPlayer.getItems().clear();
+					displayPlayer.getItems().add("No moves to undo!");
+				}				
+
+				GameButton vButton = getButton(gameButton.column, gameButton.row, grid);
+				displayPlayer.getItems().clear();
+				displayPlayer.getItems().add("Player " + vButton.player + " pressed " 
+				+ vButton.row + ", " + vButton.column + ". Valid move.");
+				vButton.setStyle("-fx-font-size: 50;" 
+					+ "-fx-background-color:white;" 
+					+ "-fx-border-color: white;"
+					+ "-fx-text-fill:black;");
+				vButton.setDisable(true);
+				
+				
+				
+				if(GameLogic.isValidMove2(gameButton.isValid, gameButton.column, gameButton.row)) {
+					vButton.setStyle("-fx-font-size: 50;" 
+							+ "-fx-background-color:white;" 
+							+ "-fx-border-color: white;"
+							+ "-fx-text-fill:black;");
+						vButton.setDisable(true);
+				} else {
+					System.out.println("not a valid button");
+				}
+				
+				
+								
 			}
 		};
+				
+		
 		
 		start.setOnAction(e -> {
 			displayPlayer.getItems().clear();
@@ -269,6 +319,9 @@ public class JavaFXTemplate extends Application {
 			fillGrid(grid);
 			counter = 0;
 		});
+
+		
+//		gameButton.setOnAction(makeValidHandler);
 
 		reverse.setOnAction(reverseMoveHandler);
 		Scene scene = new Scene(borderPane, 1000, 800);
@@ -287,6 +340,20 @@ public class JavaFXTemplate extends Application {
 			}
 		}
 		return buttonToReverse;
+	}
+	
+	public GameButton getButton(int row, int column, GridPane grid) {
+		GameButton buttontoValid = null;
+		ObservableList<Node> allButtons = grid.getChildren();
+		for (Node node: allButtons) {
+			if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+				buttontoValid = (GameButton)node;
+				break;
+			}
+		}
+		return buttontoValid;
+				
+
 	}
 
 	public Scene ResultScene() {

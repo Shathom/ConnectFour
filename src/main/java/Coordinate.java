@@ -5,7 +5,10 @@ public class Coordinate {
 	
 	public Coordinate (int x, int y) {
 		this.x = x;
+//		System.out.println("this is x:" + x);
 		this.y = y;
+//		System.out.println("this is y:" + y);
+
 	}
 
 }

@@ -57,10 +57,13 @@ public class GameLogic {
 	}
 	
 	// stack that stores valid move
-	public static void vaidMoveStack(boolean isValid, int row, int column) {
+	public static void validMoveStack(boolean isValid, int row, int column) {
 		validMove = new Coordinate(row, column);
 		validMoveStack.push(validMove);
-		System.out.println("prints valid move coordinate: " + row + " , " + column);
+		isValid = true;
+		
+//		System.out.println("prints valid move coordinate from validMoveStack: " + column + " , " + row);
+//		System.out.println("prints valid move coordinate from validMoveStack: " + validMove);
 
 	}
 		
@@ -89,11 +92,19 @@ public class GameLogic {
 			return false;
 		}
 //		row = row - 1;
-//		isValid = true;
-		
-		
-		
+//		isValid = true;		
 	}
+	
+	public static Coordinate forValidButton() {
+		Coordinate popedMove = null;
+		if(validMoveStack.isEmpty()) {
+			return popedMove;
+		} else {
+			popedMove = validMoveStack.pop();
+		}
+		return popedMove;
+	}
+	
 	
 	
 	public static void addArray() {
