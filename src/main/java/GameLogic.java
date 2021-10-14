@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.Vector;
 
 // * Project02 *//
 // GameLogic.java
@@ -24,6 +25,15 @@ public class GameLogic {
 	public static Stack<Coordinate> movesPlayer1 = new Stack<Coordinate>();
 	public static Stack<Coordinate> movesPlayer2 = new Stack<Coordinate>();
 
+	static Vector<Coordinate> matrix = new Vector<Coordinate>(7);
+	public static Coordinate move;
+	
+	public static void addMatrix(int row, int column) {
+		move = new Coordinate(row, column);
+		matrix.add(move);
+		System.out.println("adding matrix: " + row + " , " + column);
+
+	}
 	
 	
 	public static void setInStack(int row, int column) {
