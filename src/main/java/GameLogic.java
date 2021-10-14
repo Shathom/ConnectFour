@@ -20,18 +20,11 @@ public class GameLogic {
 	public static Coordinate playerMove;
 	public static Coordinate player1Move;
 	public static Coordinate player2Move;
-	public static Coordinate validMove;
-	
-	public static Coordinate move;
 
-	
 	public static Stack<Coordinate> moves = new Stack<Coordinate>();
 	public static Stack<Coordinate> movesPlayer1 = new Stack<Coordinate>();
 	public static Stack<Coordinate> movesPlayer2 = new Stack<Coordinate>();
-	public static Stack<Coordinate> validMoveStack = new Stack<Coordinate>();
 
-
-	public static ArrayList<Coordinate> validMoveCheck = new ArrayList<Coordinate>();
 	
 	
 	public static void setInStack(int row, int column) {
@@ -44,9 +37,6 @@ public class GameLogic {
 		player1Move = new Coordinate(row, column);
 		movesPlayer1.push(player1Move);
 		System.out.println("player1move coordinate: " + player1Move);
-
-
-//		System.out.println("prints row and column: " + row + " , " + column);
 	}
 		
 	
@@ -56,69 +46,19 @@ public class GameLogic {
 		movesPlayer2.push(player2Move);
 	}
 	
-	// stack that stores valid move
-	public static void validMoveStack(boolean isValid, int row, int column) {
-		validMove = new Coordinate(row, column);
-		validMoveStack.push(validMove);
-		isValid = true;
 		
-//		System.out.println("prints valid move coordinate from validMoveStack: " + column + " , " + row);
-//		System.out.println("prints valid move coordinate from validMoveStack: " + validMove);
-
-	}
-		
-		
-	
 	public static boolean isValidMove(boolean isValid, int column, int row) {
 		if(isValid) {
-			if (isValid) {
-				if(isValidMove2(isValid, column, row)) {
-					return true;
-				}
-
-			}
 			return true;
 		} else {
 			return false;
 		}		
 	}
-	public static boolean isValidMove2(boolean isValid, int column, int row) {
-		move = new Coordinate(row, column);
-		System.out.println("Does the Stack contains this coordinate? "
-                + validMoveStack.contains(move));
-		if(validMoveStack.contains(move)) {
-			return true;
-		} else {
-			return false;
-		}
-//		row = row - 1;
-//		isValid = true;		
-	}
-	
-	public static Coordinate forValidButton() {
-		Coordinate popedMove = null;
-		if(validMoveStack.isEmpty()) {
-			return popedMove;
-		} else {
-			popedMove = validMoveStack.pop();
-		}
-		return popedMove;
-	}
-	
-	
-	
-	public static void addArray() {
-		ArrayList<Coordinate> array = new ArrayList<Coordinate>();   
-		array.add(playerMove);
-        for(int i=0;i<array.size();i++){
-            System.out.println(array);
-        }	
-	}
 	
 	public static Coordinate reverseMove() {
 		Coordinate popedMove = null;
 		if (moves.isEmpty()) {
-			return popedMove;
+			throw new NullPointerException("No more items left to reverse!");
 		} else {
 			popedMove = moves.pop();
 		}

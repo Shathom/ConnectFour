@@ -44,12 +44,13 @@ import javafx.stage.Stage;
 public class JavaFXTemplate extends Application {
 
 	private Button sceneChangeBtn, anotherGameB, exitB;
-	private GameButton gameButton;
+	private GameButton gameButton, prevButton;
 	private TextField t1;
 	private MenuBar menu;
 	private EventHandler<ActionEvent> buttonHandler;
 	private EventHandler<ActionEvent> reverseMoveHandler;
 	private EventHandler<ActionEvent> makeValidHandler;
+	private GridPane grid = new GridPane();
 
 	Stage window;
 	private int counter = 0;
@@ -58,7 +59,7 @@ public class JavaFXTemplate extends Application {
 	private Menu mOne, mTwo, mThree;
 	private MenuItem start, exit, reverse, original, tOne, tTwo, how;
 	private int playerTurns = 1;
-	ListView<String> displayPlayer;
+	ListView<String> displayPlayer = new ListView<String>(observableList);
 	static ObservableList<String> observableList = FXCollections.observableArrayList();
 
 	public static void main(String[] args) {
@@ -86,10 +87,7 @@ public class JavaFXTemplate extends Application {
 		// tie) ****
 		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("result")));
 		sceneMap.get("game").getRoot().setStyle("-fx-font-family: 'serif'");
-		// sceneMap.get("scene").getRoot().setStyle("-fx-font-family: 'serif'");
-		// new scene with root node
 		primaryStage.setScene(sceneMap.get("scene")); // set the scene in the stage
-		// primaryStage.setScene(new Scene(new VBox()));
 
 		primaryStage.show(); // make visible to the user
 	}
@@ -175,7 +173,6 @@ public class JavaFXTemplate extends Application {
 
 		exit.setOnAction(e -> Platform.exit());
 
-		// event handler is attached to each button in the GridPane
 		buttonHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				gameButton = (GameButton)e.getSource();
@@ -186,36 +183,23 @@ public class JavaFXTemplate extends Application {
 						if (playerTurns % 2 == 0) {
 							gameButton.player = 1;
 							GameLogic.setInStack(gameButton.row, gameButton.column);
-							GameLogic.player1Stack(gameButton.row, gameButton.column);
-							GameLogic.validMoveStack(gameButton.isValid, gameButton.row, gameButton.column);
-							GameLogic.validMoveStack(gameButton.isValid, gameButton.row-1, gameButton.column);
-							gameButton.nowValidButton(gameButton.row - 1, gameButton.column);
-							gameButton.setOnAction(makeValidHandler);
-
-							//gameButton.addArray();
-							// above doesn't work after the transfer
+							//GameLogic.player1Stack(gameButton.row, gameButton.column);
+							prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
+							prevButton.setDisable(false);
 							gameButton.setStyle("-fx-background-color: Blue");
 						} else {
 							gameButton.player = 2;
 							GameLogic.setInStack(gameButton.row, gameButton.column);
-							GameLogic.player2Stack(gameButton.row, gameButton.column);
-							gameButton.setStyle("-fx-background-color: #ff0000");
+							//GameLogic.player2Stack(gameButton.row, gameButton.column);
 							gameButton.setStyle("-fx-background-color: Red");
-							gameButton.nowValidButton(gameButton.row - 1, gameButton.column);
-							GameLogic.validMoveStack(gameButton.isValid, gameButton.row, gameButton.column);
-							GameLogic.validMoveStack(gameButton.isValid, gameButton.row-1, gameButton.column);
-							GameLogic.isValidMove2(gameButton.isValid, 4, 5);
-							System.out.printf("is row-1 valid move?" + gameButton.isValid, " also the row:" + gameButton.row);
-////							System.out.println("prints valid move coordinate: " + gameButton.row + " , " + gameButton.column);
+							prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
+							prevButton.setDisable(false);
 						}
 					}
 					gameButton.setDisable(true);
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems()
 							.add("Player " + gameButton.player + " pressed " + gameButton.row + ", " + gameButton.column + ". Valid move.");
-
-					// need method to change row-1, column's isValid to true ***
-
 					counter = 1;
 				} else if (!GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
 					if (playerTurns % 2 == 0) {
@@ -224,7 +208,6 @@ public class JavaFXTemplate extends Application {
 						gameButton.player = 1;
 
 					}
-					
 					gameButton.setDisable(false);
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems().add("Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
@@ -233,10 +216,8 @@ public class JavaFXTemplate extends Application {
 			}
 		};
 		
-
-		displayPlayer = new ListView<String>(observableList);
+		
 		displayPlayer.setMaxHeight(150);
-		GridPane grid = new GridPane();
 		grid.setPrefWidth(400);
 		grid.setPrefHeight(800);
 		grid.setAlignment(Pos.CENTER);
@@ -248,14 +229,11 @@ public class JavaFXTemplate extends Application {
 
 		borderPane.setBottom(displayPlayer);
 		borderPane.setCenter(root1);
+
 		
 		reverseMoveHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				Coordinate coord = GameLogic.reverseMove();
-				if (coord == null) {
-					displayPlayer.getItems().clear();
-					displayPlayer.getItems().add("No moves to undo!");
-				}
 				GameButton revButton = getButtonByCoordinates(coord.x, coord.y, grid);
 				displayPlayer.getItems().clear();
 				displayPlayer.getItems().add("Player " + revButton.player + " pressed " 
@@ -269,48 +247,7 @@ public class JavaFXTemplate extends Application {
 			}
 			
 		};
-		makeValidHandler = new EventHandler<ActionEvent> () {
-			public void handle(ActionEvent e) {
-//				GameLogic.validMoveStack(gameButton.isValid, gameButton.column, gameButton.row);
-//				GameButton vButton = getButtonBy
-				System.out.println("prints valid move coordinate from the moveValidHandler: " + gameButton.isValid);
-//				GameLogic.isValidMove2(gameButton.isValid, gameButton.column, gameButton.row);
-//				boolean coord = GameLogic.isValidMove2(gameButton.isValid, gameButton.column, gameButton.row);
-				Coordinate coord = GameLogic.forValidButton();
-				if(coord == null) {
-					displayPlayer.getItems().clear();
-					displayPlayer.getItems().add("No moves to undo!");
-				}				
 
-				GameButton vButton = getButton(gameButton.column, gameButton.row, grid);
-				displayPlayer.getItems().clear();
-				displayPlayer.getItems().add("Player " + vButton.player + " pressed " 
-				+ vButton.row + ", " + vButton.column + ". Valid move.");
-				vButton.setStyle("-fx-font-size: 50;" 
-					+ "-fx-background-color:white;" 
-					+ "-fx-border-color: white;"
-					+ "-fx-text-fill:black;");
-				vButton.setDisable(true);
-				
-				
-				
-				if(GameLogic.isValidMove2(gameButton.isValid, gameButton.column, gameButton.row)) {
-					vButton.setStyle("-fx-font-size: 50;" 
-							+ "-fx-background-color:white;" 
-							+ "-fx-border-color: white;"
-							+ "-fx-text-fill:black;");
-						vButton.setDisable(true);
-				} else {
-					System.out.println("not a valid button");
-				}
-				
-				
-								
-			}
-		};
-				
-		
-		
 		start.setOnAction(e -> {
 			displayPlayer.getItems().clear();
 			for (int i = 0; i < 3; i++) {
@@ -320,8 +257,6 @@ public class JavaFXTemplate extends Application {
 			counter = 0;
 		});
 
-		
-//		gameButton.setOnAction(makeValidHandler);
 
 		reverse.setOnAction(reverseMoveHandler);
 		Scene scene = new Scene(borderPane, 1000, 800);
@@ -342,18 +277,17 @@ public class JavaFXTemplate extends Application {
 		return buttonToReverse;
 	}
 	
-	public GameButton getButton(int row, int column, GridPane grid) {
-		GameButton buttontoValid = null;
+	public GameButton enableButton(boolean isValid, int row, int column, GridPane grid) {
+		GameButton buttonToValid = null;
 		ObservableList<Node> allButtons = grid.getChildren();
 		for (Node node: allButtons) {
 			if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-				buttontoValid = (GameButton)node;
+				buttonToValid = (GameButton)node;
+				buttonToValid.isValid = true;
 				break;
 			}
 		}
-		return buttontoValid;
-				
-
+		return buttonToValid;
 	}
 
 	public Scene ResultScene() {
