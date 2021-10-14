@@ -3,9 +3,8 @@
 // ****************************************************************************/
 // University of Illinois at Chicago
 // Class: CS 342, FALL 2021
-// Author: Haeun Kim, UIC
+// Author: Haeun Kim
 // Author: Sharon Thomeh
-// UIN number: 657655430
 // Connect Four JavaFX GUI
 // Implement the classic game of Connect Four. This is a simple game to
 // understand and play which should allow you to focus on learning GUI
@@ -38,34 +37,30 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class JavaFXTemplate extends Application {
 
-	private Button sceneChangeBtn, anotherGameB, exitB;
-	private GameButton gameButton, prevButton;
-	private TextField t1;
-	private MenuBar menu;
-	private EventHandler<ActionEvent> buttonHandler;
-	private EventHandler<ActionEvent> reverseMoveHandler;
-	private EventHandler<ActionEvent> makeValidHandler;
-	private GridPane grid = new GridPane();
 
-	Stage window;
-	private int counter = 0;
-	HashMap<String, Scene> sceneMap;
-	private Text text;
-	private Menu mOne, mTwo, mThree;
-	private MenuItem start, exit, reverse, original, tOne, tTwo, how;
-	private int playerTurns = 1;
 	ListView<String> displayPlayer = new ListView<String>(observableList);
 	static ObservableList<String> observableList = FXCollections.observableArrayList();
+	HashMap<String, Scene> sceneMap;
+	Stage window;
+	private GridPane grid = new GridPane();
+	private Button sceneChangeBtn, anotherGameB, exitB;
+	private GameButton gameButton, prevButton;
+	private Text text;
+	private Menu mOne, mTwo, mThree;
+	private MenuBar menu;
+	private MenuItem start, exit, reverse, original, tOne, tTwo, how;
+	private EventHandler<ActionEvent> buttonHandler;
+	private EventHandler<ActionEvent> reverseMoveHandler;
+	private int playerTurns = 1;
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);
-
 	}
 
 	@Override
@@ -200,7 +195,6 @@ public class JavaFXTemplate extends Application {
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems()
 							.add("Player " + gameButton.player + " pressed " + gameButton.row + ", " + gameButton.column + ". Valid move.");
-					counter = 1;
 				} else if (!GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
 					if (playerTurns % 2 == 0) {
 						gameButton.player = 2;
@@ -254,7 +248,6 @@ public class JavaFXTemplate extends Application {
 				grid.getChildren().clear();
 			}
 			fillGrid(grid);
-			counter = 0;
 		});
 
 
@@ -264,7 +257,7 @@ public class JavaFXTemplate extends Application {
 		return scene;
 
 	}
-	
+
 	public GameButton getButtonByCoordinates(int row, int column, GridPane grid) {
 		GameButton buttonToReverse = null;
 		ObservableList<Node> allButtons = grid.getChildren();
