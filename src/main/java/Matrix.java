@@ -15,11 +15,11 @@ import javafx.scene.control.Button;
 
 public class Matrix {
 
-	private int row;
-	private int column;
-	private int player;
-	private boolean isValid; 
-	private boolean playerTurn;
+	public int row;
+	public int column;
+	public int player;
+	public boolean isValid; 
+	public boolean playerTurn;
 
 
 	public Matrix (int row, int column, int player, boolean isValid, boolean playerTurn){
@@ -30,7 +30,7 @@ public class Matrix {
 		this.playerTurn = false;
 	}
 
-	
+	// Not sure whether we need these getter and setter 
 	public int getRow() {
 		return row;
 	}
@@ -47,8 +47,8 @@ public class Matrix {
 		return playerTurn;
 	}
 	
-	public void setRow(int row) {
-		this.row = row;
+	public static void setRow(int row) {
+		row = row;
 	}
 	public void setColumn(int column) {
 		this.column = column;

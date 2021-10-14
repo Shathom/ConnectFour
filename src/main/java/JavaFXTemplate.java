@@ -61,6 +61,7 @@ public class JavaFXTemplate extends Application {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);
+		
 	}
 
 	@Override
@@ -171,7 +172,7 @@ public class JavaFXTemplate extends Application {
 		buttonHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				gameButton = (GameButton)e.getSource();
-				GameLogic.addMatrix(gameButton.row, gameButton.column);
+				GameLogic.addMatrix();
 				if (GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
 					if (!gameButton.playerTurn) {
 						playerTurns++;
