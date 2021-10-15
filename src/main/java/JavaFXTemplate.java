@@ -172,7 +172,7 @@ public class JavaFXTemplate extends Application {
 		buttonHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				gameButton = (GameButton)e.getSource();
-				GameLogic.addMatrix();
+				GameLogic.makeVGrid();
 				if (GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
 					if (!gameButton.playerTurn) {
 						playerTurns++;

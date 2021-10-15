@@ -13,16 +13,16 @@ import javafx.scene.control.Button;
 // development in JavaFx and trying your hand at event driven programming.
 // ****************************************************************************/
 
-public class Matrix {
+public class Vbutton {
 
-	public int row;
-	public int column;
-	public int player;
-	public boolean isValid; 
-	public boolean playerTurn;
+	private int row;
+	private int column;
+	private int player;
+	private boolean isValid; 
+	private boolean playerTurn;
 
 
-	public Matrix (int row, int column, int player, boolean isValid, boolean playerTurn){
+	public Vbutton (int row, int column, int player, boolean isValid, boolean playerTurn){
 		this.row = row;
 		this.column = column;
 		this.player = player;
@@ -47,8 +47,8 @@ public class Matrix {
 		return playerTurn;
 	}
 	
-	public static void setRow(int row) {
-		row = row;
+	public void setRow(int row) {
+		this.row = row;
 	}
 	public void setColumn(int column) {
 		this.column = column;

@@ -24,26 +24,22 @@ public class GameLogic {
 	public static Stack<Coordinate> moves = new Stack<Coordinate>();
 	public static Stack<Coordinate> movesPlayer1 = new Stack<Coordinate>();
 	public static Stack<Coordinate> movesPlayer2 = new Stack<Coordinate>();
-	public static ArrayList<Matrix> button;
-	public static Matrix but;
+	public static Vbutton button;
 	
-	static ArrayList<ArrayList<Matrix>> grid = new ArrayList<ArrayList<Matrix>>();
+	static ArrayList<ArrayList<Vbutton>> matrix = new ArrayList<ArrayList<Vbutton>>();
 	
 	public static Coordinate move;
 	
-	public static void addMatrix() {
-		int col, row = 0;
-		for(col = 0; col < 7; col++) {
-			for(row = 0; row < 6; row++) {
-				
-				but = new Matrix(row, col, 1, false, false);
+	public static void makeVGrid() {
+		for(int col = 0; col < 7; col++) {
+			ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
+			for(int row = 0; row < 6; row++) {
+				button = new Vbutton(row, col, 1, false, false);
+				matrixRow.add(button);
 			}
-			grid.add(button);
+			matrix.add(matrixRow);
 		}
-		System.out.println("adding matrix: " + row + " , " + col);
-
 	}
-	
 	
 	public static void setInStack(int row, int column) {
 		playerMove = new Coordinate(row, column);
