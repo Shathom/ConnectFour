@@ -67,21 +67,21 @@ public class GameLogic {
 	// we need to make almost most of these functions to return boolean so we can use eventhandler in javaFX
 	public static int makeMove(Vbutton button) {
 //		if (isValidMove(button.getIsValid(), button.getColumn(), button.getRow())) {
-		
+		int result = 0;
 		if(isValidMove(button)) {
-			if (!button.getPlayerTurn()) {				
+			if (!button.getPlayerTurn()) {
 				playerTurns++;
 				button.setPlayerTurn(true);
 				if (playerTurns % 2 == 0) {
 					button.setPlayer(1);
 					setInMainStack(button);
 					player1Stack(button.getRow(), button.getColumn());
-					return 1;
+					result = 1;
 				} else {
 					button.setPlayer(2);
 					setInMainStack(button);
 					player2Stack(button.getRow(), button.getColumn());
-					return 2;
+					result = 2;
 				}			
 			} else if(!isValidMove(button)) {
 				if (playerTurns % 2 == 0) {
@@ -89,11 +89,10 @@ public class GameLogic {
 				} else {
 					button.setPlayer(1);
 				}
-				return 3;
+				result = -1;
 			}	
 		}
-		return 0;
-//		return true;
+		return result;
 	}
 
 //	public static boolean doNotMakeMove(Vbutton button) {
