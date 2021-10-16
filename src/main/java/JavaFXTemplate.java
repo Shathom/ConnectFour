@@ -56,14 +56,11 @@ public class JavaFXTemplate extends Application {
 	private EventHandler<ActionEvent> buttonHandler;
 	private EventHandler<ActionEvent> reverseMoveHandler;
 	private int playerTurns = 1;
-	
 	private Vbutton buttons;
 
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		GameLogic.makeBoard();
-//		System.out.println("")
 		launch(args);
 		
 	}
@@ -177,16 +174,14 @@ public class JavaFXTemplate extends Application {
 				gameButton = (GameButton)e.getSource();
 				GameLogic.makeBoard();
 				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
-				
 				if(GameLogic.isValidMove(buttons)) {
-				
-					if(GameLogic.makeMove(buttons)==1) {
+					if(GameLogic.makeMove(buttons) == 1) {
 						gameButton.setDisable(true);
 						displayPlayer.getItems().clear();
 						gameButton.setStyle("-fx-background-color: Blue");
 						displayPlayer.getItems()
 							.add("Player -  " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
-					} else if (GameLogic.makeMove(buttons)==2) {
+					} else if (GameLogic.makeMove(buttons) == 2 ) {
 						gameButton.setDisable(true);
 						gameButton.setStyle("-fx-background-color: Red");
 						displayPlayer.getItems().clear();
@@ -205,7 +200,9 @@ public class JavaFXTemplate extends Application {
 					
 				}
 				
-				
+			}
+			
+		};
 //				if (GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
 //					if (!gameButton.playerTurn) {
 //						playerTurns++;
@@ -261,11 +258,8 @@ public class JavaFXTemplate extends Application {
 //				}
 				
 				
+
 				
-			}
-		};
-		
-		
 		displayPlayer.setMaxHeight(150);
 		grid.setPrefWidth(400);
 		grid.setPrefHeight(800);
