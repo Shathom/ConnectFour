@@ -59,4 +59,20 @@ class MyTest {
 		assertEquals(false, button.getPlayerTurn(), "correcto row");  
 	}
 
+	@Test
+	void makeMoveTest0() {
+		GameLogic.makeBoard();
+		button = new Vbutton(5, 1, 1, true, false);
+		GameLogic.setPieceInBoard(button);		
+		assertEquals(true, GameLogic.makeMove(button), "wrong validity of button");
+	}
+	
+	@Test
+	void makeMoveTest1() {
+		GameLogic.makeBoard();
+		button = new Vbutton(3, 1, 1, false, false);
+		GameLogic.setPieceInBoard(button);		
+		assertEquals(false, GameLogic.makeMove(button), "wrong validity of button");
+	}
+	
 }
