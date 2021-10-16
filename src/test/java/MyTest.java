@@ -64,7 +64,7 @@ class MyTest {
 		GameLogic.makeBoard();
 		button = new Vbutton(5, 1, 1, true, false);
 		GameLogic.setPieceInBoard(button);		
-		assertEquals(true, GameLogic.makeMove(button), "wrong validity of button");
+		assertEquals(1, GameLogic.makeMove(button), "wrong validity of button");
 	}
 	
 	@Test
@@ -72,7 +72,7 @@ class MyTest {
 		GameLogic.makeBoard();
 		button = new Vbutton(3, 1, 1, false, false);
 		GameLogic.setPieceInBoard(button);		
-		assertEquals(false, GameLogic.makeMove(button), "wrong validity of button");
+		assertEquals(3, GameLogic.makeMove(button), "wrong validity of button");
 	}
 	
 }

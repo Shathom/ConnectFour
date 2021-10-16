@@ -33,9 +33,9 @@ public class GameLogic {
 	public static Coordinate move;
 	
 	public static void makeBoard() {
-		for(int row = 0; row < 6; row++) {
+		for(int col = 0; col < 7; col++) {
 			ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
-			for(int col = 0; col < 7; col++) {
+			for(int row = 0; row < 6; row++) {
 				button = new Vbutton(row, col, 1, false, false);
 				if(row == 5) {
 					
@@ -68,50 +68,36 @@ public class GameLogic {
 	
 	// we need to make almost most of these functions to return boolean so we can use eventhandler in javaFX
 	public static int makeMove(Vbutton button) {
-
-//		int result = 0;
+		int result=0;
 		if (isValidMove(button)){
 			if (!button.getPlayerTurn()) {
 				playerTurns++;
+				System.out.println("playerTurns:" + playerTurns);
 				button.setPlayerTurn(true);
 				if (playerTurns % 2 == 0) {
 					button.setPlayer(1);
 					setInMainStack(button);
 					player1Stack(button.getRow(), button.getColumn());
-					return 1;
+					result = 1;
 				} else {
 					button.setPlayer(2);
 					setInMainStack(button);
 					player2Stack(button.getRow(), button.getColumn());
-					return 2;
+					result = 2;
 				}
 			}
-			return 0;
 		} else {
+			System.out.println("playerTurns:" + playerTurns);
+
 			if (playerTurns % 2 == 0) {
 				button.setPlayer(2);
 			} else {
 				button.setPlayer(1);
 			}
-			return 3;
+			result = 3;
 		}
-			}
-
-//					result = 2;
-//
-//				}			
-//			} else if(!isValidMove(button)) {
-//				if (playerTurns % 2 == 0) {
-//					button.setPlayer(2);
-//				} else {
-//					button.setPlayer(1);
-//				}
-//				result = -1;
-//			}	
-//		}
-//		return result;
-//>>>>>>> 19c8541449b904a87a09bb8bb68c71aa3801f994
-//	}
+		return result;
+}
 
 	// stack that stores first player's move
 	public static void player1Stack(int row, int column) {

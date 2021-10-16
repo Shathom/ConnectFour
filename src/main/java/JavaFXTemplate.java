@@ -78,6 +78,7 @@ public class JavaFXTemplate extends Application {
 		sceneMap.put("scene", welcomeScene());
 		sceneMap.put("game", gameScreen());
 		sceneMap.put("result", ResultScene());
+		GameLogic.makeBoard();
 
 		sceneChangeBtn.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));
 		// testing Result scene( supposed to be happen when a player wins or the game is
@@ -172,35 +173,46 @@ public class JavaFXTemplate extends Application {
 		buttonHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				gameButton = (GameButton)e.getSource();
-				GameLogic.makeBoard();
 				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
-					if(GameLogic.makeMove(buttons)==1) {
+				int result = GameLogic.makeMove(buttons);
+					
+				
+					if(result==1) {
 						gameButton.setDisable(true);
 						displayPlayer.getItems().clear();
 						gameButton.setStyle("-fx-background-color: Blue");
 						displayPlayer.getItems()
-							.add("Player -  " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
+							.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
 					}
-					if (GameLogic.makeMove(buttons)==2) {
+					if (result==2) {
 						gameButton.setDisable(true);
 						gameButton.setStyle("-fx-background-color: Red");
 						displayPlayer.getItems().clear();
 						displayPlayer.getItems()
 							.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
 					}
-				if(GameLogic.makeMove(buttons) == 3) {
+					if(result == 3) {
 						gameButton.setDisable(false);
 						displayPlayer.getItems().clear();
-						displayPlayer.getItems().add("???Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
-								+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");
+						displayPlayer.getItems().add("Player " + buttons.getPlayer() + " moved to " + buttons.getRow() + ", " + buttons.getColumn()
+								+ ". This is NOT a valid move. Player " + buttons.getPlayer() + " pick again.");
 					}
-				
-				if(GameLogic.makeMove(buttons)==-0) {
-					gameButton.setDisable(false);
-
-					displayPlayer.getItems().clear();
-					displayPlayer.getItems().add("why here? Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
-							+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");				}
+					System.out.println("Result: " + result);
+//					
+//					if(GameLogic.doNotMakeMove(buttons)) {
+//						gameButton.setDisable(false);
+//						displayPlayer.getItems().clear();
+//						displayPlayer.getItems().add("???Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
+//								+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");
+//					}
+					
+//				
+//				if(GameLogic.makeMove(buttons)==0) {
+//					gameButton.setDisable(false);
+//
+//					displayPlayer.getItems().clear();
+//					displayPlayer.getItems().add("why here? Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
+//							+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");				}
 				
 			}
 			
@@ -229,24 +241,7 @@ public class JavaFXTemplate extends Application {
 //					displayPlayer.getItems().clear();
 //					displayPlayer.getItems()
 //							.add("Player " + gameButton.player + " pressed " + gameButton.row + ", " + gameButton.column + ". Valid move.");
-//				} 
-				
-				
-				
-				
-				
-//				if(GameLogic.doNotMakeMove(buttons)) {
-//					gameButton.setDisable(false);
-//					displayPlayer.getItems().clear();
-//					displayPlayer.getItems().add("???Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
-//							+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");
-//				}
-				
-				
-				
-				
-				
-//				else if (!GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
+//				} else if (!GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
 //					if (playerTurns % 2 == 0) {
 //						gameButton.player = 2;
 //					} else {

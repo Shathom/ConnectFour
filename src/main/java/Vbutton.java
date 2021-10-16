@@ -31,19 +31,19 @@ public class Vbutton {
 
 	// Not sure whether we need these getter and setter 
 	public int getRow() {
-		return this.row;
+		return row;
 	}
 	public int getColumn() {
-		return this.column;
+		return column;
 	}
 	public int getPlayer() {
 		return player;
 	}
 	public boolean getIsValid() {
-		return this.isValid;
+		return isValid;
 	}
 	public boolean getPlayerTurn() {
-		return this.playerTurn;
+		return playerTurn;
 	}
 	public void setRow(int row) {
 		this.row = row;
