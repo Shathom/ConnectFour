@@ -56,14 +56,11 @@ public class JavaFXTemplate extends Application {
 	private EventHandler<ActionEvent> buttonHandler;
 	private EventHandler<ActionEvent> reverseMoveHandler;
 	private int playerTurns = 1;
-	
 	private Vbutton buttons;
 
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		GameLogic.makeBoard();
-//		System.out.println("")
 		launch(args);
 		
 	}
@@ -205,7 +202,9 @@ public class JavaFXTemplate extends Application {
 					displayPlayer.getItems().add("why here? Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
 							+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");				}
 				
-				
+			}
+			
+		};
 //				if (GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
 //					if (!gameButton.playerTurn) {
 //						playerTurns++;
@@ -261,11 +260,8 @@ public class JavaFXTemplate extends Application {
 //				}
 				
 				
+
 				
-			}
-		};
-		
-		
 		displayPlayer.setMaxHeight(150);
 		grid.setPrefWidth(400);
 		grid.setPrefHeight(800);
