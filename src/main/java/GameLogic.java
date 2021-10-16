@@ -27,6 +27,7 @@ public class GameLogic {
 	public static Vbutton button;
 	public static int playerTurns = 1;
 	
+	
 	static ArrayList<ArrayList<Vbutton>> matrix = new ArrayList<ArrayList<Vbutton>>();
 	
 	public static Coordinate move;
@@ -55,19 +56,19 @@ public class GameLogic {
 	}
 	
 	public static void setPieceInBoard(Vbutton button) {
-		matrix.get(button.getRow()).get(button.getColumn()).setRow(button.getRow());
-		matrix.get(button.getRow()).get(button.getColumn()).setColumn(button.getColumn());
-		matrix.get(button.getRow()).get(button.getColumn()).setPlayer(button.getPlayer());
-		matrix.get(button.getRow()).get(button.getColumn()).setIsValid(button.getIsValid());
-		matrix.get(button.getRow()).get(button.getColumn()).setPlayerTurn(button.getPlayerTurn());
+		Vbutton checking = matrix.get(button.getColumn()).get(button.getRow());
+		
+		checking.setRow(button.getRow());
+		checking.setColumn(button.getColumn());
+		checking.setPlayer(button.getPlayer());
+		checking.setIsValid(button.getIsValid());
+		checking.setPlayerTurn(button.getPlayerTurn());
 	}
 	
 	
 	
 	// we need to make almost most of these functions to return boolean so we can use eventhandler in javaFX
 	public static int makeMove(Vbutton button) {
-//		if (isValidMove(button.getIsValid(), button.getColumn(), button.getRow())) {
-		
 		if(isValidMove(button)) {
 			if (!button.getPlayerTurn()) {				
 				playerTurns++;
@@ -82,31 +83,19 @@ public class GameLogic {
 					setInMainStack(button);
 					player2Stack(button.getRow(), button.getColumn());
 					return 2;
-				}			
-			} else if(!isValidMove(button)) {
-				if (playerTurns % 2 == 0) {
-					button.setPlayer(2);
-				} else {
-					button.setPlayer(1);
 				}
-				return 3;
-			}	
+			}
+			return 0;
+		} else {
+			if (playerTurns % 2 == 0) {
+				button.setPlayer(2);
+			} else {
+				button.setPlayer(1);
+			}
+			return 3;
 		}
-		return 0;
-//		return true;
 	}
 
-//	public static boolean doNotMakeMove(Vbutton button) {
-////		if (!isValidMove(button.getIsValid(), button.getColumn(), button.getRow())){
-//		if(!isValidMove(button)) {
-//			if (playerTurns % 2 == 0) {
-//				button.setPlayer(2);
-//			} else {
-//				button.setPlayer(1);
-//			}
-//		}
-//		return true;
-//	}
 	// stack that stores first player's move
 	public static void player1Stack(int row, int column) {
 		player1Move = new Coordinate(row, column);

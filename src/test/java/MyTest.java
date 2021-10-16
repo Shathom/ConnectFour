@@ -34,10 +34,10 @@ class MyTest {
 	@Test
 	void makeBoardTest0() {
 		GameLogic.makeBoard();
-		button = new Vbutton(5, 1, 1, true, false);
-		GameLogic.setPieceInBoard(button);
+		Vbutton button1 = new Vbutton(5, 1, 1, true, false);
+//		GameLogic.setPieceInBoard(button);
 		// supposed to be return true.. but it's returning false I don't know why..
-		assertEquals(true, button.getIsValid(), "correcto isValid");  
+		assertEquals(true, button1.getIsValid(), "incorrecto isValid");  
 	}
 
 	

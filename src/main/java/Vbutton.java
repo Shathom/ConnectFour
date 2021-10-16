@@ -25,8 +25,8 @@ public class Vbutton {
 		this.row = row;
 		this.column = column;
 		this.player = player;
-		this.isValid = false;
-		this.playerTurn = false;
+		this.isValid = isValid;
+		this.playerTurn = playerTurn;
 	}
 
 	// Not sure whether we need these getter and setter 
