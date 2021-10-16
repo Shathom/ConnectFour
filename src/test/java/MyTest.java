@@ -14,12 +14,17 @@
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 // Testing GameLogic class 
 class MyTest {
-
+	static ArrayList<ArrayList<Vbutton>> matrix = new ArrayList<ArrayList<Vbutton>>();
+	static ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
+	static Vbutton button;
+	
 	@BeforeEach
 	void init() {
 		
@@ -27,8 +32,31 @@ class MyTest {
 	
 	
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void makeBoardTest0() {
+		GameLogic.makeBoard();
+		button = new Vbutton(5, 1, 1, true, false);
+		GameLogic.setPieceInBoard(button);
+		// supposed to be return true.. but it's returning false I don't know why..
+		assertEquals(true, button.getIsValid(), "correcto isValid");  
+	}
+
+	
+	@Test
+	void makeBoardTest2() {
+		GameLogic.makeBoard();
+		button = new Vbutton(5, 1, 1, true, false);
+		GameLogic.setPieceInBoard(button);
+		// supposed to be return true.. but it's returning false I don't know why..
+		assertEquals(5, button.getRow(), "correcto row");  
+	}
+
+	@Test
+	void makeBoardTest3() {
+		GameLogic.makeBoard();
+		button = new Vbutton(5, 1, 1, true, false);
+		GameLogic.setPieceInBoard(button);
+		// supposed to be return true.. but it's returning false I don't know why..
+		assertEquals(false, button.getPlayerTurn(), "correcto row");  
 	}
 
 }

@@ -56,10 +56,14 @@ public class JavaFXTemplate extends Application {
 	private EventHandler<ActionEvent> buttonHandler;
 	private EventHandler<ActionEvent> reverseMoveHandler;
 	private int playerTurns = 1;
+	
+	private Vbutton buttons;
 
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		GameLogic.makeBoard();
+//		System.out.println("")
 		launch(args);
 		
 	}
@@ -172,42 +176,73 @@ public class JavaFXTemplate extends Application {
 			public void handle(ActionEvent e) {
 				gameButton = (GameButton)e.getSource();
 				GameLogic.makeBoard();
-				if (GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
-					if (!gameButton.playerTurn) {
-						playerTurns++;
-						gameButton.playerTurn = true;
-						if (playerTurns % 2 == 0) {
-							gameButton.player = 1;
-							//GameLogic.setInMainStack(gameButton.row, gameButton.column);
-							GameLogic.player1Stack(gameButton.row, gameButton.column);
-							prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
-							prevButton.setDisable(false);
-							gameButton.setStyle("-fx-background-color: Blue");
-						} else {
-							gameButton.player = 2;
-							//GameLogic.setInMainStack(gameButton.row, gameButton.column);
-							GameLogic.player2Stack(gameButton.row, gameButton.column);
-							gameButton.setStyle("-fx-background-color: Red");
-							prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
-							prevButton.setDisable(false);
-						}
-					}
+				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
+				if(GameLogic.makeMove(buttons)) {
 					gameButton.setDisable(true);
 					displayPlayer.getItems().clear();
+					gameButton.setStyle("-fx-background-color: Blue");
 					displayPlayer.getItems()
-							.add("Player " + gameButton.player + " pressed " + gameButton.row + ", " + gameButton.column + ". Valid move.");
-				} else if (!GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
-					if (playerTurns % 2 == 0) {
-						gameButton.player = 2;
-					} else {
-						gameButton.player = 1;
-
-					}
+							.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
+				} else {
+					gameButton.setDisable(true);
+					gameButton.setStyle("-fx-background-color: Red");
+					displayPlayer.getItems().clear();
+					displayPlayer.getItems()
+							.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
+				}
+				
+				
+//				if (GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
+//					if (!gameButton.playerTurn) {
+//						playerTurns++;
+//						gameButton.playerTurn = true;
+//						if (playerTurns % 2 == 0) {
+//							gameButton.player = 1;
+//							//GameLogic.setInMainStack(gameButton.row, gameButton.column);
+//							GameLogic.player1Stack(gameButton.row, gameButton.column);
+//							prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
+//							prevButton.setDisable(false);
+//							gameButton.setStyle("-fx-background-color: Blue");
+//						} else {
+//							gameButton.player = 2;
+//							//GameLogic.setInMainStack(gameButton.row, gameButton.column);
+//							GameLogic.player2Stack(gameButton.row, gameButton.column);
+//							gameButton.setStyle("-fx-background-color: Red");
+//							prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
+//							prevButton.setDisable(false);
+//						}
+//					}
+//					gameButton.setDisable(true);
+//					displayPlayer.getItems().clear();
+//					displayPlayer.getItems()
+//							.add("Player " + gameButton.player + " pressed " + gameButton.row + ", " + gameButton.column + ". Valid move.");
+//				} 
+				
+				
+				
+				
+				
+				if(GameLogic.doNotMakeMove(buttons)) {
 					gameButton.setDisable(false);
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems().add("Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
 							+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");
 				}
+//				else if (!GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
+//					if (playerTurns % 2 == 0) {
+//						gameButton.player = 2;
+//					} else {
+//						gameButton.player = 1;
+//
+//					}
+//					gameButton.setDisable(false);
+//					displayPlayer.getItems().clear();
+//					displayPlayer.getItems().add("Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
+//							+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");
+//				}
+				
+				
+				
 			}
 		};
 		

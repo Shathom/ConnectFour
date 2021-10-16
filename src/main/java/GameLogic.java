@@ -36,7 +36,13 @@ public class GameLogic {
 			ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
 			for(int row = 0; row < 6; row++) {
 				button = new Vbutton(row, col, 1, false, false);
+				if(row == 5) {
+					button.setIsValid(true); // setting the 5th row set to valid for the beginning of the game
+//					System.out.println("row and col ... etc" + button.getRow() + ", "+ button.getColumn() + " : valid:" + button.getIsValid());
+				}
 				matrixRow.add(button);
+//				System.out.println("row and col ... etc" + button.getRow() + ", "+ button.getColumn() + " : valid:" + button.getIsValid());
+
 			}
 			matrix.add(matrixRow);
 		}
@@ -55,7 +61,10 @@ public class GameLogic {
 		matrix.get(button.getRow()).get(button.getColumn()).setPlayerTurn(button.getPlayerTurn());
 	}
 	
-	public static void makeMove(Vbutton button) {
+	
+	
+	// we need to make almost most of these functions to return boolean so we can use eventhandler in javaFX
+	public static boolean makeMove(Vbutton button) {
 		if (isValidMove(button.getIsValid(), button.getColumn(), button.getRow())) {
 			if (!button.getPlayerTurn()) {
 				playerTurns++;
@@ -64,37 +73,28 @@ public class GameLogic {
 					button.setPlayer(1);
 					setInMainStack(button);
 					player1Stack(button.getRow(), button.getColumn());
-//					prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
-//					prevButton.setDisable(false);
-//					gameButton.setStyle("-fx-background-color: Blue");
+					return true;
 				} else {
 					button.setPlayer(2);
 					setInMainStack(button);
 					player2Stack(button.getRow(), button.getColumn());
-//					gameButton.setStyle("-fx-background-color: Red");
-//					prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
-//					prevButton.setDisable(false);
-				}
-			}
-//			gameButton.setDisable(true);
-//			displayPlayer.getItems().clear();
-//			displayPlayer.getItems()
-//					.add("Player " + gameButton.player + " pressed " + gameButton.row + ", " + gameButton.column + ". Valid move.");
-		} else if (!isValidMove(button.getIsValid(), button.getColumn(), button.getRow())){
+					return false;
+				}				
+			}	
+		} 
+		return true;
+	}
+
+	public static boolean doNotMakeMove(Vbutton button) {
+		if (!isValidMove(button.getIsValid(), button.getColumn(), button.getRow())){
 			if (playerTurns % 2 == 0) {
 				button.setPlayer(2);
 			} else {
 				button.setPlayer(1);
-
 			}
-//			gameButton.setDisable(false);
-//			displayPlayer.getItems().clear();
-//			displayPlayer.getItems().add("Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
-//					+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");
 		}
-	
+		return true;
 	}
-	
 	// stack that stores first player's move
 	public static void player1Stack(int row, int column) {
 		player1Move = new Coordinate(row, column);
@@ -110,8 +110,8 @@ public class GameLogic {
 	}
 	
 		
-	public static boolean isValidMove(boolean isValid, int column, int row) {
-		if(isValid) {
+	public static boolean isValidMove(boolean b, int i, int j) {
+		if(button.getIsValid()==true) {
 			return true;
 		} else {
 			return false;
