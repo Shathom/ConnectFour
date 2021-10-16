@@ -21,7 +21,6 @@ public class Vbutton {
 	private boolean isValid; 
 	private boolean playerTurn;
 
-
 	public Vbutton (int row, int column, int player, boolean isValid, boolean playerTurn){
 		this.row = row;
 		this.column = column;
@@ -46,7 +45,6 @@ public class Vbutton {
 	public boolean getPlayerTurn() {
 		return playerTurn;
 	}
-	
 	public void setRow(int row) {
 		this.row = row;
 	}

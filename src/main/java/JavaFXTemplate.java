@@ -102,7 +102,6 @@ public class JavaFXTemplate extends Application {
 				gameButton = new GameButton(row, col, 0, false, false);
 				if (row == 5) {
 					gameButton.isValid = true;
-
 				}
 				gameButton.setPrefWidth(200);
 				gameButton.setPrefHeight(100);
@@ -172,21 +171,21 @@ public class JavaFXTemplate extends Application {
 		buttonHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				gameButton = (GameButton)e.getSource();
-				GameLogic.makeVGrid();
+				GameLogic.makeBoard();
 				if (GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
 					if (!gameButton.playerTurn) {
 						playerTurns++;
 						gameButton.playerTurn = true;
 						if (playerTurns % 2 == 0) {
 							gameButton.player = 1;
-							GameLogic.setInStack(gameButton.row, gameButton.column);
+							//GameLogic.setInMainStack(gameButton.row, gameButton.column);
 							GameLogic.player1Stack(gameButton.row, gameButton.column);
 							prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
 							prevButton.setDisable(false);
 							gameButton.setStyle("-fx-background-color: Blue");
 						} else {
 							gameButton.player = 2;
-							GameLogic.setInStack(gameButton.row, gameButton.column);
+							//GameLogic.setInMainStack(gameButton.row, gameButton.column);
 							GameLogic.player2Stack(gameButton.row, gameButton.column);
 							gameButton.setStyle("-fx-background-color: Red");
 							prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);

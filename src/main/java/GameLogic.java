@@ -25,12 +25,13 @@ public class GameLogic {
 	public static Stack<Coordinate> movesPlayer1 = new Stack<Coordinate>();
 	public static Stack<Coordinate> movesPlayer2 = new Stack<Coordinate>();
 	public static Vbutton button;
+	public static int playerTurns = 1;
 	
 	static ArrayList<ArrayList<Vbutton>> matrix = new ArrayList<ArrayList<Vbutton>>();
 	
 	public static Coordinate move;
 	
-	public static void makeVGrid() {
+	public static void makeBoard() {
 		for(int col = 0; col < 7; col++) {
 			ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
 			for(int row = 0; row < 6; row++) {
@@ -41,11 +42,57 @@ public class GameLogic {
 		}
 	}
 	
-	
-	
-	public static void setInStack(int row, int column) {
-		playerMove = new Coordinate(row, column);
+	public static void setInMainStack(Vbutton button) {
+		playerMove = new Coordinate(button.getRow(), button.getColumn());
 		moves.push(playerMove);
+	}
+	
+	public static void setPieceInBoard(Vbutton button) {
+		matrix.get(button.getRow()).get(button.getColumn()).setRow(button.getRow());
+		matrix.get(button.getRow()).get(button.getColumn()).setColumn(button.getColumn());
+		matrix.get(button.getRow()).get(button.getColumn()).setPlayer(button.getPlayer());
+		matrix.get(button.getRow()).get(button.getColumn()).setIsValid(button.getIsValid());
+		matrix.get(button.getRow()).get(button.getColumn()).setPlayerTurn(button.getPlayerTurn());
+	}
+	
+	public static void makeMove(Vbutton button) {
+		if (isValidMove(button.getIsValid(), button.getColumn(), button.getRow())) {
+			if (!button.getPlayerTurn()) {
+				playerTurns++;
+				button.setPlayerTurn(true);
+				if (playerTurns % 2 == 0) {
+					button.setPlayer(1);
+					setInMainStack(button);
+					player1Stack(button.getRow(), button.getColumn());
+//					prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
+//					prevButton.setDisable(false);
+//					gameButton.setStyle("-fx-background-color: Blue");
+				} else {
+					button.setPlayer(2);
+					setInMainStack(button);
+					player2Stack(button.getRow(), button.getColumn());
+//					gameButton.setStyle("-fx-background-color: Red");
+//					prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
+//					prevButton.setDisable(false);
+				}
+			}
+//			gameButton.setDisable(true);
+//			displayPlayer.getItems().clear();
+//			displayPlayer.getItems()
+//					.add("Player " + gameButton.player + " pressed " + gameButton.row + ", " + gameButton.column + ". Valid move.");
+		} else if (!isValidMove(button.getIsValid(), button.getColumn(), button.getRow())){
+			if (playerTurns % 2 == 0) {
+				button.setPlayer(2);
+			} else {
+				button.setPlayer(1);
+
+			}
+//			gameButton.setDisable(false);
+//			displayPlayer.getItems().clear();
+//			displayPlayer.getItems().add("Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
+//					+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");
+		}
+	
 	}
 	
 	// stack that stores first player's move
