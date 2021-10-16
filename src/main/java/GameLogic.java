@@ -24,7 +24,7 @@ public class GameLogic {
 	public static Stack<Coordinate> moves = new Stack<Coordinate>();
 	public static Stack<Coordinate> movesPlayer1 = new Stack<Coordinate>();
 	public static Stack<Coordinate> movesPlayer2 = new Stack<Coordinate>();
-	public static Vbutton button;
+	public static Vbutton button, prevButton;
 	public static int playerTurns = 1;
 	
 	
@@ -72,12 +72,17 @@ public class GameLogic {
 		if (isValidMove(button)){
 			if (!button.getPlayerTurn()) {
 				playerTurns++;
-				System.out.println("playerTurns:" + playerTurns);
+//				System.out.println("playerTurns:" + playerTurns);
 				button.setPlayerTurn(true);
 				if (playerTurns % 2 == 0) {
 					button.setPlayer(1);
 					setInMainStack(button);
 					player1Stack(button.getRow(), button.getColumn());
+					int numberOfRow = button.getRow()-1;
+					matrix.get(button.getColumn()).get(numberOfRow).setIsValid(true);
+//					button = new Vbutton(numberOfRow, button.getColumn(), button.getPlayer(), true, button.getPlayerTurn());
+					System.out.println("pre row: " + numberOfRow);
+//					setPieceInBoard(button);
 					result = 1;
 				} else {
 					button.setPlayer(2);
@@ -115,8 +120,8 @@ public class GameLogic {
 	
 		
 	public static boolean isValidMove(Vbutton button) {
-		System.out.println("the button's validity: "+button.getIsValid());
-		System.out.println("the button's row and column: "+button.getRow() + ", " + button.getColumn());
+//		System.out.println("the button's validity: "+button.getIsValid());
+//		System.out.println("the button's row and column: "+button.getRow() + ", " + button.getColumn());
 
 		if(button.getIsValid()) {
 			return true;

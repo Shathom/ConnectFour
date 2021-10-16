@@ -197,7 +197,7 @@ public class JavaFXTemplate extends Application {
 						displayPlayer.getItems().add("Player " + buttons.getPlayer() + " moved to " + buttons.getRow() + ", " + buttons.getColumn()
 								+ ". This is NOT a valid move. Player " + buttons.getPlayer() + " pick again.");
 					}
-					System.out.println("Result: " + result);
+//					System.out.println("Result: " + result);
 //					
 //					if(GameLogic.doNotMakeMove(buttons)) {
 //						gameButton.setDisable(false);
