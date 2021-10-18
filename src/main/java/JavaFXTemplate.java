@@ -99,6 +99,7 @@ public class JavaFXTemplate extends Application {
 	 * button
 	 */
 	public void fillGrid(GridPane grid) {
+		// try resetting the gridpane or the listview 
 		for (int col = 0; col < 7; col++) {
 			for (int row = 0; row < 6; row++) {
 				gameButton = new GameButton(row, col, 0, false, false);
@@ -292,7 +293,8 @@ public class JavaFXTemplate extends Application {
 			displayPlayer.getItems().clear();
 			for (int i = 0; i < 3; i++) {
 				grid.getChildren().clear();
-			}
+			}		
+			GameLogic.makeBoard();
 			fillGrid(grid);
 		});
 

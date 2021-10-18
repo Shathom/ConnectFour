@@ -33,12 +33,12 @@ public class GameLogic {
 	public static Coordinate move;
 	
 	public static void makeBoard() {
-		for(int col = 0; col < 7; col++) {
+		matrix = new ArrayList<ArrayList<Vbutton>>();
+		for(int row = 0; row < 6; row++) {
 			ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
-			for(int row = 0; row < 6; row++) {
-				button = new Vbutton(row, col, 1, false, false);
-				if(row == 5) {
-					
+			for(int col = 0; col < 7; col++) {
+				button = new Vbutton(row, col, 0, false, false);
+				if(row == 5) {					
 					button.setIsValid(true); // setting the 5th row set to valid for the beginning of the game
 //					System.out.println("row and col ... etc" + button.getRow() + ", "+ button.getColumn() + " : valid:" + button.getIsValid());
 				}
@@ -69,6 +69,17 @@ public class GameLogic {
 	// we need to make almost most of these functions to return boolean so we can use eventhandler in javaFX
 	public static int makeMove(Vbutton button) {
 		int result=0;
+		
+		for(int i = 0; i < matrix.size(); i++) {
+			for(int j  = 0; j < matrix.get(i).size(); j++)
+				
+				System.out.print(matrix.get(i).get(j).getIsValid() + " ");
+				System.out.println();
+
+			
+		}
+
+		
 		if (isValidMove(button)){
 			if (!button.getPlayerTurn()) {
 				playerTurns++;
@@ -79,7 +90,10 @@ public class GameLogic {
 					setInMainStack(button);
 					player1Stack(button.getRow(), button.getColumn());
 					int numberOfRow = button.getRow()-1;
-					matrix.get(button.getColumn()).get(numberOfRow).setIsValid(true);
+
+					if(numberOfRow >= 0) {
+						matrix.get(numberOfRow).get(button.getColumn()).setIsValid(true); //---
+					} 
 //					button = new Vbutton(numberOfRow, button.getColumn(), button.getPlayer(), true, button.getPlayerTurn());
 					System.out.println("pre row: " + numberOfRow);
 //					setPieceInBoard(button);
@@ -88,6 +102,12 @@ public class GameLogic {
 					button.setPlayer(2);
 					setInMainStack(button);
 					player2Stack(button.getRow(), button.getColumn());
+					int numberOfRow = button.getRow()-1;
+					
+					if(numberOfRow >= 0) {
+						matrix.get(numberOfRow).get(button.getColumn()).setIsValid(true); //---
+					} 
+					
 					result = 2;
 				}
 			}
@@ -122,8 +142,10 @@ public class GameLogic {
 	public static boolean isValidMove(Vbutton button) {
 //		System.out.println("the button's validity: "+button.getIsValid());
 //		System.out.println("the button's row and column: "+button.getRow() + ", " + button.getColumn());
+//matrix.get(button.getRow()).get(button.getColumn())
 
-		if(button.getIsValid()) {
+
+		if(matrix.get(button.getRow()).get(button.getColumn()).getIsValid()){
 			return true;
 		} else {
 			return false;

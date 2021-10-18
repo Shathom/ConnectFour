@@ -28,8 +28,8 @@ public class GameButton extends Button {
 		this.row = row;
 		this.column = column;
 		this.player = player;
-		this.isValid = false;
-		this.playerTurn = false;
+		this.isValid = isValid;
+		this.playerTurn = playerTurn;
 	}
 	
 	public void nowValidButton(int row, int column) {
