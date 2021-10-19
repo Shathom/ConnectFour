@@ -177,8 +177,8 @@ public class JavaFXTemplate extends Application {
 				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
 				int result = GameLogic.makeMove(buttons);
 					
-				
 					if(result==1) {
+						GameLogic.checkWinner(buttons);
 						gameButton.setDisable(true);
 						displayPlayer.getItems().clear();
 						gameButton.setStyle("-fx-background-color: Blue");
@@ -186,6 +186,7 @@ public class JavaFXTemplate extends Application {
 							.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
 					}
 					if (result==2) {
+						GameLogic.checkWinner(buttons);
 						gameButton.setDisable(true);
 						gameButton.setStyle("-fx-background-color: Red");
 						displayPlayer.getItems().clear();

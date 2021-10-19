@@ -22,8 +22,8 @@ public class GameLogic {
 	public static Coordinate player2Move;
 
 	public static Stack<Coordinate> moves = new Stack<Coordinate>();
-	public static Stack<Coordinate> movesPlayer1 = new Stack<Coordinate>();
-	public static Stack<Coordinate> movesPlayer2 = new Stack<Coordinate>();
+	//public static Stack<Coordinate> movesPlayer1 = new Stack<Coordinate>();
+	//public static Stack<Coordinate> movesPlayer2 = new Stack<Coordinate>();
 	public static Vbutton button, prevButton;
 	public static int playerTurns = 1;
 	
@@ -57,7 +57,6 @@ public class GameLogic {
 	
 	public static void setPieceInBoard(Vbutton button) {
 		Vbutton checking = matrix.get(button.getColumn()).get(button.getRow());
-		
 		checking.setRow(button.getRow());
 		checking.setColumn(button.getColumn());
 		checking.setPlayer(button.getPlayer());
@@ -65,49 +64,98 @@ public class GameLogic {
 		checking.setPlayerTurn(button.getPlayerTurn());
 	}
 	
-	
-	// we need to make almost most of these functions to return boolean so we can use eventhandler in javaFX
-	public static int makeMove(Vbutton button) {
-		int result=0;
-		
-		for(int i = 0; i < matrix.size(); i++) {
-			for(int j  = 0; j < matrix.get(i).size(); j++)
-				
-				System.out.print(matrix.get(i).get(j).getIsValid() + " ");
-				System.out.println();
-
-			
+	static boolean checkHorizontal(Vbutton button) {
+		int counter = 0;
+		boolean isWinner = false;
+		for(int row = 0; row < matrix.size(); row++) {
+			for(int bt = button.getColumn(); bt < matrix.get(row).size(); bt++) {
+				if (button.getPlayer() == matrix.get(row).get(bt).getPlayer()) {
+					if (button.getRow() <= matrix.get(row).size()) {
+						if ((button.getRow()+1) - button.getRow() == 1) {
+							if (counter == 3) {
+					    	isWinner = true;
+							}
+							counter++;
+						}
+					}
+					System.out.println("horizontal winner" + row + " " + bt);
+				    System.out.print(counter);
+				}
+			}
 		}
-
 		
+		for(int row = 0; row < matrix.size(); row++) {
+			for(int bt = button.getColumn(); bt >= 0; bt--) {
+				if (button.getPlayer() == matrix.get(row).get(bt).getPlayer()) {
+					if (button.getRow() - (button.getRow() - 1) == 1) {
+						if (counter == 3) {
+					    	isWinner = true;
+					    }
+					    counter++;
+					}
+					System.out.println("horizontal winner" + row + " " + bt);
+				    System.out.print(counter);
+				}
+			}
+		}
+		
+		return isWinner;
+	}
+	
+	static boolean checkVertical(Vbutton button) {
+		int counter = 0;
+		boolean isWinner = false;
+		for (int row = 0; row < matrix.size(); row++) {
+			for(int col = 0; col < matrix.get(row).size(); col++) {
+				if (button.getPlayer() == matrix.get(row).get(col).getPlayer()) {
+					System.out.println("vertical winner" + row + " " + col);
+				    if (counter == 3) {
+				    	isWinner = true;
+				    }
+				    counter++;
+				}
+			}
+		}
+		return isWinner;
+	}
+	
+	static boolean checkWinner(Vbutton button) {
+		boolean result = false;
+		if (checkHorizontal(button) && checkVertical(button) /* &&  diagonal */) {
+			result = true;
+			System.out.println("winner is " + button.getPlayer());
+		}
+		return result;
+	}
+
+	
+	public static int makeMove(Vbutton button) {
+		int result = 0;
 		if (isValidMove(button)){
 			if (!button.getPlayerTurn()) {
 				playerTurns++;
-//				System.out.println("playerTurns:" + playerTurns);
 				button.setPlayerTurn(true);
 				if (playerTurns % 2 == 0) {
 					button.setPlayer(1);
+					setPieceInBoard(button);
 					setInMainStack(button);
-					player1Stack(button.getRow(), button.getColumn());
+					checkWinner(button);
+					//player1Stack(button.getRow(), button.getColumn());
 					int numberOfRow = button.getRow()-1;
-
 					if(numberOfRow >= 0) {
-						matrix.get(numberOfRow).get(button.getColumn()).setIsValid(true); //---
+						matrix.get(numberOfRow).get(button.getColumn()).setIsValid(true);
 					} 
-//					button = new Vbutton(numberOfRow, button.getColumn(), button.getPlayer(), true, button.getPlayerTurn());
-					System.out.println("pre row: " + numberOfRow);
-//					setPieceInBoard(button);
 					result = 1;
 				} else {
 					button.setPlayer(2);
+					setPieceInBoard(button);
 					setInMainStack(button);
-					player2Stack(button.getRow(), button.getColumn());
+					checkWinner(button);
+					//player2Stack(button.getRow(), button.getColumn());
 					int numberOfRow = button.getRow()-1;
-					
 					if(numberOfRow >= 0) {
-						matrix.get(numberOfRow).get(button.getColumn()).setIsValid(true); //---
+						matrix.get(numberOfRow).get(button.getColumn()).setIsValid(true); 
 					} 
-					
 					result = 2;
 				}
 			}
@@ -124,27 +172,25 @@ public class GameLogic {
 		return result;
 }
 
+	
+	// don't need these two functions anymore
+	
 	// stack that stores first player's move
-	public static void player1Stack(int row, int column) {
-		player1Move = new Coordinate(row, column);
-		movesPlayer1.push(player1Move);
-		System.out.println("player1move coordinate: " + player1Move);
-	}
+//	public static void player1Stack(int row, int column) {
+//		player1Move = new Coordinate(row, column);
+//		movesPlayer1.push(player1Move);
+//		System.out.println("player1move coordinate: " + player1Move);
+//	}
 		
 	
 	// stack that stores second player's move
-	public static void player2Stack(int row, int column) {
-		player2Move = new Coordinate(row, column);
-		movesPlayer2.push(player2Move);
-	}
+//	public static void player2Stack(int row, int column) {
+//		player2Move = new Coordinate(row, column);
+//		movesPlayer2.push(player2Move);
+//	}
 	
 		
 	public static boolean isValidMove(Vbutton button) {
-//		System.out.println("the button's validity: "+button.getIsValid());
-//		System.out.println("the button's row and column: "+button.getRow() + ", " + button.getColumn());
-//matrix.get(button.getRow()).get(button.getColumn())
-
-
 		if(matrix.get(button.getRow()).get(button.getColumn()).getIsValid()){
 			return true;
 		} else {
