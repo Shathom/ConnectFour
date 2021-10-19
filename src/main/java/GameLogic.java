@@ -56,7 +56,7 @@ public class GameLogic {
 	}
 	
 	public static void setPieceInBoard(Vbutton button) {
-		Vbutton checking = matrix.get(button.getColumn()).get(button.getRow());
+		Vbutton checking = matrix.get(button.getRow()).get(button.getColumn());
 		checking.setRow(button.getRow());
 		checking.setColumn(button.getColumn());
 		checking.setPlayer(button.getPlayer());
