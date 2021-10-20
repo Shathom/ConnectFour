@@ -48,7 +48,7 @@ public class JavaFXTemplate extends Application {
 	Stage window;
 	private GridPane grid = new GridPane();
 	private Button sceneChangeBtn, anotherGameB, exitB;
-	private GameButton gameButton, prevButton;
+	private GameButton gameButton, prevButton, resultButton;
 	private Text text;
 	private Menu mOne, mTwo, mThree;
 	private MenuBar menu;
@@ -81,6 +81,8 @@ public class JavaFXTemplate extends Application {
 		GameLogic.makeBoard();
 
 		sceneChangeBtn.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));
+
+
 		// testing Result scene( supposed to be happen when a player wins or the game is
 		// tie) ****
 		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("result")));
@@ -185,7 +187,7 @@ public class JavaFXTemplate extends Application {
 						displayPlayer.getItems()
 							.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
 					}
-					if (result==2) {
+					else if (result==2) {
 						GameLogic.checkWinner(buttons);
 						gameButton.setDisable(true);
 						gameButton.setStyle("-fx-background-color: Red");
@@ -193,7 +195,7 @@ public class JavaFXTemplate extends Application {
 						displayPlayer.getItems()
 							.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
 					}
-					if(result == 3) {
+					else if(result == 3) {
 						gameButton.setDisable(false);
 						displayPlayer.getItems().clear();
 						displayPlayer.getItems().add("Player " + buttons.getPlayer() + " moved to " + buttons.getRow() + ", " + buttons.getColumn()
@@ -296,6 +298,7 @@ public class JavaFXTemplate extends Application {
 				grid.getChildren().clear();
 			}		
 			GameLogic.makeBoard();
+			GameLogic.playerTurns = 1;
 			fillGrid(grid);
 		});
 
