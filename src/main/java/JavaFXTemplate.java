@@ -354,38 +354,38 @@ public class JavaFXTemplate extends Application {
 	}
 	
 	//  Testing purposes - needs to be changed to the gameScene()
-//	private Scene themeTwoScene() {
-//		BorderPane borderPane = new BorderPane();
-//		anotherGameB = new Button("Play Another ");
-//		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
-//
-//		exitB = new Button("Exit Game");
-//		exitB.setOnAction(e -> Platform.exit());
-//		HBox root = new HBox(anotherGameB, exitB);
-//		borderPane.setCenter(root);		
-//		
-//		Scene scene = new Scene(borderPane, 1000, 800);
-//		scene.getRoot().setStyle("-fx-font-family: 'serif'");		
-//		return scene;	
-//		
-//	}
-//
-//	private Scene themeOneScene() {
-//		BorderPane borderPane = new BorderPane();
-//		anotherGameB = new Button("Play Another Game");
-//		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
-//
-//		exitB = new Button("Exit Game");
-//		exitB.setOnAction(e -> Platform.exit());
-//		HBox root = new HBox(anotherGameB, exitB);
-//		borderPane.setCenter(root);		
-//		
-//		Scene scene = new Scene(borderPane, 1000, 800);
-//		scene.getRoot().setStyle("-fx-font-family: 'serif'");		
-//		return scene;
-//		
-//		
-//	}
+	private Scene themeTwoScene() {
+		BorderPane borderPane = new BorderPane();
+		anotherGameB = new Button("Play Another ");
+		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
+
+		exitB = new Button("Exit Game");
+		exitB.setOnAction(e -> Platform.exit());
+		HBox root = new HBox(anotherGameB, exitB);
+		borderPane.setCenter(root);		
+		
+		Scene scene = new Scene(borderPane, 1000, 800);
+		scene.getRoot().setStyle("-fx-font-family: 'serif'");		
+		return scene;	
+		
+	}
+
+	private Scene themeOneScene() {
+		BorderPane borderPane = new BorderPane();
+		anotherGameB = new Button("Play Another Game");
+		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
+
+		exitB = new Button("Exit Game");
+		exitB.setOnAction(e -> Platform.exit());
+		HBox root = new HBox(anotherGameB, exitB);
+		borderPane.setCenter(root);		
+		
+		Scene scene = new Scene(borderPane, 1000, 800);
+		scene.getRoot().setStyle("-fx-font-family: 'serif'");		
+		return scene;
+		
+		
+	}
 	
 	
 
