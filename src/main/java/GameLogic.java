@@ -65,30 +65,21 @@ public class GameLogic {
 	}
 	
 	static boolean checkHorizontal(Vbutton button) {
-		
-
 		int counter = 0;
 		boolean isWinner = false;
-
 		int buttonPlayer = button.getPlayer();
-		
-
-			for(int col = 0; col < 7; col++) {
-				Vbutton matrixbutton = matrix.get(button.getRow()).get(col);
-//				System.out.println("player: " + matrix.get(button.getRow()).get(col).getPlayer());
-				if(matrixbutton.getPlayer() == buttonPlayer) {
-					counter++;
-				    System.out.print("horizontal count: "+counter+ "\n");
-				    		//" row: " + button.getRow() + "column: " + button.getColumn() + "\n");
-
-				} else {
-					counter = 0;
-				}
-				if(counter == 4) {
-					isWinner = true;
-				} 
+		for(int col = 0; col < 7; col++) {
+			Vbutton matrixbutton = matrix.get(button.getRow()).get(col);
+			if(matrixbutton.getPlayer() == buttonPlayer) {
+				counter++;
+			    System.out.print("horizontal count: "+counter+ "\n");
+			} else {
+				counter = 0;
 			}
-
+			if(counter == 4) {
+				isWinner = true;
+			} 
+		}
 		return isWinner;
 	}
 	
@@ -111,7 +102,6 @@ public class GameLogic {
 				isWinner = true;
 			}			
 		}		
-		
 		return isWinner;
 	}
 	
@@ -167,13 +157,11 @@ public class GameLogic {
 
 	
 	static boolean checkDiagonal2(Vbutton button) {
-		int counter = 0;
+		int counter = 1;
 		boolean isWinner = false;
 		int buttonPlayer = button.getPlayer();
-		
 		int buttonRow = button.getRow()+1;
 		int buttonColumn = (button.getColumn())+1;
-		
 		
 		for(int i = 0; i < 4; i++) {
 			if(buttonRow < 6 && buttonColumn < 7) {			
@@ -193,12 +181,10 @@ public class GameLogic {
 			}
 		}
 	    
-		
 		buttonRow = button.getRow();
 		buttonColumn = button.getColumn();
 		buttonRow = button.getRow()-1;
 		buttonColumn = button.getColumn()-1;
-		
 		
 		for(int i = 0; i < 4; i++) {
 			if(buttonRow >= 0 && buttonColumn >= 0) {			
@@ -216,13 +202,9 @@ public class GameLogic {
 			} else {
 				break;
 			}
-		}
-
-		
+		}		
 		return isWinner;
-	}
-	
-	
+	}	
 	
 	static boolean checkWinner(Vbutton button) {
 		boolean result = false;
