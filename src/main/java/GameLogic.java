@@ -66,21 +66,12 @@ public class GameLogic {
 	
 	static boolean checkHorizontal(Vbutton button) {
 		
-//		for(int i = 0; i < matrix.size(); i++) {
-//			for(int j  = 0; j < matrix.get(i).size(); j++)
-//				System.out.print(matrix.get(i).get(j).getPlayer() + " ");
-//				System.out.println();			
-//		}		
+
 		int counter = 0;
 		boolean isWinner = false;
-//		System.out.println("the size of the row: " + matrix.size());
-//		System.out.println("the size of the column(clicked): " + button.getColumn());
-//		System.out.println(button.getPlayer());
+
 		int buttonPlayer = button.getPlayer();
 		
-		
-//		if(button.getPlayer() ==1) {
-//		for(int row = 0; row < matrix.size(); row++) {
 
 			for(int col = 0; col < 7; col++) {
 				Vbutton matrixbutton = matrix.get(button.getRow()).get(col);
@@ -97,49 +88,7 @@ public class GameLogic {
 					isWinner = true;
 				} 
 			}
-				
-//				System.out.println("the size of column: " + matrix.get(row).size());
 
-//				if (button.getPlayer() == 1) {
-//					if (button.getRow() <= matrix.get(row).size()) {
-				
-//					if(matrix.get(button.getRow()).get(button.getColumn()).getPlayerTurn()) {
-					//***** / we need to check whether the +1 button is pressed or not // *****
-//						if((button.getColumn()+1) - button.getColumn() == 1) {
-//							counter++;
-//							if (counter == 4) {
-//					    	isWinner = true;
-//							}
-//						} else {
-//							counter = 0;
-//						}
-//					}
-//					}
-//					System.out.println("horizontal winner" + row + " " + bt);
-//				    System.out.print("horizontal count++: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");
-//				}
-//			}
-//		}
-		
-////		for(int row = 0; row < matrix.size(); row++) {
-//			for(int bt = button.getColumn(); bt >= 0; bt--) {
-////				if (button.getPlayer() == matrix.get(row).get(bt).getPlayer()) {
-//				if (button.getPlayer() == 2) {
-//					if (button.getRow() - (button.getRow() - 1) == 1) {
-//						if (counter == 4) {
-//					    	isWinner = true;
-//					    }
-//					    counter++;
-//					} else {
-//						counter = 0;
-//					}
-////					System.out.println("horizontal winner" + row + " " + bt);
-//				    System.out.print("horizontal count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");
-//				}
-//			}
-//		}
-////		}
-		
 		return isWinner;
 	}
 	
@@ -218,7 +167,7 @@ public class GameLogic {
 
 	
 	static boolean checkDiagonal2(Vbutton button) {
-		int counter = 1;
+		int counter = 0;
 		boolean isWinner = false;
 		int buttonPlayer = button.getPlayer();
 		
