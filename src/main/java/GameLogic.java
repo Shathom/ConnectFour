@@ -303,6 +303,18 @@ public class GameLogic {
 		}
 		return popedMove;
 	}
+	
+	public static Vbutton getPrevMove() {
+		Coordinate prevInStack = null;
+		if (moves.isEmpty()) {
+			throw new NullPointerException("No more items left to reverse!");
+		} else {
+			prevInStack = moves.peek();
+			prevButton = matrix.get(prevInStack.x).get(prevInStack.y);
+		}
+		return prevButton;
+	}
+	
 
 	
 	
