@@ -36,6 +36,37 @@ public class GameButton extends Button {
 		this.isValid = true;
 	}
 	
+	public int getRow() {
+		return row;
+	}
+	public int getColumn() {
+		return column;
+	}
+	public int getPlayer() {
+		return player;
+	}
+	public boolean getIsValid() {
+		return isValid;
+	}
+	public boolean getPlayerTurn() {
+		return playerTurn;
+	}
+	public void setRow(int row) {
+		this.row = row;
+	}
+	public void setColumn(int column) {
+		this.column = column;
+	}
+	public void setPlayer(int player) {
+		this.player = player;
+	}
+	public void setIsValid(boolean isValid) {
+		this.isValid = isValid;
+	}
+	public void setPlayerTurn(boolean playerTurn) {
+		this.playerTurn = playerTurn;
+	}
+	
 	
 
 }

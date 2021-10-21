@@ -33,7 +33,7 @@ public class GameLogic {
 	public static Coordinate move;
 	
 	public static void makeBoard() {
-		matrix = new ArrayList<ArrayList<Vbutton>>();
+	    //matrix = new ArrayList<ArrayList<Vbutton>>();
 		for(int row = 0; row < 6; row++) {
 			ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
 			for(int col = 0; col < 7; col++) {
@@ -173,9 +173,10 @@ public class GameLogic {
 		int buttonPlayer = button.getPlayer();
 //		for(int row = buttonRow+1; row < 6; row++) {
 //				for(int col = buttonColum-1; col >= 0; col--) {
+
 		int buttonRow = button.getRow()+1;
-		int buttonColum = button.getColumn()-1;
-//		System.out.println("buttonRow: " + buttonRow);
+		int buttonColumn = button.getColumn()-1;
+//		System.out.println("buttonRow: " + buttonRow);      
 //		System.out.println("buttonCol: " + buttonColum);
 		for(int i = 0; i < 4; i++) {
 //			if(button.getRow() == 5 && button.getRow() == 4 && button.getRow() == 3) {
@@ -185,8 +186,8 @@ public class GameLogic {
 //				break;
 //			}
 			
-			if(buttonRow < 5 && buttonColum > 0) {
-			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColum); // getting the col from the "grid"
+			if(buttonRow < 5 && buttonColumn > 0) {
+			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
 //			if(button.getRow() == 5 && button.getRow() == 4 && button.getRow() == 3) {
 //				break;
 //			}
@@ -195,7 +196,7 @@ public class GameLogic {
 //			}
 			if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
 				buttonRow++;
-				buttonColum--;
+				buttonColumn--;
 				counter++;
 				System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
 
@@ -209,19 +210,34 @@ public class GameLogic {
 			else {
 				break;
 			}
+//			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
+//					if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
+//						buttonRow++;
+//						buttonColumn--;
+//						counter++;
+//							if (counter == 4) {
+//								isWinner = true;
+//								return true;
+//							} 
+//					}
+//					else {
+//						break;
+//					}
+////					System.out.println("DIAGONAL" + button + " " + col);
+//					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
 //					
 					
 	}
 		buttonRow = button.getRow();
-		buttonColum = button.getColumn();
+		buttonColumn = button.getColumn();
 		buttonRow = button.getRow()-1;
-		buttonColum = button.getColumn()+1;
+		buttonColumn = button.getColumn()+1;
 		for(int i = 0; i < 4; i++) {
 			
-//			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColum); // getting the col from the "grid"
+//			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
 //					if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
 //						buttonRow++;
-//						buttonColum--;
+//						buttonColumn--;
 //						counter++;
 //							if (counter == 4) {
 //								isWinner = true;
@@ -234,7 +250,9 @@ public class GameLogic {
 ////					System.out.println("DIAGONAL" + butto + " " + col);
 //					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
 
-	}
+	    }
+		
+		/////////////////// Possibly used later ///////////////////////
 		
 //		for(int row = buttonRow-1; row >= 0; row--) {
 //			if(buttonRow == 0) {
@@ -242,7 +260,7 @@ public class GameLogic {
 //				return false;
 //			}
 //
-//				for(int col = buttonColum+1; col < 7; col++) {
+//				for(int col = buttonColumn+1; col < 7; col++) {
 //					Vbutton matrixbuttonColumn = matrix.get(row).get(col); // getting the col from the "grid"
 //					if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
 //						counter++;
@@ -262,12 +280,61 @@ public class GameLogic {
 		return isWinner;
 
 	}
-	static boolean checkDiagonal2(Vbutton button) {
-		
-	 return false;
-	}
 
+	
+	static boolean checkDiagonal2(Vbutton button) {
+		int counter = 0;
+		boolean isWinner = false;
+		int buttonPlayer = button.getPlayer();
+		
+		int buttonRow = button.getRow()+1;
+		int buttonColumn = (button.getColumn())+1;
+		
+		for(int i = 0; i < 4; i++) {
+
+//			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
+//					if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
+//						buttonRow++;
+//						buttonColumn++;
+//						counter++;
+//							if (counter == 4) {
+//								isWinner = true;
+//								return true;
+//							} 
+//					} else {
+//						break;
+//					}
+////					System.out.println("DIAGONAL" + button + " " + col);
+//					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
+//					
+	    }
+		
+		buttonRow = button.getRow();
+		buttonColumn = button.getColumn();
+		buttonRow = button.getRow()-1;
+		buttonColumn = button.getColumn()-1;
+		for(int i = 0; i < 4; i++) {
 			
+//			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
+//					if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
+//						buttonRow--;
+//						buttonColumn--;
+//						counter++;
+//							if (counter == 4) {
+//								isWinner = true;
+//								return true;
+//							} 
+//					}
+//					else {
+//						break;
+//					}
+////					System.out.println("DIAGONAL" + butto + " " + col);
+//					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
+
+	    }
+		
+		return isWinner;
+	}
 	
 	
 	
@@ -281,8 +348,7 @@ public class GameLogic {
 		if (checkHorizontal(button)) {
 			result = true;
 			System.out.println("Horizontal WINNER is " + button.getPlayer());
-		}
-		else if(checkVertical(button)) {
+		} else if(checkVertical(button)) {
 			result = true;
 			System.out.println("Vertical WINNER is " + button.getPlayer());
 		} else if(checkDiagonal1(button)) {
@@ -328,7 +394,7 @@ public class GameLogic {
 			}
 		} else {
 			System.out.println("playerTurns:" + playerTurns);
-
+            
 			if (playerTurns % 2 == 0) {
 				button.setPlayer(2);
 			} else {
