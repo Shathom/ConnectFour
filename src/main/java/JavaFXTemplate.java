@@ -79,13 +79,17 @@ public class JavaFXTemplate extends Application {
 		sceneMap.put("game", gameScreen());
 		sceneMap.put("result", ResultScene());
 		GameLogic.makeBoard();
-
+		
+		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("result")));
 		sceneChangeBtn.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));
 
+//		if(GameLogic.checkWinner(buttons)) {
+//			gameButton.setOnAction(e -> primaryStage.setScene(sceneMap.get("result")));
+//		}
 
 		// testing Result scene( supposed to be happen when a player wins or the game is
 		// tie) ****
-		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("result")));
+//		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("result")));
 		sceneMap.get("game").getRoot().setStyle("-fx-font-family: 'serif'");
 		primaryStage.setScene(sceneMap.get("scene")); // set the scene in the stage
 
@@ -180,27 +184,42 @@ public class JavaFXTemplate extends Application {
 				int result = GameLogic.makeMove(buttons);
 					
 					if(result==1) {
-						GameLogic.checkWinner(buttons);
 						gameButton.setDisable(true);
 						displayPlayer.getItems().clear();
 						gameButton.setStyle("-fx-background-color: Blue");
 						displayPlayer.getItems()
 							.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
+//					
+//						if(GameLogic.checkWinner(buttons)) {
+//							gameButton.setOnAction(e -> primaryStage.setScene(sceneMap.get("result")));
+//
+//						}
+					
 					}
 					else if (result==2) {
-						GameLogic.checkWinner(buttons);
 						gameButton.setDisable(true);
 						gameButton.setStyle("-fx-background-color: Red");
 						displayPlayer.getItems().clear();
 						displayPlayer.getItems()
 							.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
+					
+						if(GameLogic.checkWinner(buttons)) {
+							
+						}
+					
 					}
+					
 					else if(result == 3) {
 						gameButton.setDisable(false);
 						displayPlayer.getItems().clear();
 						displayPlayer.getItems().add("Player " + buttons.getPlayer() + " moved to " + buttons.getRow() + ", " + buttons.getColumn()
 								+ ". This is NOT a valid move. Player " + buttons.getPlayer() + " pick again.");
 					}
+					
+					
+
+
+					
 //					System.out.println("Result: " + result);
 //					
 //					if(GameLogic.doNotMakeMove(buttons)) {
