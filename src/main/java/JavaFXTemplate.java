@@ -278,6 +278,7 @@ public class JavaFXTemplate extends Application {
 		reverseMoveHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				Coordinate coord = GameLogic.reverseMove();
+				buttons.setIsValid(true); // not sure why this doesn't make the reverse move valid again
 				GameButton revButton = getButtonByCoordinates(coord.x, coord.y, grid);
 				displayPlayer.getItems().clear();
 				displayPlayer.getItems().add("Player " + revButton.player + " pressed " 

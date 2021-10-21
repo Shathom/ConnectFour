@@ -28,6 +28,10 @@ public class Vbutton {
 		this.isValid = isValid;
 		this.playerTurn = playerTurn;
 	}
+	
+	public void nowValidButton(int row, int column) {
+		this.isValid = true;
+	}
 
 	// Not sure whether we need these getter and setter 
 	public int getRow() {
