@@ -168,170 +168,107 @@ public class GameLogic {
 	
 	
 	static boolean checkDiagonal1(Vbutton button) {
-		int counter = 0;
+		int counter = 1;
 		boolean isWinner = false;
 		int buttonPlayer = button.getPlayer();
-//		for(int row = buttonRow+1; row < 6; row++) {
-//				for(int col = buttonColum-1; col >= 0; col--) {
-
 		int buttonRow = button.getRow()+1;
 		int buttonColumn = button.getColumn()-1;
-//		System.out.println("buttonRow: " + buttonRow);      
-//		System.out.println("buttonCol: " + buttonColum);
 		for(int i = 0; i < 4; i++) {
-//			if(button.getRow() == 5 && button.getRow() == 4 && button.getRow() == 3) {
-//				break;
-//			}
-//			if(button.getColumn() ==0 && button.getColumn() == 1 && button.getColumn() == 2) {
-//				break;
-//			}
-			
-			if(buttonRow < 5 && buttonColumn > 0) {
+			if(buttonRow < 6 && buttonColumn >= 0) {
 			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
-//			if(button.getRow() == 5 && button.getRow() == 4 && button.getRow() == 3) {
-//				break;
-//			}
-//			if(button.getColumn() ==0 && button.getColumn() == 1 && button.getColumn() == 2) {
-//				break;
-//			}
-			if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
-				buttonRow++;
-				buttonColumn--;
-				counter++;
-				System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
-
-				if (counter == 4) {
-					isWinner = true;
-//					System.out.println("DIAGONAL" + butto + " " + col);
-					return true;
-				} 
-			}
-			}
-			else {
+				if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
+					buttonRow++;
+					buttonColumn--;
+					counter++;
+					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
+					if (counter == 4) {
+						isWinner = true;
+						return true;
+					} 
+				}
+			} else {
 				break;
-			}
-//			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
-//					if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
-//						buttonRow++;
-//						buttonColumn--;
-//						counter++;
-//							if (counter == 4) {
-//								isWinner = true;
-//								return true;
-//							} 
-//					}
-//					else {
-//						break;
-//					}
-////					System.out.println("DIAGONAL" + button + " " + col);
-//					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
-//					
-					
-	}
+			}						
+		}
 		buttonRow = button.getRow();
 		buttonColumn = button.getColumn();
 		buttonRow = button.getRow()-1;
 		buttonColumn = button.getColumn()+1;
 		for(int i = 0; i < 4; i++) {
-			
-//			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
-//					if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
-//						buttonRow++;
-//						buttonColumn--;
-//						counter++;
-//							if (counter == 4) {
-//								isWinner = true;
-//								return true;
-//							} 
-//					}
-//					else {
-//						break;
-//					}
-////					System.out.println("DIAGONAL" + butto + " " + col);
-//					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
+			if(buttonRow >= 0 && buttonColumn < 7) {			
+			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
 
-	    }
-		
-		/////////////////// Possibly used later ///////////////////////
-		
-//		for(int row = buttonRow-1; row >= 0; row--) {
-//			if(buttonRow == 0) {
-//				System.out.println("row is 0");
-//				return false;
-//			}
-//
-//				for(int col = buttonColumn+1; col < 7; col++) {
-//					Vbutton matrixbuttonColumn = matrix.get(row).get(col); // getting the col from the "grid"
-//					if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
-//						counter++;
-//							if (counter == 4) {
-//								isWinner = true;
-//							} 
-//					System.out.println("DIAGONAL" + row + " " + col);
-//					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");
-//					
-//					} else {
-//						break;
-//					}
-//				}
-//			
-//		}
-		
+				if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
+					buttonRow--;
+					buttonColumn++;
+					counter++;
+					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
+					if (counter == 4) {
+						isWinner = true;
+						return true;
+					} 
+				}
+			} else {
+				break;
+			}
+	    }	
 		return isWinner;
 
 	}
 
 	
 	static boolean checkDiagonal2(Vbutton button) {
-		int counter = 0;
+		int counter = 1;
 		boolean isWinner = false;
 		int buttonPlayer = button.getPlayer();
 		
 		int buttonRow = button.getRow()+1;
 		int buttonColumn = (button.getColumn())+1;
 		
+		
 		for(int i = 0; i < 4; i++) {
-
-//			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
-//					if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
-//						buttonRow++;
-//						buttonColumn++;
-//						counter++;
-//							if (counter == 4) {
-//								isWinner = true;
-//								return true;
-//							} 
-//					} else {
-//						break;
-//					}
-////					System.out.println("DIAGONAL" + button + " " + col);
-//					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
-//					
-	    }
+			if(buttonRow < 6 && buttonColumn < 7) {			
+			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
+				if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
+					buttonRow++;
+					buttonColumn++;
+					counter++;
+					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
+					if (counter == 4) {
+						isWinner = true;
+						return true;
+					} 
+				}
+			} else {
+				break;
+			}
+		}
+	    
 		
 		buttonRow = button.getRow();
 		buttonColumn = button.getColumn();
 		buttonRow = button.getRow()-1;
 		buttonColumn = button.getColumn()-1;
+		
+		
 		for(int i = 0; i < 4; i++) {
-			
-//			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
-//					if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
-//						buttonRow--;
-//						buttonColumn--;
-//						counter++;
-//							if (counter == 4) {
-//								isWinner = true;
-//								return true;
-//							} 
-//					}
-//					else {
-//						break;
-//					}
-////					System.out.println("DIAGONAL" + butto + " " + col);
-//					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
+			if(buttonRow >= 0 && buttonColumn >= 0) {			
+			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
+				if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
+					buttonRow--;
+					buttonColumn--;
+					counter++;
+					System.out.print("DIAGONAL count--: "+counter + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
+					if (counter == 4) {
+						isWinner = true;
+						return true;
+					} 
+				}
+			} else {
+				break;
+			}
+		}
 
-	    }
 		
 		return isWinner;
 	}
@@ -340,11 +277,6 @@ public class GameLogic {
 	
 	static boolean checkWinner(Vbutton button) {
 		boolean result = false;
-//		if (checkHorizontal(button) && checkVertical(button) /* &&  diagonal */) {
-//			result = true;
-//			System.out.println("winner is " + button.getPlayer());
-//		}
-		
 		if (checkHorizontal(button)) {
 			result = true;
 			System.out.println("Horizontal WINNER is " + button.getPlayer());

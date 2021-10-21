@@ -80,7 +80,7 @@ public class JavaFXTemplate extends Application {
 		sceneMap.put("result", ResultScene());
 		GameLogic.makeBoard();
 		
-		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("result")));
+		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));  // original theme
 		sceneChangeBtn.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));
 
 //		if(GameLogic.checkWinner(buttons)) {
@@ -215,72 +215,16 @@ public class JavaFXTemplate extends Application {
 						displayPlayer.getItems().add("Player " + buttons.getPlayer() + " moved to " + buttons.getRow() + ", " + buttons.getColumn()
 								+ ". This is NOT a valid move. Player " + buttons.getPlayer() + " pick again.");
 					}
-					
-					
-
-
-					
-//					System.out.println("Result: " + result);
-//					
-//					if(GameLogic.doNotMakeMove(buttons)) {
-//						gameButton.setDisable(false);
-//						displayPlayer.getItems().clear();
-//						displayPlayer.getItems().add("???Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
-//								+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");
-//					}
-					
-//				
-//				if(GameLogic.makeMove(buttons)==0) {
-//					gameButton.setDisable(false);
-//
-//					displayPlayer.getItems().clear();
-//					displayPlayer.getItems().add("why here? Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
-//							+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");				}
 				
 			}
 			
 		};
-//				if (GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
-//					if (!gameButton.playerTurn) {
-//						playerTurns++;
-//						gameButton.playerTurn = true;
-//						if (playerTurns % 2 == 0) {
-//							gameButton.player = 1;
-//							//GameLogic.setInMainStack(gameButton.row, gameButton.column);
-//							GameLogic.player1Stack(gameButton.row, gameButton.column);
-//							prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
-//							prevButton.setDisable(false);
-//							gameButton.setStyle("-fx-background-color: Blue");
-//						} else {
-//							gameButton.player = 2;
-//							//GameLogic.setInMainStack(gameButton.row, gameButton.column);
-//							GameLogic.player2Stack(gameButton.row, gameButton.column);
-//							gameButton.setStyle("-fx-background-color: Red");
-//							prevButton = enableButton(gameButton.isValid, gameButton.row-1, gameButton.column, grid);
-//							prevButton.setDisable(false);
-//						}
-//					}
-//					gameButton.setDisable(true);
-//					displayPlayer.getItems().clear();
-//					displayPlayer.getItems()
-//							.add("Player " + gameButton.player + " pressed " + gameButton.row + ", " + gameButton.column + ". Valid move.");
-//				} else if (!GameLogic.isValidMove(gameButton.isValid, gameButton.column, gameButton.row)) {
-//					if (playerTurns % 2 == 0) {
-//						gameButton.player = 2;
-//					} else {
-//						gameButton.player = 1;
-//
-//					}
-//					gameButton.setDisable(false);
-//					displayPlayer.getItems().clear();
-//					displayPlayer.getItems().add("Player " + gameButton.player + " moved to " + gameButton.row + ", " + gameButton.column
-//							+ ". This is NOT a valid move. Player " + gameButton.player + " pick again.");
-//				}
-				
-				
+
 
 				
 		displayPlayer.setMaxHeight(150);
+		grid.setHgap(5);
+		grid.setVgap(5);
 		grid.setPrefWidth(400);
 		grid.setPrefHeight(800);
 		grid.setAlignment(Pos.CENTER);
@@ -304,7 +248,6 @@ public class JavaFXTemplate extends Application {
 				+ revButton.row + ", " + revButton.column + ". Valid move.");
 				revButton.setStyle("-fx-font-size: 50;" 
 					+ "-fx-background-color:yellow;" 
-					+ "-fx-border-color: black;"
 					+ "-fx-text-fill:red;");
 				revButton.setDisable(false);
 				
