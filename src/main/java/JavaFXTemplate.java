@@ -380,23 +380,26 @@ public class JavaFXTemplate extends Application {
 		
 		reverseMovehandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				Coordinate coord = GameLogic.reverseMove();
-				Vbutton revButton = GameLogic.matrix.get(coord.x).get(coord.y);
-				revButton.setIsValid(true);
-				GameButton button = getButtonByCoordinates(coord.x, coord.y, grid);
-				displayPlayer.getItems().clear();
-				displayPlayer.getItems().add("Player " + button.player + " pressed " 
-				+ button.row + ", " + button.column + ". Valid move.");
-				button.setStyle("-fx-font-size: 50;" 
+				try {
+					Coordinate coord = GameLogic.reverseMove();
+					Vbutton revButton = GameLogic.matrix.get(coord.x).get(coord.y);
+					revButton.setIsValid(true);
+					GameButton button = getButtonByCoordinates(coord.x, coord.y, grid);
+					displayPlayer.getItems().clear();
+					displayPlayer.getItems().add("Player " + button.player + " pressed " 
+					+ button.row + ", " + button.column + ". Valid move.");
+					button.setStyle("-fx-font-size: 50;" 
 					+ "-fx-background-color:yellow;" 
 					+ "-fx-text-fill:red;");
-			    button.setDisable(false);
-				
-			}
+					button.setDisable(false);	
+				} catch (NullPointerException n) {
+					displayPlayer.getItems().clear();
+					displayPlayer.getItems().add("No more moves left to reverse.");
+			  }
 			
+			}
 		};
 		
-
 		start.setOnAction(e -> {
 			displayPlayer.getItems().clear();
 			for (int i = 0; i < 3; i++) {
