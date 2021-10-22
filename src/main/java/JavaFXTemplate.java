@@ -319,9 +319,8 @@ public class JavaFXTemplate extends Application {
 //						gameButton.setOnAction(buttonHandler);
 						for (int col = 0; col < 7; col++) {
 							for (int row = 0; row < 6; row++) {
-							gameButton.setDisable(true);	
+								getButtonByCoordinates(row, col, grid).setDisable(true);	
 							}
-						
 						}
 						pauseForWinner.play();						
 					}											
@@ -340,7 +339,11 @@ public class JavaFXTemplate extends Application {
 						winnerPlayer = 2;
 						
 						System.out.println("WinnerPlayer: " + winnerPlayer);
-
+						for (int col = 0; col < 7; col++) {
+							for (int row = 0; row < 6; row++) {
+								getButtonByCoordinates(row, col, grid).setDisable(true);	
+							}
+						}
 
 						pauseForWinner.play();
 					}	
@@ -359,8 +362,6 @@ public class JavaFXTemplate extends Application {
 			}
 		};
 		
-
-
 				
 		displayPlayer.setMaxHeight(150);
 		grid.setHgap(5);
@@ -420,12 +421,6 @@ public class JavaFXTemplate extends Application {
 		reverse.setOnAction(reverseMovehandler);
 		Scene scene = new Scene(borderPane, 1000, 800);
 		scene.getRoot().setStyle("-fx-font-family: 'serif'");
-		
-
-
-		
-		
-		
 		return scene;
 
 	}
