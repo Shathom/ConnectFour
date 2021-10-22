@@ -25,6 +25,7 @@ public class GameLogic {
 	public static Stack<Coordinate> winnerMoves = new Stack<Coordinate>();
 	//public static Stack<Coordinate> movesPlayer2 = new Stack<Coordinate>();
 	public static Vbutton button, prevButton;
+	public static int winnerButton = 0;
 	public static int playerTurns = 1;
 	
 	
@@ -219,21 +220,34 @@ public class GameLogic {
 	static boolean checkWinner(Vbutton button) {
 		boolean result = false;
 		if (checkHorizontal(button)) {
+			winnerButton = button.getPlayer();
 			result = true;
 			System.out.println("Horizontal WINNER is " + button.getPlayer());
 		} else if(checkVertical(button)) {
+			winnerButton = button.getPlayer();
 			result = true;
 			System.out.println("Vertical WINNER is " + button.getPlayer());
 		} else if(checkDiagonal1(button)) {
+			winnerButton = button.getPlayer();
 			result = true;
 			System.out.println("DIAGONAL WINNER is " + button.getPlayer());
 		} else if(checkDiagonal2(button)) {
+			winnerButton = button.getPlayer();
 			result = true;
 			System.out.println("DIAGONAL WINNER is " + button.getPlayer());
 		}
 		return result;
 	}
 	
+	
+	
+	static int returnWinner(Vbutton button) {
+		if(checkWinner(button)) {
+			winnerButton = button.getPlayer();
+		}
+		return winnerButton;
+		
+	}
 
 	
 	public static int makeMove(Vbutton button) {

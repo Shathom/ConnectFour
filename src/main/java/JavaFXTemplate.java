@@ -57,8 +57,9 @@ public class JavaFXTemplate extends Application {
 	private Menu mOne, mTwo, mThree;
 	private MenuBar menu;
 	private MenuItem start, exit, reverse, original, tOne, tTwo, how;
-	private EventHandler<ActionEvent> buttonHandler, reverseMovehandler, gameSceneEventhandler;
+	private EventHandler<ActionEvent> buttonHandler, reverseMovehandler, gameSceneEventhandler, resultScenehandler;
 	private int playerTurns = 0;
+	private int winnerPlayer;
 	private Vbutton buttons;
 	Stage primaryStage;
 	
@@ -106,7 +107,7 @@ public class JavaFXTemplate extends Application {
 		sceneMap.get("game").getRoot().setStyle("-fx-font-family: 'serif'");
 		
 		
-		
+//		pauseForWinner.setOnFinished(resultScenehandler);
 		
 		
 		
@@ -123,7 +124,15 @@ public class JavaFXTemplate extends Application {
 		};
 		
 		
-		
+		resultScenehandler = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				gameButton = (GameButton)e.getSource();
+				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
+				System.out.println("Winner is :" + gameButton.player);
+			}
+
+			
+		};
 		
 		
 		primaryStage.setScene(sceneMap.get("scene")); // set the scene in the stage
@@ -147,9 +156,15 @@ public class JavaFXTemplate extends Application {
 		for (int col = 0; col < 7; col++) {
 			for (int row = 0; row < 6; row++) {
 				gameButton = new GameButton(row, col, 0, false, false);
-				gameButton.setMaxWidth(200);
-				gameButton.setMaxHeight(200);
-				gameButton.setMaxSize(200, 200);
+				gameButton.setMinWidth(90);
+				gameButton.setPrefWidth(90);
+				gameButton.setMaxWidth(90);
+				gameButton.setMinHeight(90);
+				gameButton.setMaxHeight(90);
+				gameButton.setPrefHeight(90);
+
+
+//				gameButton.setMaxSize(500, 500);
 //				gameButton.setText("0");
 
 
@@ -232,6 +247,7 @@ public class JavaFXTemplate extends Application {
 					playerTurns++;
 					System.out.println("PlayerTurns:" + playerTurns);
 					gameButton.setDisable(true);
+					gameButton.setPlayer(1);
 					displayPlayer.getItems().clear();
 					gameButton.setStyle("-fx-background-color: Blue");
 					displayPlayer.getItems()
@@ -239,6 +255,9 @@ public class JavaFXTemplate extends Application {
 				
 					if(GameLogic.checkWinner(buttons)) {
 						gameButton.setStyle("-fx-background-color: NAVY");
+						gameButton.setDisable(true);
+						winnerPlayer = 1;
+						System.out.println("WinnerPlayer: " + winnerPlayer);
 //						while(GameLogic.winnerResult());
 //						for(int i = 0; i < 4; i++) {
 //							
@@ -249,12 +268,18 @@ public class JavaFXTemplate extends Application {
 					playerTurns++;
 					System.out.println("PlayerTurns:" + playerTurns);
 					gameButton.setDisable(true);
+					gameButton.setPlayer(2);
 					gameButton.setStyle("-fx-background-color: Red");
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems()
 						.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
 					if(GameLogic.checkWinner(buttons)) {
 						gameButton.setStyle("-fx-background-color: Pink");
+						gameButton.setDisable(true);
+						winnerPlayer = 2;
+						System.out.println("WinnerPlayer: " + winnerPlayer);
+
+
 						pauseForWinner.play();
 					}	
 				} else if(result == 3) {
@@ -262,6 +287,7 @@ public class JavaFXTemplate extends Application {
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems().add("Player " + buttons.getPlayer() + " moved to " + buttons.getRow() + ", " + buttons.getColumn()
 							+ ". This is NOT a valid move. Player " + buttons.getPlayer() + " pick again.");
+					
 				}
 				
 				if(playerTurns == 42) {
@@ -307,6 +333,8 @@ public class JavaFXTemplate extends Application {
 			}
 			
 		};
+		
+
 
 		start.setOnAction(e -> {
 			displayPlayer.getItems().clear();
@@ -352,6 +380,8 @@ public class JavaFXTemplate extends Application {
 	}
 
 	public Scene ResultScene() {
+		
+		
 		BorderPane borderPane = new BorderPane();
 		anotherGameB = new Button("Play Another Game");
 		
@@ -359,8 +389,20 @@ public class JavaFXTemplate extends Application {
 
 //		anotherGameB.setOnAction(e-> ResultScene(sceneMap.get("game")));
 		anotherGameB.setOnAction(gameSceneEventhandler);
-
+ 
 		
+		text = new Text();
+		text.setStyle("-fx-background-color:PALEVIOLETRED "+"-fx-font-family: 'serif'");
+		text.setFont(Font.font(null, null, null, 20));
+		StackPane.setAlignment(text, Pos.TOP_CENTER);
+		System.out.println("winnerPlayer?:" +GameLogic.winnerButton);
+		text.setText("Winner is " + GameLogic.winnerButton);
+		
+		
+		text.setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");
+		text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+
+
 		
 		anotherGameB.setMaxWidth(400);
 		anotherGameB.setMaxHeight(400);
@@ -370,8 +412,11 @@ public class JavaFXTemplate extends Application {
 		exitB.setMaxHeight(400);
 		exitB.setOnAction(e -> Platform.exit());
 		HBox root = new HBox(anotherGameB, exitB);
-		borderPane.setCenter(root);
+		borderPane.setTop(root);
+		borderPane.setCenter(text);
 
+		
+		
 		
 		Scene scene = new Scene(borderPane, 1000, 800);
 		scene.getRoot().setStyle("-fx-font-family: 'serif'");
@@ -386,11 +431,25 @@ public class JavaFXTemplate extends Application {
 		anotherGameB.setOnAction(gameSceneEventhandler);
 		
 		
+		
+		text = new Text();
+		text.setStyle("-fx-background-color:PALEVIOLETRED "+"-fx-font-family: 'serif'");
+		text.setFont(Font.font(null, null, null, 20));
+		StackPane.setAlignment(text, Pos.TOP_CENTER);
+		text.setText("No winner, game tied");
+		
+		
+		text.setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");
+		text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+
+
+		
 		exitB = new Button("Exit Game");
 		exitB.setOnAction(e -> Platform.exit());
 		HBox root = new HBox(anotherGameB, exitB);
-		borderPane.setCenter(root);		
-		
+		borderPane.setTop(root);		
+		borderPane.setCenter(text);
+
 		Scene scene = new Scene(borderPane, 1000, 1000);
 		scene.getRoot().setStyle("-fx-font-family: 'serif'");		
 		return scene;
