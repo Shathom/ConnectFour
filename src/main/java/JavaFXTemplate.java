@@ -37,6 +37,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -51,16 +53,16 @@ public class JavaFXTemplate extends Application {
 	private GridPane grid = new GridPane();
 	private Button sceneChangeBtn, anotherGameB, exitB;
 	private GameButton gameButton, prevButton, resultButton;
-	private Text text;
+	private Text text, text1;
 	private Menu mOne, mTwo, mThree;
 	private MenuBar menu;
 	private MenuItem start, exit, reverse, original, tOne, tTwo, how;
-	private EventHandler<ActionEvent> buttonHandler, reverseMovehandler, winnerButton;
+	private EventHandler<ActionEvent> buttonHandler, reverseMovehandler, gameSceneEventhandler;
 	private int playerTurns = 0;
 	private Vbutton buttons;
 	Stage primaryStage;
 	
-	PauseTransition pauseForWinner = new PauseTransition(Duration.seconds(2)); // needs to be 3-5seco - for the sake of time for testing
+	PauseTransition pauseForWinner = new PauseTransition(Duration.seconds(3));
 	PauseTransition pauseForTie = new PauseTransition(Duration.seconds(1)); // needs to be 3-5seco - for the sake of time for testing
 
 	public static void main(String[] args) {
@@ -82,6 +84,7 @@ public class JavaFXTemplate extends Application {
 		sceneMap.put("scene", welcomeScene());
 		sceneMap.put("game", gameScreen());
 		sceneMap.put("result", ResultScene());
+		sceneMap.put("how", howScene());
 		sceneMap.put("tie", tieScene());
 		sceneMap.put("themeOne", themeOneScene());
 		sceneMap.put("themeTwo", themeTwoScene());
@@ -95,12 +98,34 @@ public class JavaFXTemplate extends Application {
 //		anotherGameB.setOnAction(e->primaryStage.setScene(sceneMap.get("game")));
 		tOne.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeOne")));
 		tTwo.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeTwo")));
-
+		how.setOnAction((e-> primaryStage.setScene(sceneMap.get("how"))));
 
 		// testing Result scene( supposed to be happen when a player wins or the game is
 		// tie) ****
 //		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("result")));
 		sceneMap.get("game").getRoot().setStyle("-fx-font-family: 'serif'");
+		
+		
+		
+		
+		
+		
+		
+		gameSceneEventhandler = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				resultButton = (GameButton)e.getSource(); 
+				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
+				gameButton.setDisable(true);
+//				anotherGameB.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));  // original theme
+
+				System.out.println("right herere !- pause!!");
+			}
+		};
+		
+		
+		
+		
+		
 		primaryStage.setScene(sceneMap.get("scene")); // set the scene in the stage
 
 		primaryStage.show(); // make visible to the user
@@ -122,16 +147,23 @@ public class JavaFXTemplate extends Application {
 		for (int col = 0; col < 7; col++) {
 			for (int row = 0; row < 6; row++) {
 				gameButton = new GameButton(row, col, 0, false, false);
+				gameButton.setMaxWidth(200);
+				gameButton.setMaxHeight(200);
+				gameButton.setMaxSize(200, 200);
+//				gameButton.setText("0");
+
+
 				if (row == 5) {
 					gameButton.isValid = true;
 				}
-				gameButton.setPrefWidth(200);
-				gameButton.setPrefHeight(100);
+
 				gameButton.setOnAction(buttonHandler);
 
-				gameButton.setStyle("-fx-font-size: 50;" + "-fx-background-color:yellow;" + "-fx-border-color: black;"
-						+ "-fx-text-fill:red;");
+				gameButton.setStyle("-fx-font-size: 50;" + "-fx-background-color:yellow;" + "-fx-text-fill:red;");
+			
+
 				grid.add(gameButton, col, row);
+
 			}
 		}
 	}
@@ -206,7 +238,11 @@ public class JavaFXTemplate extends Application {
 						.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
 				
 					if(GameLogic.checkWinner(buttons)) {
-						gameButton.setStyle("-fx-background-color: Gold");
+						gameButton.setStyle("-fx-background-color: NAVY");
+//						while(GameLogic.winnerResult());
+//						for(int i = 0; i < 4; i++) {
+//							
+//						}
 						pauseForWinner.play();						
 					}											
 				} else if (result==2) {
@@ -235,17 +271,7 @@ public class JavaFXTemplate extends Application {
 			}
 		};
 		
-		// This handler is for the pausing when the winner button gets pressed. 
-		winnerButton = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				
-				resultButton = (GameButton)e.getSource(); 
-				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
-				gameButton.setDisable(true);
-				System.out.println("right herere !- pause!!");
-//				pause.play();
-			}
-		};
+
 
 				
 		displayPlayer.setMaxHeight(150);
@@ -328,9 +354,20 @@ public class JavaFXTemplate extends Application {
 	public Scene ResultScene() {
 		BorderPane borderPane = new BorderPane();
 		anotherGameB = new Button("Play Another Game");
+		
+		// Need to trigger this to the gameScene() - new start game
+
 //		anotherGameB.setOnAction(e-> ResultScene(sceneMap.get("game")));
+		anotherGameB.setOnAction(gameSceneEventhandler);
+
+		
+		
+		anotherGameB.setMaxWidth(400);
+		anotherGameB.setMaxHeight(400);
 
 		exitB = new Button("Exit Game");
+		exitB.setMaxWidth(400);
+		exitB.setMaxHeight(400);
 		exitB.setOnAction(e -> Platform.exit());
 		HBox root = new HBox(anotherGameB, exitB);
 		borderPane.setCenter(root);
@@ -344,21 +381,76 @@ public class JavaFXTemplate extends Application {
 	private Scene tieScene() {
 		BorderPane borderPane = new BorderPane();
 		anotherGameB = new Button("Play Another Game");
+		
+		
+		anotherGameB.setOnAction(gameSceneEventhandler);
+		
+		
 		exitB = new Button("Exit Game");
 		exitB.setOnAction(e -> Platform.exit());
 		HBox root = new HBox(anotherGameB, exitB);
 		borderPane.setCenter(root);		
 		
-		Scene scene = new Scene(borderPane, 1000, 800);
+		Scene scene = new Scene(borderPane, 1000, 1000);
 		scene.getRoot().setStyle("-fx-font-family: 'serif'");		
 		return scene;
 	}
 	
-	//  Testing purposes - needs to be changed to the gameScene()
+	private Scene howScene() {
+		BorderPane borderPane = new BorderPane();
+		
+		
+		anotherGameB = new Button("Play Game");
+
+		anotherGameB.setMaxHeight(500);
+		
+		// Need to trigger this to the gameScene() - new start game
+		anotherGameB.setOnAction(gameSceneEventhandler);
+//		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
+
+		
+		
+		
+		
+		exitB = new Button("Exit Game");
+
+		exitB.setMaxWidth(500);
+		exitB.setMaxHeight(500);
+		exitB.setOnAction(e -> Platform.exit());
+		
+		
+		text = new Text();
+		text.setStyle("-fx-background-color:PALEVIOLETRED "+"-fx-font-family: 'serif'");
+		text.setFont(Font.font(null, null, null, 20));
+		StackPane.setAlignment(text, Pos.TOP_CENTER);
+		text.setText("Welcome to  Four!\n"
+				+ "1. Choose who wants to go first.\n"
+			 	+ "2. Players must connect 4 of the same colored in a horizontal,vertical, diagonal to win.\n"
+			 	+ "3. Only one player at a time.\n"
+			 	+ "4. Only the valid move will be working, if not valid move, the player can try again.\n"
+			 	+ "5. Winner will be highlighted and you can start game again if you wish to.\n");
+		text.setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");
+		text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+
+		HBox root = new HBox(anotherGameB, exitB);
+
+		borderPane.setCenter(text);
+		borderPane.setTop(root);		
+		
+		Scene scene = new Scene(borderPane, 1000, 800);
+		scene.getRoot().setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");		
+		return scene;
+	}
+	
+	
+	
+	
+	
+	//  Testing purposes - needs to be changed to the gameScene() and the style changes
 	private Scene themeTwoScene() {
 		BorderPane borderPane = new BorderPane();
 		anotherGameB = new Button("Play Another ");
-		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
+//		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
 
 		exitB = new Button("Exit Game");
 		exitB.setOnAction(e -> Platform.exit());
@@ -370,11 +462,12 @@ public class JavaFXTemplate extends Application {
 		return scene;	
 		
 	}
-
+	
+	//  Testing purposes - needs to be changed to the gameScene() - and the style changes
 	private Scene themeOneScene() {
 		BorderPane borderPane = new BorderPane();
 		anotherGameB = new Button("Play Another Game");
-		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
+//		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
 
 		exitB = new Button("Exit Game");
 		exitB.setOnAction(e -> Platform.exit());

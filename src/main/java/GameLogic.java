@@ -18,11 +18,11 @@ public class GameLogic {
 	
 	// everything in this methods should be static!
 	public static Coordinate playerMove;
-	public static Coordinate player1Move;
+	public static Coordinate playerMoveForWinner;
 	public static Coordinate player2Move;
 
 	public static Stack<Coordinate> moves = new Stack<Coordinate>();
-	//public static Stack<Coordinate> movesPlayer1 = new Stack<Coordinate>();
+	public static Stack<Coordinate> winnerMoves = new Stack<Coordinate>();
 	//public static Stack<Coordinate> movesPlayer2 = new Stack<Coordinate>();
 	public static Vbutton button, prevButton;
 	public static int playerTurns = 1;
@@ -54,6 +54,14 @@ public class GameLogic {
 		playerMove = new Coordinate(button.getRow(), button.getColumn());
 		moves.push(playerMove);
 	}
+	
+	public static void winnerStack(Vbutton button) {
+	playerMoveForWinner = new Coordinate(button.getRow(), button.getColumn());
+	winnerMoves.push(playerMoveForWinner);
+}
+	
+	
+
 	
 	public static void setPieceInBoard(Vbutton button) {
 		Vbutton checking = matrix.get(button.getRow()).get(button.getColumn());
@@ -92,6 +100,8 @@ public class GameLogic {
 			Vbutton matrixbutton = matrix.get(row).get(button.getColumn());
 			if(matrixbutton.getPlayer() == buttonPlayer) {
 				counter++;
+//				winnerResultStack(button.getRow(), button.getColumn());
+
 			    System.out.print("vertical count++: "+counter + "\n");
 
 			} else {
@@ -223,6 +233,7 @@ public class GameLogic {
 		}
 		return result;
 	}
+	
 
 	
 	public static int makeMove(Vbutton button) {
@@ -293,6 +304,18 @@ public class GameLogic {
 			return false;
 		}		
 	}
+	
+//	public static Coordinate winnerResult() {
+//		Coordinate popedMove = null;
+//		if (moves.isEmpty()) {
+//			throw new NullPointerException("No more items left to reverse!");
+//		} else {
+//			popedMove = moves.pop();
+//		}
+//		System.out.println("Winner coordinate: " + playerMoveForWinner);
+//
+//		return popedMove;
+//}
 	
 	public static Coordinate reverseMove() {
 		Coordinate popedMove = null;

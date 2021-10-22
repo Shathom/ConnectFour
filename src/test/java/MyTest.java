@@ -36,7 +36,6 @@ class MyTest {
 		GameLogic.makeBoard();
 		Vbutton button1 = new Vbutton(5, 1, 1, true, false);
 //		GameLogic.setPieceInBoard(button);
-		// supposed to be return true.. but it's returning false I don't know why..
 		assertEquals(true, button1.getIsValid(), "incorrecto isValid");  
 	}
 
