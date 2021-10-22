@@ -31,10 +31,10 @@ public class GameLogic {
 	
 	static ArrayList<ArrayList<Vbutton>> matrix = new ArrayList<ArrayList<Vbutton>>();
 	
-	public static Coordinate move;
+	public static Coordinate move; 
 	
 	
-	public static void makeBoard() {
+	public static void makeBoard(Vbutton button) {
 	    //matrix = new ArrayList<ArrayList<Vbutton>>();
 		for(int row = 0; row < 6; row++) {
 			ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();

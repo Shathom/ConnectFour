@@ -94,6 +94,7 @@ public class JavaFXTemplate extends Application {
 		buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
 
 		GameLogic.makeBoard(buttons);
+		
 		 
 		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));  // original theme
 		sceneChangeBtn.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));
@@ -274,7 +275,7 @@ public class JavaFXTemplate extends Application {
 		tOne = new MenuItem("Theme ONE");
 		tTwo = new MenuItem("Theme TWO");
 		how = new MenuItem("How to Play");
-
+ 
 		mOne.getItems().add(how);
 		mOne.getItems().add(start);
 		mOne.getItems().add(exit);
@@ -399,7 +400,7 @@ public class JavaFXTemplate extends Application {
 			}				
 				
 			buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
-			GameLogic.makeBoard(buttons);
+			GameLogic.makeBoard(buttons); 
 			GameLogic.playerTurns = 1;
 			fillGrid(grid);
 			result = GameLogic.makeMove(buttons);
