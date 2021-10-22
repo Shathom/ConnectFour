@@ -165,6 +165,10 @@ public class JavaFXTemplate extends Application {
 				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
 				GameLogic.makeBoard(buttons);
 				GameLogic.playerTurns = 1;
+				GameLogic.counterDiagonal1 = 1;
+				GameLogic.counterDiagonal2 = 1;
+				GameLogic.counterHorizontal = 0;
+				GameLogic.counterVerical = 0;
 				fillGrid(grid);
 				result = GameLogic.makeMove(buttons);
 			});
@@ -397,11 +401,14 @@ public class JavaFXTemplate extends Application {
 			displayPlayer.getItems().clear();
 			for (int i = 0; i < 3; i++) {
 				grid.getChildren().clear();
-			}				
-				
+			}
 			buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
 			GameLogic.makeBoard(buttons); 
-			GameLogic.playerTurns = 1;
+			GameLogic.playerTurns = 1;			
+			GameLogic.counterDiagonal1 = 1;
+			GameLogic.counterDiagonal2 = 1;
+			GameLogic.counterHorizontal = 0;
+			GameLogic.counterVerical = 0;
 			fillGrid(grid);
 			result = GameLogic.makeMove(buttons);
 		});
@@ -413,6 +420,7 @@ public class JavaFXTemplate extends Application {
 		
 
 
+		
 		
 		
 		return scene;
