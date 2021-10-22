@@ -266,18 +266,22 @@ public class JavaFXTemplate extends Application {
 		
 		reverseMovehandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				
+			 try {
 				Coordinate coord = GameLogic.reverseMove();
 				Vbutton revButton = GameLogic.matrix.get(coord.x).get(coord.y);
 				revButton.setIsValid(true);
 				GameButton button = getButtonByCoordinates(coord.x, coord.y, grid);
 				displayPlayer.getItems().clear();
-				displayPlayer.getItems().add("Player " + button.player + " pressed " 
-				+ button.row + ", " + button.column + ". Valid move.");
+				displayPlayer.getItems().add("Move Reversed.");
 				button.setStyle("-fx-font-size: 50;" 
 					+ "-fx-background-color:yellow;" 
 					+ "-fx-text-fill:red;");
 			    button.setDisable(false);
-				
+			 } catch (NullPointerException n) {
+				 displayPlayer.getItems().clear();
+				 displayPlayer.getItems().add("No more moves left to reverse.");
+			 }
 			}
 			
 		};
@@ -310,19 +314,6 @@ public class JavaFXTemplate extends Application {
 			}
 		}
 		return buttonToReverse;
-	}
-	
-	public GameButton enableButton(boolean isValid, int row, int column, GridPane grid) {
-		GameButton buttonToValid = null;
-		ObservableList<Node> allButtons = grid.getChildren();
-		for (Node node: allButtons) {
-			if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-				buttonToValid = (GameButton)node;
-				buttonToValid.isValid = true;
-				break;
-			}
-		}
-		return buttonToValid;
 	}
 
 	public Scene ResultScene() {

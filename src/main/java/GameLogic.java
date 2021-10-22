@@ -32,6 +32,7 @@ public class GameLogic {
 	
 	public static Coordinate move;
 	
+	
 	public static void makeBoard() {
 	    //matrix = new ArrayList<ArrayList<Vbutton>>();
 		for(int row = 0; row < 6; row++) {
@@ -55,6 +56,7 @@ public class GameLogic {
 		moves.push(playerMove);
 	}
 	
+	// no need for this function
 	public static void setPieceInBoard(Vbutton button) {
 		Vbutton checking = matrix.get(button.getRow()).get(button.getColumn());
 		checking.setRow(button.getRow());
@@ -300,20 +302,21 @@ public class GameLogic {
 			throw new NullPointerException("No more items left to reverse!");
 		} else {
 			popedMove = moves.pop();
+			playerTurns--;
 		}
 		return popedMove;
 	}
 	
-	public static Vbutton getPrevMove() {
-		Coordinate prevInStack = null;
-		if (moves.isEmpty()) {
-			throw new NullPointerException("No more items left to reverse!");
-		} else {
-			prevInStack = moves.peek();
-			prevButton = matrix.get(prevInStack.x).get(prevInStack.y);
-		}
-		return prevButton;
-	}
+//	public static Vbutton getPrevMove() {
+//		Coordinate prevInStack = null;
+//		if (moves.isEmpty()) {
+//			throw new NullPointerException("No more items left to reverse!");
+//		} else {
+//			prevInStack = moves.peek();
+//			prevButton = matrix.get(prevInStack.x).get(prevInStack.y);
+//		}
+//		return prevButton;
+//	}
 	
 
 	
