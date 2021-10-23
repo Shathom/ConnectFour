@@ -68,7 +68,6 @@ public class JavaFXTemplate extends Application {
 	PauseTransition pauseForTie = new PauseTransition(Duration.seconds(1)); // needs to be 3-5seco - for the sake of time for testing
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		launch(args);
 		
 	}
@@ -91,9 +90,9 @@ public class JavaFXTemplate extends Application {
 		//sceneMap.put("themeOne", themeOneScene());
 		//sceneMap.put("themeTwo", themeTwoScene());
 //		sceneMap.put("newGame", newGameScreen());
-		buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
+		//buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
 
-		GameLogic.makeBoard(buttons);
+		GameLogic.makeBoard();
 		
 		 
 		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));  // original theme
@@ -113,8 +112,8 @@ public class JavaFXTemplate extends Application {
 			for (int i = 0; i < 3; i++) {
 				grid.getChildren().clear();
 			}		
-			buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
-			GameLogic.makeBoard(buttons);
+			//buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
+			GameLogic.makeBoard();
 			playerTurns = 0;
 			GameLogic.playerTurns = 1;
 			GameLogic.counterDiagonal1 = 1;
@@ -122,7 +121,7 @@ public class JavaFXTemplate extends Application {
 			GameLogic.counterHorizontal = 0;
 			GameLogic.counterVerical = 0;			
 			fillGrid(grid);
-			result = GameLogic.makeMove(buttons);
+			//result = GameLogic.makeMove(buttons);
 		});
 
 		anotherGameC.setOnAction(e -> {
@@ -132,7 +131,7 @@ public class JavaFXTemplate extends Application {
 				grid.getChildren().clear();
 			}		
 			buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
-			GameLogic.makeBoard(buttons);
+			GameLogic.makeBoard();
 			playerTurns = 0;
 			GameLogic.playerTurns = 1;
 			GameLogic.counterDiagonal1 = 1;
@@ -140,7 +139,7 @@ public class JavaFXTemplate extends Application {
 			GameLogic.counterHorizontal = 0;
 			GameLogic.counterVerical = 0;			
 			fillGrid(grid);
-			result = GameLogic.makeMove(buttons);
+			//result = GameLogic.makeMove(buttons);
 		});
 		
 		// testing Result scene( supposed to be happen when a player wins or the game is
@@ -173,7 +172,7 @@ public class JavaFXTemplate extends Application {
 ////				gameButton.setDisable(true);
 ////				anotherGameA.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));  // original theme
 //
-//				System.out.println("right herere !- pause!!");
+//				System.out.println("right here !- pause!!");
 //			}
 //		};
 		
@@ -210,8 +209,8 @@ public class JavaFXTemplate extends Application {
 //				
 				
 
-				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
-				GameLogic.makeBoard(buttons);
+				//buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
+				GameLogic.makeBoard();
 				playerTurns = 0;
 				GameLogic.playerTurns = 1;
 				GameLogic.counterDiagonal1 = 1;
@@ -221,7 +220,7 @@ public class JavaFXTemplate extends Application {
 				GameLogic.winnerMoves.clear();
 				GameLogic.moves.clear();
 				fillGrid(grid);
-				result = GameLogic.makeMove(buttons);
+				//result = GameLogic.makeMove(buttons);
 			});
 			
 			
@@ -383,7 +382,6 @@ public class JavaFXTemplate extends Application {
 							getButtonByCoordinates(coord.x, coord.y, grid).setGraphic(view);
 						}
 					
-
 						playerTurns = 0;
 						GameLogic.playerTurns = 1;
 						GameLogic.counterDiagonal1 = 1;
@@ -454,12 +452,12 @@ public class JavaFXTemplate extends Application {
 			public void handle(ActionEvent e) {
 				try {
 					Coordinate coord = GameLogic.reverseMove();
-					Vbutton revButton = GameLogic.matrix.get(coord.x).get(coord.y);
-					revButton.setIsValid(false);
+					//Vbutton revButton = GameLogic.matrix.get(coord.x).get(coord.y);
+					//revButton.setIsValid(false);
 					
 					GameButton button = getButtonByCoordinates(coord.x, coord.y, grid);
-					Vbutton but = GameLogic.matrix.get(coord.x+1).get(coord.y);
-					but.setIsValid(false); 
+					//Vbutton but = GameLogic.matrix.get(coord.x+1).get(coord.y);
+					//but.setIsValid(false); 
 					
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems().add("Player " + button.player + " pressed " 
@@ -488,7 +486,20 @@ public class JavaFXTemplate extends Application {
 			}
 		};
 		
+//		changeTheme2handler = new EventHandler<ActionEvent>() {
+//			public void handle(ActionEvent e) {
+//				for (int col = 0; col < 7; col++) {
+//					for (int row = 0; row < 6; row++) {
+//						if (getButtonByCoordinates(row, col, grid).getPlayer() == 0) {
+//							getButtonByCoordinates(row, col, grid).setStyle("-fx-background-color: green");	
+//						}
+//					}
+//				}
+//			}
+//		};
+		
 		tOne.setOnAction(changeTheme1handler);
+		//tTwo.setOnAction(changeTheme2handler);
 		
 		start.setOnAction(e -> {
 			displayPlayer.getItems().clear();
@@ -496,7 +507,7 @@ public class JavaFXTemplate extends Application {
 				grid.getChildren().clear();
 			}
 			buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
-			GameLogic.makeBoard(buttons); 
+			GameLogic.makeBoard(); 
 			GameLogic.playerTurns = 1;			
 			GameLogic.counterDiagonal1 = 1;
 			GameLogic.counterDiagonal2 = 1;
@@ -554,100 +565,94 @@ public class JavaFXTemplate extends Application {
 			}
 		}
 	}
-//
 
-	public Scene ResultScene(int winnerPlayer) {//
-		//
-		//
-		BorderPane borderPane = new BorderPane();//
-		anotherGameA = new Button("Play Another Game");//
+
+	public Scene ResultScene(int winnerPlayer) {
+		
+		
+		BorderPane borderPane = new BorderPane();
+		anotherGameA = new Button("Play Another Game");
 		anotherGameA.setStyle("-fx-font-family: 'serif'");
-		// Need to trigger this to the gameScene() - new start game//
+		// Need to trigger this to the gameScene() - new start game
 //
-//		anotherGameB.setOnAction(e-> ResultScene(sceneMap.get("game")));//
+//		anotherGameB.setOnAction(e-> ResultScene(sceneMap.get("game")));
 //		anotherGameA.setOnAction(gameSceneEventhandler);//
 //		displayPlayer.getItems()//
 //		.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");//
 //
-		//
+		
 		text = new Text();//
-		text.setStyle("-fx-background-color:PALEVIOLETRED "+"-fx-font-family: 'serif'");//
-		text.setFont(Font.font(null, null, null, 20));//
-		StackPane.setAlignment(text, Pos.TOP_CENTER);//
-//		System.out.println("winnerPlayer?:" +GameLogic.winnerButton);//
-//		System.out.println("playerturns?:" + playerTurns);//
-		text.setText("Winner is " + winnerPlayer);//
-		//
-		//
-		text.setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");//
-		text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));//
+		text.setStyle("-fx-background-color:PALEVIOLETRED "+"-fx-font-family: 'serif'");
+		text.setFont(Font.font(null, null, null, 20));
+		StackPane.setAlignment(text, Pos.TOP_CENTER);
+//		System.out.println("winnerPlayer?:" +GameLogic.winnerButton);
+//		System.out.println("playerturns?:" + playerTurns);
+		text.setText("Winner is " + winnerPlayer);
+		
+		
+		text.setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");
+		text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+
+//		anotherGameB.setMaxWidth(400);
+//		anotherGameB.setMaxHeight(400);
 //
-//
-		//
-//		anotherGameB.setMaxWidth(400);//
-//		anotherGameB.setMaxHeight(400);//
-//
-		exitB = new Button("Exit Game");//
+		exitB = new Button("Exit Game");
 		exitB.setStyle("-fx-font-family: 'serif'");
-		exitB.setMaxWidth(400);//
-		exitB.setMaxHeight(400);//
-		exitB.setOnAction(e -> Platform.exit());//
-		HBox root = new HBox(anotherGameA, exitB);//
-		borderPane.setTop(root);//
-		borderPane.setCenter(text);//
-//
-		//
-		//
-		//
-		Scene scene = new Scene(borderPane, 1000, 800);//
-		scene.getRoot().setStyle("-fx-font-family: 'serif'");//
-		return scene;//
+		exitB.setMaxWidth(400);
+		exitB.setMaxHeight(400);
+		exitB.setOnAction(e -> Platform.exit());
+		HBox root = new HBox(anotherGameA, exitB);
+		borderPane.setTop(root);
+		borderPane.setCenter(text);
+
+	
+		
+		
+		Scene scene = new Scene(borderPane, 1000, 800);
+		scene.getRoot().setStyle("-fx-font-family: 'serif'");
+		return scene;
 	}
 
-//	public Scene ResultScene(int winnerPlayer) {//
-//		//
-//		//
-//		BorderPane borderPane = new BorderPane();//
-//		anotherGameA = new Button("Play Another Game");//
-//		//
-//		// Need to trigger this to the gameScene() - new start game//
-////
-////		anotherGameB.setOnAction(e-> ResultScene(sceneMap.get("game")));//
+//	public Scene ResultScene(int winnerPlayer) {
+
+//		BorderPane borderPane = new BorderPane();
+//		anotherGameA = new Button("Play Another Game");
+
+		// Need to trigger this to the gameScene() - new start game
+
+////		anotherGameB.setOnAction(e-> ResultScene(sceneMap.get("game")));
 ////		anotherGameA.setOnAction(gameSceneEventhandler);//
 ////		displayPlayer.getItems()//
 ////		.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");//
 ////
 //		//
-//		text = new Text();//
-//		text.setStyle("-fx-background-color:PALEVIOLETRED "+"-fx-font-family: 'serif'");//
-//		text.setFont(Font.font(null, null, null, 20));//
-//		StackPane.setAlignment(text, Pos.TOP_CENTER);//
-////		System.out.println("winnerPlayer?:" +GameLogic.winnerButton);//
-////		System.out.println("playerturns?:" + playerTurns);//
-//		text.setText("Winner is " + winnerPlayer);//
-//		//
-//		//
-//		text.setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");//
-//		text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));//
+//		text = new Text();
+//		text.setStyle("-fx-background-color:PALEVIOLETRED "+"-fx-font-family: 'serif'");
+//		text.setFont(Font.font(null, null, null, 20));
+//		StackPane.setAlignment(text, Pos.TOP_CENTER);
+////		System.out.println("winnerPlayer?:" +GameLogic.winnerButton);
+////		System.out.println("playerturns?:" + playerTurns);
+//		text.setText("Winner is " + winnerPlayer);
+//	
+//		text.setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");
+//		text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
 ////
 ////
 //		//
-////		anotherGameB.setMaxWidth(400);//
-////		anotherGameB.setMaxHeight(400);//
+////		anotherGameB.setMaxWidth(400);
+////		anotherGameB.setMaxHeight(400);
 ////
-//		exitB = new Button("Exit Game");//
+//		exitB = new Button("Exit Game");
 //		exitB.setMaxWidth(400);//
 //		exitB.setMaxHeight(400);//
-//		exitB.setOnAction(e -> Platform.exit());//
-//		HBox root = new HBox(anotherGameA, exitB);//
+//		exitB.setOnAction(e -> Platform.exit());
+//		HBox root = new HBox(anotherGameA, exitB);
 //		borderPane.setTop(root);//
 //		borderPane.setCenter(text);//
 ////
-//		//
-//		//
-//		//
-//		Scene scene = new Scene(borderPane, 1000, 800);//
-//		scene.getRoot().setStyle("-fx-font-family: 'serif'");//
+
+//		Scene scene = new Scene(borderPane, 1000, 800);
+//		scene.getRoot().setStyle("-fx-font-family: 'serif'");
 //		return scene;//
 //	}
 
@@ -719,7 +724,5 @@ public class JavaFXTemplate extends Application {
 		return scene;
 
 	}
-		
-	
 
 }

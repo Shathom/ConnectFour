@@ -35,7 +35,7 @@ public class GameLogic {
 	public static Coordinate move; 
 	
 	
-	public static void makeBoard(Vbutton button) {
+	public static void makeBoard() {
 	    //matrix = new ArrayList<ArrayList<Vbutton>>();
 		for(int row = 0; row < 6; row++) {
 			ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
@@ -340,6 +340,14 @@ public class GameLogic {
 			throw new NullPointerException("No more items left to reverse!");
 		} else {
 			popedMove = moves.pop();
+			System.out.println(popedMove.x + ", " + popedMove.y);
+			Vbutton buttonToReverse = matrix.get(popedMove.x).get(popedMove.y);
+			// is the vertical axis, y is horizontal axis
+			if (popedMove.x >= 1) {
+				Vbutton buttonAboveRev = matrix.get((popedMove.x) -1).get(popedMove.y);
+				buttonAboveRev.setIsValid(false);
+			}
+			buttonToReverse.setIsValid(true);
 			playerTurns--;
 		}
 		return popedMove;
