@@ -58,7 +58,7 @@ public class JavaFXTemplate extends Application {
 	private Menu mOne, mTwo, mThree;
 	private MenuBar menu;
 	private MenuItem start, exit, reverse, original, tOne, tTwo, how;
-	private EventHandler<ActionEvent> buttonHandler, reverseMovehandler, gameSceneEventhandler, resultScenehandler, changeTheme1handler, changeTheme2handler;
+	private EventHandler<ActionEvent> buttonHandler, reverseMovehandler, gameSceneEventhandler, resultScenehandler, originalhandler, changeTheme1handler, changeTheme2handler;
 	private int playerTurns = 0;
 	private int result;
 	int winnerPlayer;
@@ -95,7 +95,7 @@ public class JavaFXTemplate extends Application {
 		GameLogic.makeBoard();
 		
 		 
-		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));  // original theme
+//		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));  // original theme
 		sceneChangeBtn.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));
 		pauseForTie.setOnFinished(e-> primaryStage.setScene(sceneMap.get("tie")));
 
@@ -243,7 +243,7 @@ public class JavaFXTemplate extends Application {
 
 			System.out.println("winner player: " + winnerPlayer);			
 			primaryStage.setScene(new Scene(borderPane, 1000,800));
-//			scene.getRoot().setStyle("-fx-font-family: 'serif'")
+//			scene.getRoot().setStyle("-fx-font-family: 'serif'");
 		
 		});
 		
@@ -486,20 +486,33 @@ public class JavaFXTemplate extends Application {
 			}
 		};
 		
-//		changeTheme2handler = new EventHandler<ActionEvent>() {
-//			public void handle(ActionEvent e) {
-//				for (int col = 0; col < 7; col++) {
-//					for (int row = 0; row < 6; row++) {
-//						if (getButtonByCoordinates(row, col, grid).getPlayer() == 0) {
-//							getButtonByCoordinates(row, col, grid).setStyle("-fx-background-color: green");	
-//						}
-//					}
-//				}
-//			}
-//		};
+		changeTheme2handler = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				for (int col = 0; col < 7; col++) {
+					for (int row = 0; row < 6; row++) {
+						if (getButtonByCoordinates(row, col, grid).getPlayer() == 0) {
+							getButtonByCoordinates(row, col, grid).setStyle("-fx-background-color: green");	
+						}
+					}
+				}
+			}
+		};
 		
+		originalhandler = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				for (int col = 0; col < 7; col++) {
+					for (int row = 0; row < 6; row++) {
+						if (getButtonByCoordinates(row, col, grid).getPlayer() == 0) {
+							getButtonByCoordinates(row, col, grid).setStyle("-fx-background-color: yellow");	
+						}
+					}
+				}
+			}
+		};
+		
+		original.setOnAction(originalhandler);
 		tOne.setOnAction(changeTheme1handler);
-		//tTwo.setOnAction(changeTheme2handler);
+		tTwo.setOnAction(changeTheme2handler);
 		
 		start.setOnAction(e -> {
 			displayPlayer.getItems().clear();
