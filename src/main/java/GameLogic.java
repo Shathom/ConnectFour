@@ -36,7 +36,7 @@ public class GameLogic {
 	
 	
 	public static void makeBoard() {
-	    //matrix = new ArrayList<ArrayList<Vbutton>>();
+	    matrix = new ArrayList<ArrayList<Vbutton>>();
 		for(int row = 0; row < 6; row++) {
 			ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
 			for(int col = 0; col < 7; col++) {
