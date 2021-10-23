@@ -31,6 +31,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -57,13 +58,12 @@ public class JavaFXTemplate extends Application {
 	private Menu mOne, mTwo, mThree;
 	private MenuBar menu;
 	private MenuItem start, exit, reverse, original, tOne, tTwo, how;
-	private EventHandler<ActionEvent> buttonHandler, reverseMovehandler, gameSceneEventhandler, resultScenehandler;
+	private EventHandler<ActionEvent> buttonHandler, reverseMovehandler, gameSceneEventhandler, resultScenehandler, changeTheme1handler, changeTheme2handler;
 	private int playerTurns = 0;
 	private int result;
 	int winnerPlayer;
 	private Vbutton buttons;
 	Stage primaryStage;
-	
 	PauseTransition pauseForWinner = new PauseTransition(Duration.seconds(3));
 	PauseTransition pauseForTie = new PauseTransition(Duration.seconds(1)); // needs to be 3-5seco - for the sake of time for testing
 
@@ -88,8 +88,8 @@ public class JavaFXTemplate extends Application {
 		System.out.println("winnerPlayer from the right before the scenemap:" + winnerPlayer);
 		sceneMap.put("how", howScene());
 		sceneMap.put("tie", tieScene());
-		sceneMap.put("themeOne", themeOneScene());
-		sceneMap.put("themeTwo", themeTwoScene());
+		//sceneMap.put("themeOne", themeOneScene());
+		//sceneMap.put("themeTwo", themeTwoScene());
 //		sceneMap.put("newGame", newGameScreen());
 		buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
 
@@ -100,8 +100,8 @@ public class JavaFXTemplate extends Application {
 		sceneChangeBtn.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));
 		pauseForTie.setOnFinished(e-> primaryStage.setScene(sceneMap.get("tie")));
 //		anotherGameB.setOnAction(e->primaryStage.setScene(sceneMap.get("game")));
-		tOne.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeOne")));
-		tTwo.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeTwo")));
+		//tOne.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeOne")));
+		//tTwo.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeTwo")));
 		how.setOnAction((e-> primaryStage.setScene(sceneMap.get("how")))); 
 		
 		
@@ -126,8 +126,6 @@ public class JavaFXTemplate extends Application {
 		
 		
 //		pauseForWinner.setOnFinished(resultScenehandler);
-		
-		
 		
 		
 		gameSceneEventhandler = new EventHandler<ActionEvent>() {
@@ -161,7 +159,6 @@ public class JavaFXTemplate extends Application {
 				for (int i = 0; i < 3; i++) {
 					grid.getChildren().clear();
 				}				
-				
 				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
 				GameLogic.makeBoard(buttons);
 				GameLogic.playerTurns = 1;
@@ -169,6 +166,8 @@ public class JavaFXTemplate extends Application {
 				GameLogic.counterDiagonal2 = 1;
 				GameLogic.counterHorizontal = 0;
 				GameLogic.counterVerical = 0;
+				GameLogic.winnerMoves.clear();
+				GameLogic.moves.clear();
 				fillGrid(grid);
 				result = GameLogic.makeMove(buttons);
 			});
@@ -190,8 +189,6 @@ public class JavaFXTemplate extends Application {
 			HBox root = new HBox(anotherGameA, exitB);
 			borderPane.setTop(root);
 			borderPane.setCenter(text);
-
-		
 
 			System.out.println("winner player: " + winnerPlayer);			
 			primaryStage.setScene(new Scene(borderPane, 1000,800));
@@ -232,7 +229,6 @@ public class JavaFXTemplate extends Application {
 				gameButton.setOnAction(buttonHandler);
 
 				gameButton.setStyle("-fx-font-size: 50;" + "-fx-background-color:yellow;" + "-fx-text-fill:red;");
-			
 
 				grid.add(gameButton, col, row);
 
@@ -279,6 +275,11 @@ public class JavaFXTemplate extends Application {
 		tOne = new MenuItem("Theme ONE");
 		tTwo = new MenuItem("Theme TWO");
 		how = new MenuItem("How to Play");
+		Image winnerStar = new Image("Star_icon_stylized.svg.png");
+		
+		ImageView view = new ImageView(winnerStar);
+		view.setFitHeight(67);
+		view.setFitWidth(69);
  
 		mOne.getItems().add(how);
 		mOne.getItems().add(start);
@@ -293,6 +294,8 @@ public class JavaFXTemplate extends Application {
 		menu.getMenus().addAll(mTwo, mThree, mOne);
 
 		exit.setOnAction(e -> Platform.exit());
+		
+		
 
 		buttonHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -314,14 +317,19 @@ public class JavaFXTemplate extends Application {
 						gameButton.setStyle("-fx-background-color: NAVY");
 						gameButton.setDisable(true);
 						winnerPlayer = 1;
+						GameLogic.winnerStack(buttons);
 						System.out.println("WinnerPlayer: " + winnerPlayer);
-
+                        
 //						gameButton.setOnAction(buttonHandler);
 						for (int col = 0; col < 7; col++) {
 							for (int row = 0; row < 6; row++) {
 								getButtonByCoordinates(row, col, grid).setDisable(true);	
 							}
 						}
+						for (Coordinate coord : GameLogic.winnerMoves) {
+							getButtonByCoordinates(coord.x, coord.y, grid).setGraphic(view);
+						}
+					
 						pauseForWinner.play();						
 					}											
 				} else if (result==2) {
@@ -337,12 +345,15 @@ public class JavaFXTemplate extends Application {
 						gameButton.setStyle("-fx-background-color: Pink");
 						gameButton.setDisable(true);
 						winnerPlayer = 2;
-						
+						GameLogic.winnerStack(buttons);
 						System.out.println("WinnerPlayer: " + winnerPlayer);
 						for (int col = 0; col < 7; col++) {
 							for (int row = 0; row < 6; row++) {
 								getButtonByCoordinates(row, col, grid).setDisable(true);	
 							}
+						}
+						for (Coordinate coord : GameLogic.winnerMoves) {
+							getButtonByCoordinates(coord.x, coord.y, grid).setGraphic(view);
 						}
 
 						pauseForWinner.play();
@@ -384,8 +395,12 @@ public class JavaFXTemplate extends Application {
 				try {
 					Coordinate coord = GameLogic.reverseMove();
 					Vbutton revButton = GameLogic.matrix.get(coord.x).get(coord.y);
-					revButton.setIsValid(true);
+					revButton.setIsValid(false);
+					
 					GameButton button = getButtonByCoordinates(coord.x, coord.y, grid);
+					Vbutton but = GameLogic.matrix.get(coord.x+1).get(coord.y);
+					but.setIsValid(false); 
+					
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems().add("Player " + button.player + " pressed " 
 					+ button.row + ", " + button.column + ". Valid move.");
@@ -401,6 +416,20 @@ public class JavaFXTemplate extends Application {
 			}
 		};
 		
+		changeTheme1handler = new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				for (int col = 0; col < 7; col++) {
+					for (int row = 0; row < 6; row++) {
+						if (getButtonByCoordinates(row, col, grid).getPlayer() == 0) {
+							getButtonByCoordinates(row, col, grid).setStyle("-fx-background-color: Pink");	
+						}
+					}
+				}
+			}
+		};
+		
+		tOne.setOnAction(changeTheme1handler);
+		
 		start.setOnAction(e -> {
 			displayPlayer.getItems().clear();
 			for (int i = 0; i < 3; i++) {
@@ -413,8 +442,10 @@ public class JavaFXTemplate extends Application {
 			GameLogic.counterDiagonal2 = 1;
 			GameLogic.counterHorizontal = 0;
 			GameLogic.counterVerical = 0;
+			GameLogic.winnerMoves.clear();
+			GameLogic.moves.clear();
 			fillGrid(grid);
-			result = GameLogic.makeMove(buttons);
+			//result = GameLogic.makeMove(buttons);
 		});
 
 
@@ -451,13 +482,25 @@ public class JavaFXTemplate extends Application {
 		}
 		return buttonToValid;
 	}
+	
+	public void disableButton(boolean isValid, int row, int column, GridPane grid) {
+		GameButton buttonToValid = null;
+		ObservableList<Node> allButtons = grid.getChildren();
+		for (Node node: allButtons) {
+			if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+				buttonToValid = (GameButton)node;
+				buttonToValid.isValid = false;
+				break;
+			}
+		}
+	}
 //
 	public Scene ResultScene(int winnerPlayer) {//
 		//
 		//
 		BorderPane borderPane = new BorderPane();//
 		anotherGameA = new Button("Play Another Game");//
-		//
+		anotherGameA.setStyle("-fx-font-family: 'serif'");
 		// Need to trigger this to the gameScene() - new start game//
 //
 //		anotherGameB.setOnAction(e-> ResultScene(sceneMap.get("game")));//
@@ -484,6 +527,7 @@ public class JavaFXTemplate extends Application {
 //		anotherGameB.setMaxHeight(400);//
 //
 		exitB = new Button("Exit Game");//
+		exitB.setStyle("-fx-font-family: 'serif'");
 		exitB.setMaxWidth(400);//
 		exitB.setMaxHeight(400);//
 		exitB.setOnAction(e -> Platform.exit());//
@@ -538,15 +582,7 @@ public class JavaFXTemplate extends Application {
 		anotherGameC = new Button("Play Game");
 
 		anotherGameC.setMaxHeight(500);
-		
-		// Need to trigger this to the gameScene() - new start game
-//		anotherGameB.setOnAction(gameSceneEventhandler);
-//		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
 
-		
-		
-		
-		
 		exitB = new Button("Exit Game");
 
 		exitB.setMaxWidth(500);
@@ -575,47 +611,14 @@ public class JavaFXTemplate extends Application {
 		Scene scene = new Scene(borderPane, 1000, 800);
 		scene.getRoot().setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");		
 		return scene;
+		
+		
+//		exitB = new Button("Exit Game");
+//		exitB.setOnAction(e -> Platform.exit());
+//		HBox root = new HBox(anotherGameB, exitB);
+//		borderPane.setCenter(root);	
 	}
-	
-	
-	
-	
-	
-	//  Testing purposes - needs to be changed to the gameScene() and the style changes
-	private Scene themeTwoScene() {
-		BorderPane borderPane = new BorderPane();
-		anotherGameB = new Button("Play Another ");
-//		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
-
-		exitB = new Button("Exit Game");
-		exitB.setOnAction(e -> Platform.exit());
-		HBox root = new HBox(anotherGameB, exitB);
-		borderPane.setCenter(root);		
 		
-		Scene scene = new Scene(borderPane, 1000, 800);
-		scene.getRoot().setStyle("-fx-font-family: 'serif'");		
-		return scene;	
-		
-	}
-	
-	//  Testing purposes - needs to be changed to the gameScene() - and the style changes
-	private Scene themeOneScene() {
-		BorderPane borderPane = new BorderPane();
-		anotherGameB = new Button("Play Another Game");
-//		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
-
-		exitB = new Button("Exit Game");
-		exitB.setOnAction(e -> Platform.exit());
-		HBox root = new HBox(anotherGameB, exitB);
-		borderPane.setCenter(root);		
-		
-		Scene scene = new Scene(borderPane, 1000, 800);
-		scene.getRoot().setStyle("-fx-font-family: 'serif'");		
-		return scene;
-		
-		
-	}
-	
 	
 
 }

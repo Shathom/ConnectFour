@@ -74,4 +74,18 @@ class MyTest {
 		assertEquals(3, GameLogic.makeMove(button), "wrong validity of button");
 	}
 	
+	@Test
+	void testHorizontalCheckA() {
+		
+	}
+	
+	@Test
+	void testHorizontalCheckB() {
+		
+	}
+	
+	void testVerticalCheck() {
+		
+	}
+	
 }

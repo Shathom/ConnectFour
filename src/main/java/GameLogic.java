@@ -87,6 +87,7 @@ public class GameLogic {
 			if(matrixbutton.getPlayer() == buttonPlayer) {
 				counterHorizontal++;
 			    System.out.print("horizontal count: "+counterHorizontal+ "\n");
+			    System.out.println(col + ", "+ button.getRow() + "\n");
 			} else {
 				counterHorizontal = 0;
 			}
@@ -152,7 +153,6 @@ public class GameLogic {
 		for(int i = 0; i < 4; i++) {
 			if(buttonRow >= 0 && buttonColumn < 7) {			
 			Vbutton matrixbuttonColumn = matrix.get(buttonRow).get(buttonColumn); // getting the col from the "grid"
-
 				if(matrixbuttonColumn.getPlayer() == buttonPlayer) {
 					buttonRow--;
 					buttonColumn++;
@@ -171,7 +171,6 @@ public class GameLogic {
 
 	}
 
-	
 	static boolean checkDiagonal2(Vbutton button) {
 		counterDiagonal2 = 1;
 		boolean isWinner = false;
@@ -196,7 +195,6 @@ public class GameLogic {
 				break;
 			}
 		}
-	    
 		buttonRow = button.getRow();
 		buttonColumn = button.getColumn();
 		buttonRow = button.getRow()-1;
