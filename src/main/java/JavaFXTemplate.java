@@ -102,8 +102,8 @@ public class JavaFXTemplate extends Application {
 //		anotherGameB.setOnAction(e->primaryStage.setScene(sceneMap.get("game")));
 		//tOne.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeOne")));
 		//tTwo.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeTwo")));
-		tOne.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeOne")));
-		tTwo.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeTwo")));
+//		tOne.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeOne")));
+//		tTwo.setOnAction(e-> primaryStage.setScene(sceneMap.get("themeTwo")));
 		how.setOnAction((e-> primaryStage.setScene(sceneMap.get("how")))); 
 		
 		anotherGameB.setOnAction(e -> {
