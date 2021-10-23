@@ -197,7 +197,7 @@ public class JavaFXTemplate extends Application {
 //				for (int i = 0; i < ; i++) {
 					grid.getChildren().clear();
 
-				}				
+					
 
 //				}				
 				
@@ -251,8 +251,8 @@ public class JavaFXTemplate extends Application {
 		primaryStage.setScene(sceneMap.get("scene")); // set the scene in the stage
 
 		primaryStage.show(); // make visible to the user
+	
 	}
-
 
 
 //	private void closeProgram() {
@@ -718,29 +718,6 @@ public class JavaFXTemplate extends Application {
 		scene.getRoot().setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");		
 		return scene;
 
-	}
-
-	
-	
-	
-	
-		
-	//  Testing purposes - needs to be changed to the gameScene() and the style changes
-	private Scene themeTwoScene() {
-		BorderPane borderPane = new BorderPane();
-		anotherGameB = new Button("Play Another ");
-//		anotherGameB.setOnAction(e-> primaryStage.setScene(sceneMap.get("game")));
-
-		exitB = new Button("Exit Game");
-		exitB.setOnAction(e -> Platform.exit());
-		HBox root = new HBox(anotherGameB, exitB);
-		borderPane.setCenter(root);		
-		
-		
-//		exitB = new Button("Exit Game");
-//		exitB.setOnAction(e -> Platform.exit());
-//		HBox root = new HBox(anotherGameB, exitB);
-//		borderPane.setCenter(root);	
 	}
 		
 	
