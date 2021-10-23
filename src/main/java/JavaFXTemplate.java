@@ -368,7 +368,7 @@ public class JavaFXTemplate extends Application {
 						gameButton.setStyle("-fx-background-color: NAVY");
 						gameButton.setDisable(true);
 						winnerPlayer = 1;
-						GameLogic.winnerStack(buttons);
+//						GameLogic.winnerStack(buttons);
 						System.out.println("WinnerPlayer: " + winnerPlayer);
                         
 //						gameButton.setOnAction(buttonHandler);
@@ -403,7 +403,7 @@ public class JavaFXTemplate extends Application {
 						gameButton.setStyle("-fx-background-color: Pink");
 						gameButton.setDisable(true);
 						winnerPlayer = 2;
-						GameLogic.winnerStack(buttons);
+//						GameLogic.winnerStack(buttons);
 						System.out.println("WinnerPlayer: " + winnerPlayer);
 						for (int col = 0; col < 7; col++) {
 							for (int row = 0; row < 6; row++) {

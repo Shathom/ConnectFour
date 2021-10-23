@@ -86,14 +86,18 @@ public class GameLogic {
 			Vbutton matrixbutton = matrix.get(button.getRow()).get(col);
 			if(matrixbutton.getPlayer() == buttonPlayer) {
 				counterHorizontal++;
+				winnerStack(button);
 			    System.out.print("horizontal count: "+counterHorizontal+ "\n");
 			    System.out.println(col + ", "+ button.getRow() + "\n");
 			} else {
+				
 				counterHorizontal = 0;
 			}
 			if(counterHorizontal == 4) {
 				isWinner = true;
-			} 
+			} else {
+				winnerMoves.clear();
+			}
 		}
 		return isWinner;
 	}
