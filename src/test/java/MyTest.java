@@ -15,6 +15,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,9 @@ class MyTest {
 	static ArrayList<ArrayList<Vbutton>> matrix = new ArrayList<ArrayList<Vbutton>>();
 	static ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
 	static Vbutton button, button1, button2, button3;
+	static Coordinate playerMove;
+	public static Stack<Coordinate> moves = new Stack<Coordinate>();
+	
 	@BeforeEach
 	void init() {
 		GameLogic.makeBoard();
@@ -107,22 +111,21 @@ class MyTest {
 		GameLogic.setPieceInBoard(button);
 		button = new Vbutton(5, 5, 1, true, true, false);
 		GameLogic.setPieceInBoard(button);
-		button = new Vbutton(5, 5, 1, true, true, false);
+		button = new Vbutton(5, 6, 1, true, true, false);
 		GameLogic.setPieceInBoard(button);
 		assertEquals(false, GameLogic.checkVertical(button), "wrong checkvertical");
 
 	}
 	@Test
 	void testVerticalCheck1() {
-		button = new Vbutton(5, 1, 2, true, true, false);
-		GameLogic.setPieceInBoard(button);
 		button = new Vbutton(4, 1, 2, true, true, false);
 		GameLogic.setPieceInBoard(button);
 		button = new Vbutton(3, 1, 2, true, true, false);
 		GameLogic.setPieceInBoard(button);
 		button = new Vbutton(2, 1, 2, true, true, false);
 		GameLogic.setPieceInBoard(button);
-		button = new Vbutton(5, 5, 2, true, true, false);
+		button = new Vbutton(1, 1, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
 		GameLogic.setPieceInBoard(button);
 		assertEquals(true, GameLogic.checkVertical(button), "wrong checkvertical 1");
 	}
@@ -234,14 +237,19 @@ class MyTest {
 	void testmakeMove1() {
 		button = new Vbutton(5, 6, 1, true, true, false);
 		GameLogic.setPieceInBoard(button);
-		assertEquals(1, GameLogic.makeMove(button), "wrong makeMove 1");
+		button = new Vbutton(5, 1, 2, true, false, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(2, GameLogic.playerTurns, "wrong playerTurns");
+		GameLogic.playerTurns = 0;
+		assertEquals(2, GameLogic.makeMove(button), "wrong makeMove 1");
 	}
 	
 	@Test
 	void testmakeMove2() {
-		button = new Vbutton(5, 5, 2, true, true, false);
+		button = new Vbutton(5, 5, 2, true, false, false);
 		GameLogic.setPieceInBoard(button);
-		assertEquals(2, GameLogic.makeMove(button), "wrong makeMove 2");
+		assertEquals(1, GameLogic.playerTurns, "wrong playerTurns");
+		assertEquals(1, GameLogic.makeMove(button), "wrong makeMove 2");
 	}
 	@Test
 	void testmakeMove3() {
@@ -263,5 +271,33 @@ class MyTest {
 		GameLogic.setPieceInBoard(button);
 		assertEquals(false, GameLogic.isValidMove(button), "wrong isValidMove 2");
 	}
+	
+	@Test
+	void testreverseMove1() {
+		GameLogic.makeBoard();
+		button1 = new Vbutton(5, 0, 2, true, true, false);
+		GameLogic.setPieceInBoard(button1);
+		playerMove = new Coordinate(button1.getRow(), button1.getColumn());
+		moves.push(playerMove);
+		Coordinate popedMove;
+		popedMove = moves.pop();
+		assertNotEquals(popedMove, GameLogic.reverseMove(), "wrong reverseMove 1");
+
+	}
+	
+	@Test
+	void testreverseMove2() {
+		button = new Vbutton(5, 0, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 5, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		playerMove = new Coordinate(button1.getRow(), button1.getColumn());
+		moves.push(playerMove);
+		Coordinate popedMove;
+		popedMove = moves.pop();
+		assertNotEquals(popedMove, GameLogic.reverseMove(), "wrong reverseMove 1");
+
+	}
+	
 
 }
