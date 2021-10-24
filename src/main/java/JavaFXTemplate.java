@@ -29,7 +29,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -112,7 +111,6 @@ public class JavaFXTemplate extends Application {
 			for (int i = 0; i < 3; i++) {
 				grid.getChildren().clear();
 			}		
-			//buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
 			GameLogic.makeBoard();
 			playerTurns = 0;
 			GameLogic.playerTurns = 1;
@@ -121,7 +119,6 @@ public class JavaFXTemplate extends Application {
 			GameLogic.counterHorizontal = 0;
 			GameLogic.counterVerical = 0;			
 			fillGrid(grid);
-			//result = GameLogic.makeMove(buttons);
 		});
 
 		anotherGameC.setOnAction(e -> {
@@ -130,7 +127,6 @@ public class JavaFXTemplate extends Application {
 			for (int i = 0; i < 3; i++) {
 				grid.getChildren().clear();
 			}		
-			buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn, gameButton.isReversed);
 			GameLogic.makeBoard();
 			playerTurns = 0;
 			GameLogic.playerTurns = 1;
@@ -139,52 +135,11 @@ public class JavaFXTemplate extends Application {
 			GameLogic.counterHorizontal = 0;
 			GameLogic.counterVerical = 0;			
 			fillGrid(grid);
-			//result = GameLogic.makeMove(buttons);
 		});
 		
-		// testing Result scene( supposed to be happen when a player wins or the game is
-		// tie) ****
-//		original.setOnAction(e -> primaryStage.setScene(sceneMap.get("result")));
+
 		sceneMap.get("game").getRoot().setStyle("-fx-font-family: 'serif'");
 		
-		
-//		pauseForWinner.setOnFinished(resultScenehandler);
-		
-		
-
-		gameSceneEventhandler = new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-//				resultButton = (GameButton)e.getSource(); 
-//				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
-//				gameButton.setDisable(true);
-//				anotherGameA.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));  // original theme
-
-				System.out.println("right herere !- pause!!");
-			}
-		};
-
-		
-		
-//		gameSceneEventhandler = new EventHandler<ActionEvent>() {
-//			public void handle(ActionEvent e) {
-////				resultButton = (GameButton)e.getSource(); 
-////				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
-////				gameButton.setDisable(true);
-////				anotherGameA.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));  // original theme
-//
-//				System.out.println("right here !- pause!!");
-//			}
-//		};
-		
-		
-//		resultScenehandler = new EventHandler<ActionEvent>() {
-//			public void handle(ActionEvent e) {
-//				gameButton = (GameButton)e.getSource();
-//				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
-//				System.out.println("Winner is :" + gameButton.player);
-//			}
-//			
-//		};
 		
 		pauseForWinner.setOnFinished(e-> { 			
 
@@ -279,7 +234,7 @@ public class JavaFXTemplate extends Application {
 				}
 				gameButton.setOnAction(buttonHandler);
 
-				gameButton.setStyle("-fx-font-size: 50;" + "-fx-background-color:yellow;" + "-fx-text-fill:red;");
+				gameButton.setStyle("-fx-font-size: 50;" + "-fx-background-color:yellow;");
 
 				grid.add(gameButton, col, row);
 
@@ -287,32 +242,32 @@ public class JavaFXTemplate extends Application {
 		}
 	}
 	
-	public GameButton setColorOfButtonsGreen(GameButton button) {
-		if (button.getIsReversed() == true) {
-			button.setStyle("-fx-font-size: 50;" 
-					+ "-fx-background-color: green;" 
-					+ "-fx-text-fill:red;");
-		} else {
-			button.setStyle("-fx-font-size: 50;" 
-					+ "-fx-background-color: yellow;" 
-					+ "-fx-text-fill:red;");
-		}
-		return button;
-	}
-	
-    public GameButton setColorOfButtonsPink(GameButton button) {
-    	if (button.getIsReversed() == true) {
-			button.setStyle("-fx-font-size: 50;" 
-					+ "-fx-background-color: pink;" 
-					+ "-fx-text-fill:red;");
-		} else {
-			button.setStyle("-fx-font-size: 50;" 
-					+ "-fx-background-color: yellow;" 
-					+ "-fx-text-fill:red;");
-		}
-		return button;
-		
-	}
+//	public GameButton setColorOfButtonsGreen(GameButton button) {
+//		if (button.getIsReversed() == true) {
+//			button.setStyle("-fx-font-size: 50;" 
+//					+ "-fx-background-color: green;" 
+//					+ "-fx-text-fill:red;");
+//		} else {
+//			button.setStyle("-fx-font-size: 50;" 
+//					+ "-fx-background-color: yellow;" 
+//					+ "-fx-text-fill:red;");
+//		}
+//		return button;
+//	}
+//	
+//    public GameButton setColorOfButtonsPink(GameButton button) {
+//    	if (button.getIsReversed() == true) {
+//			button.setStyle("-fx-font-size: 50;" 
+//					+ "-fx-background-color: pink;" 
+//					+ "-fx-text-fill:red;");
+//		} else {
+//			button.setStyle("-fx-font-size: 50;" 
+//					+ "-fx-background-color: yellow;" 
+//					+ "-fx-text-fill:red;");
+//		}
+//		return button;
+//		
+//	}
 
 	public Scene welcomeScene() {
 		// 1) your program must start with a welcome screen that is it's own JavaFX
@@ -497,9 +452,9 @@ public class JavaFXTemplate extends Application {
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems().add("Player " + button.player + " pressed " 
 					+ button.row + ", " + button.column + ". Valid move.");
-//					button.setStyle("-fx-font-size: 50;" 
-//					+ "-fx-background-color:yellow;" 
-//					+ "-fx-text-fill:red;");
+					button.setStyle("-fx-font-size: 50;" 
+					+ "-fx-background-color:yellow;" 
+					+ "-fx-text-fill:red;");
 					if(button.player == 1) {
 						displayPlayer.getItems().add("The button is reversed. Player 1's turn to go.");
 					} else {
@@ -520,7 +475,7 @@ public class JavaFXTemplate extends Application {
 				for (int col = 0; col < 7; col++) {
 					for (int row = 0; row < 6; row++) {
 						if (getButtonByCoordinates(row, col, grid).getPlayer() == 0) {
-							setColorOfButtonsPink(getButtonByCoordinates(row, col, grid));	
+							getButtonByCoordinates(row, col, grid).setStyle("-fx-background-color: pink");	
 						}
 					}
 				}
@@ -570,7 +525,6 @@ public class JavaFXTemplate extends Application {
 			GameLogic.winnerMoves.clear();
 			GameLogic.moves.clear();
 			fillGrid(grid);
-			//result = GameLogic.makeMove(buttons);
 		});
 
 
@@ -621,52 +575,52 @@ public class JavaFXTemplate extends Application {
 		}
 	}
 
-
-	public Scene ResultScene(int winnerPlayer) {
-		
-		
-		BorderPane borderPane = new BorderPane();
-		anotherGameA = new Button("Play Another Game");
-		anotherGameA.setStyle("-fx-font-family: 'serif'");
-		// Need to trigger this to the gameScene() - new start game
 //
-//		anotherGameB.setOnAction(e-> ResultScene(sceneMap.get("game")));
-//		anotherGameA.setOnAction(gameSceneEventhandler);//
-//		displayPlayer.getItems()//
-//		.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");//
+//	public Scene ResultScene(int winnerPlayer) {
+//		
+//		
+//		BorderPane borderPane = new BorderPane();
+//		anotherGameA = new Button("Play Another Game");
+//		anotherGameA.setStyle("-fx-font-family: 'serif'");
+//		// Need to trigger this to the gameScene() - new start game
+////
+////		anotherGameB.setOnAction(e-> ResultScene(sceneMap.get("game")));
+////		anotherGameA.setOnAction(gameSceneEventhandler);//
+////		displayPlayer.getItems()//
+////		.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");//
+////
+//		
+//		text = new Text();//
+//		text.setStyle("-fx-background-color:PALEVIOLETRED "+"-fx-font-family: 'serif'");
+//		text.setFont(Font.font(null, null, null, 20));
+//		StackPane.setAlignment(text, Pos.TOP_CENTER);
+////		System.out.println("winnerPlayer?:" +GameLogic.winnerButton);
+////		System.out.println("playerturns?:" + playerTurns);
+//		text.setText("Winner is " + winnerPlayer);
+//		
+//		
+//		text.setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");
+//		text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
 //
-		
-		text = new Text();//
-		text.setStyle("-fx-background-color:PALEVIOLETRED "+"-fx-font-family: 'serif'");
-		text.setFont(Font.font(null, null, null, 20));
-		StackPane.setAlignment(text, Pos.TOP_CENTER);
-//		System.out.println("winnerPlayer?:" +GameLogic.winnerButton);
-//		System.out.println("playerturns?:" + playerTurns);
-		text.setText("Winner is " + winnerPlayer);
-		
-		
-		text.setStyle("-fx-background-color: hotpink ;" + "-fx-font-family: 'serif'");
-		text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
-
-//		anotherGameB.setMaxWidth(400);
-//		anotherGameB.setMaxHeight(400);
+////		anotherGameB.setMaxWidth(400);
+////		anotherGameB.setMaxHeight(400);
+////
+//		exitB = new Button("Exit Game");
+//		exitB.setStyle("-fx-font-family: 'serif'");
+//		exitB.setMaxWidth(400);
+//		exitB.setMaxHeight(400);
+//		exitB.setOnAction(e -> Platform.exit());
+//		HBox root = new HBox(anotherGameA, exitB);
+//		borderPane.setTop(root);
+//		borderPane.setCenter(text);
 //
-		exitB = new Button("Exit Game");
-		exitB.setStyle("-fx-font-family: 'serif'");
-		exitB.setMaxWidth(400);
-		exitB.setMaxHeight(400);
-		exitB.setOnAction(e -> Platform.exit());
-		HBox root = new HBox(anotherGameA, exitB);
-		borderPane.setTop(root);
-		borderPane.setCenter(text);
-
-	
-		
-		
-		Scene scene = new Scene(borderPane, 1000, 800);
-		scene.getRoot().setStyle("-fx-font-family: 'serif'");
-		return scene;
-	}
+//	
+//		
+//		
+//		Scene scene = new Scene(borderPane, 1000, 800);
+//		scene.getRoot().setStyle("-fx-font-family: 'serif'");
+//		return scene;
+//	}
 
 //	public Scene ResultScene(int winnerPlayer) {
 

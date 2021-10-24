@@ -323,22 +323,6 @@ public class GameLogic {
 }
 
 	
-	// don't need these two functions anymore
-	
-	// stack that stores first player's move
-//	public static void player1Stack(int row, int column) {
-//		player1Move = new Coordinate(row, column);
-//		movesPlayer1.push(player1Move);
-//		System.out.println("player1move coordinate: " + player1Move);
-//	}
-		
-	
-	// stack that stores second player's move
-//	public static void player2Stack(int row, int column) {
-//		player2Move = new Coordinate(row, column);
-//		movesPlayer2.push(player2Move);
-//	}
-	
 		
 	public static boolean isValidMove(Vbutton button) {
 		if(matrix.get(button.getRow()).get(button.getColumn()).getIsValid()){
@@ -347,28 +331,18 @@ public class GameLogic {
 			return false;
 		}		
 	}
-	
-//	public static Coordinate winnerResult() {
-//		Coordinate popedMove = null;
-//		if (moves.isEmpty()) {
-//			throw new NullPointerException("No more items left to reverse!");
-//		} else {
-//			popedMove = moves.pop();
-//		}
-//		System.out.println("Winner coordinate: " + playerMoveForWinner);
-//
-//		return popedMove;
-//}
-	
+
 	public static Coordinate reverseMove() {
 		Coordinate popedMove = null;
 		if (moves.isEmpty()) {
 			throw new NullPointerException("No more items left to reverse!");
 		} else {
 			popedMove = moves.pop();
-			winnerMoves.pop();
-			System.out.println(popedMove.x + ", " + popedMove.y);
+			System.out.println("poped move "+popedMove.x + ", " + popedMove.y);
 			Vbutton buttonToReverse = matrix.get(popedMove.x).get(popedMove.y);
+			if(!winnerMoves.empty()) {
+				winnerMoves.pop();
+			}
 			// is the vertical axis, y is horizontal axis
 			if (popedMove.x >= 1) {
 				Vbutton buttonAboveRev = matrix.get((popedMove.x) -1).get(popedMove.y);
@@ -379,17 +353,4 @@ public class GameLogic {
 		}
 		return popedMove;
 	}
-	
-//	public static Vbutton getPrevMove() {
-//		Coordinate prevInStack = null;
-//		if (moves.isEmpty()) {
-//			throw new NullPointerException("No more items left to reverse!");
-//		} else {
-//			prevInStack = moves.peek();
-//			prevButton = matrix.get(prevInStack.x).get(prevInStack.y);
-//		}
-//		return prevButton;
-//	}
-	
-
 }

@@ -23,17 +23,15 @@ import org.junit.jupiter.api.Test;
 class MyTest {
 	static ArrayList<ArrayList<Vbutton>> matrix = new ArrayList<ArrayList<Vbutton>>();
 	static ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
-	static Vbutton button;
-	
+	static Vbutton button, button1, button2, button3;
 	@BeforeEach
 	void init() {
-		
+		GameLogic.makeBoard();
+
 	}	
-	
 	
 	@Test
 	void makeBoardTest0() {
-		GameLogic.makeBoard();
 		Vbutton button1 = new Vbutton(5, 1, 1, true, false, false);
 //		GameLogic.setPieceInBoard(button);
 		assertEquals(true, button1.getIsValid(), "incorrecto isValid");  
@@ -42,7 +40,6 @@ class MyTest {
 	
 	@Test
 	void makeBoardTest2() {
-		GameLogic.makeBoard();
 		button = new Vbutton(5, 1, 1, true, false, false);
 		GameLogic.setPieceInBoard(button);
 		// supposed to be return true.. but it's returning false I don't know why..
@@ -51,7 +48,6 @@ class MyTest {
 
 	@Test
 	void makeBoardTest3() {
-		GameLogic.makeBoard();
 		button = new Vbutton(5, 1, 1, true, false, false);
 		GameLogic.setPieceInBoard(button);
 		// supposed to be return true.. but it's returning false I don't know why..
@@ -60,7 +56,6 @@ class MyTest {
 
 	@Test
 	void makeMoveTest0() {
-		GameLogic.makeBoard();
 		button = new Vbutton(5, 1, 1, true, false, false);
 		GameLogic.setPieceInBoard(button);		
 		assertEquals(1, GameLogic.makeMove(button), "wrong validity of button");
@@ -68,24 +63,205 @@ class MyTest {
 	
 	@Test
 	void makeMoveTest1() {
-		GameLogic.makeBoard();
 		button = new Vbutton(3, 1, 1, false, false, false);
 		GameLogic.setPieceInBoard(button);		
 		assertEquals(3, GameLogic.makeMove(button), "wrong validity of button");
 	}
-	 
+
 	@Test
 	void testHorizontalCheckA() {
+		button = new Vbutton(5, 0, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 1, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 2, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 3, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(true, GameLogic.checkHorizontal(button), "wrong checkHorizontal A");
 		
 	}
 	
 	@Test
 	void testHorizontalCheckB() {
-		
+		button = new Vbutton(5, 0, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 1, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 2, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 4, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 5, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);	
+		assertEquals(false, GameLogic.checkHorizontal(button), "wrong checkHorizontal B");
+
 	}
-	
+	@Test
 	void testVerticalCheck() {
-		
+		button = new Vbutton(5, 1, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 4, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(4, 1, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 5, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 5, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(false, GameLogic.checkVertical(button), "wrong checkvertical");
+
+	}
+	@Test
+	void testVerticalCheck1() {
+		button = new Vbutton(5, 1, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(4, 1, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(3, 1, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(2, 1, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 5, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(true, GameLogic.checkVertical(button), "wrong checkvertical 1");
 	}
 	
+	@Test
+	void testcheckDiagonal1() {
+		button = new Vbutton(5, 0, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 1, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(4, 1, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 2, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(4, 2, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 3, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(3, 2, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(4, 3, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(2, 3, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(true, GameLogic.checkDiagonal1(button), "wrong checkDiagonal1");
+	}
+	
+	@Test
+	void testcheckDiagonal2() {
+		button = new Vbutton(5, 4, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 3, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(4, 3, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 2, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(4, 2, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 1, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(3, 2, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(4, 1, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(3, 1, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 6, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(2, 1, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(true, GameLogic.checkDiagonal2(button), "wrong checkDiagonal2");
+	}
+	
+	@Test
+	void testcheckWinner() {
+		button = new Vbutton(5, 4, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 3, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(4, 3, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 2, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(4, 2, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 1, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(3, 2, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(4, 1, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(3, 1, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 6, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(2, 1, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(true, GameLogic.checkWinner(button), "wrong checkWinner");
+	}
+	
+	@Test
+	void testreturnWinner1() {
+		button = new Vbutton(5, 0, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 1, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 2, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 3, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(1, GameLogic.returnWinner(button), "wrong returnWinner 1");
+
+	}
+	@Test
+	void testreturnWinner2() {
+		button = new Vbutton(5, 0, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 1, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 2, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		button = new Vbutton(5, 3, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(2, GameLogic.returnWinner(button), "wrong returnWinner 2");
+	}
+	
+	@Test
+	void testmakeMove1() {
+		button = new Vbutton(5, 6, 1, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(1, GameLogic.makeMove(button), "wrong makeMove 1");
+	}
+	
+	@Test
+	void testmakeMove2() {
+		button = new Vbutton(5, 5, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(2, GameLogic.makeMove(button), "wrong makeMove 2");
+	}
+	@Test
+	void testmakeMove3() {
+		button = new Vbutton(1, 0, 2, false, false, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(3, GameLogic.makeMove(button), "wrong makeMove 3");
+	}
+	
+	@Test
+	void testisValidMove1() {
+		button = new Vbutton(5, 0, 2, true, true, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(true, GameLogic.isValidMove(button), "wrong isValidMove 1");
+	}
+	
+	@Test
+	void testisValidMove2() {
+		button = new Vbutton(1, 0, 2, false, false, false);
+		GameLogic.setPieceInBoard(button);
+		assertEquals(false, GameLogic.isValidMove(button), "wrong isValidMove 2");
+	}
+
 }
