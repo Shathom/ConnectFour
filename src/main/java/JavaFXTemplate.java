@@ -505,7 +505,8 @@ public class JavaFXTemplate extends Application {
 					} else {
 						displayPlayer.getItems().add("The button is reversed. Player 2's turn to go.");
 					}
-					button.setDisable(false);	
+					button.setDisable(false);
+					button.setPlayer(0);
 				} catch (NullPointerException n) {
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems().add("No more moves left to reverse.");

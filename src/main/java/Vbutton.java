@@ -53,7 +53,7 @@ public class Vbutton {
 		return playerTurn;
 	}
 	public void setRow(int row) {
-		this.row = row;
+		this.row = row; 
 	}
 	public void setColumn(int column) {
 		this.column = column;

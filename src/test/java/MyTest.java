@@ -73,7 +73,7 @@ class MyTest {
 		GameLogic.setPieceInBoard(button);		
 		assertEquals(3, GameLogic.makeMove(button), "wrong validity of button");
 	}
-	
+	 
 	@Test
 	void testHorizontalCheckA() {
 		
