@@ -87,9 +87,11 @@ public class GameLogic {
 			if(matrixbutton.getPlayer() == buttonPlayer) {
 				winnerStack(matrixbutton);
 				counterHorizontal++;
+				winnerStack(button);
 			    System.out.print("horizontal count: "+counterHorizontal+ "\n");
 			    System.out.println(col + ", "+ button.getRow() + "\n");
 			} else {
+				
 				counterHorizontal = 0;
 				winnerMoves.clear();
 			}
