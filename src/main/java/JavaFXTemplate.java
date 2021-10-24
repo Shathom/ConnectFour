@@ -363,7 +363,12 @@ public class JavaFXTemplate extends Application {
 					gameButton.setStyle("-fx-background-color: Blue");
 					displayPlayer.getItems()
 						.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
-				
+					if(buttons.getPlayer() == 1) {
+						displayPlayer.getItems().add("Player 2's turn to go.");
+					} else {
+						displayPlayer.getItems().add("Player 1's turn to go.");
+					}
+							
 					if(GameLogic.checkWinner(buttons)) {
 						gameButton.setStyle("-fx-background-color: NAVY");
 						gameButton.setDisable(true);
@@ -399,6 +404,11 @@ public class JavaFXTemplate extends Application {
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems()
 						.add("Player " + buttons.getPlayer() + " pressed " + buttons.getRow() + ", " + buttons.getColumn() + ". Valid move.");
+					if(buttons.getPlayer() == 1) {
+						displayPlayer.getItems().add("Player 2's turn to go.");
+					} else {
+						displayPlayer.getItems().add("Player 1's turn to go.");
+					}
 					if(GameLogic.checkWinner(buttons)) {
 						gameButton.setStyle("-fx-background-color: Pink");
 						gameButton.setDisable(true);
@@ -460,11 +470,17 @@ public class JavaFXTemplate extends Application {
 					//but.setIsValid(false); 
 					
 					displayPlayer.getItems().clear();
+					
 					displayPlayer.getItems().add("Player " + button.player + " pressed " 
 					+ button.row + ", " + button.column + ". Valid move.");
 					button.setStyle("-fx-font-size: 50;" 
 					+ "-fx-background-color:yellow;" 
 					+ "-fx-text-fill:red;");
+					if(button.player == 1) {
+						displayPlayer.getItems().add("The button is reversed. Player 1's turn to go.");
+					} else {
+						displayPlayer.getItems().add("The button is reversed. Player 2's turn to go.");
+					}
 					button.setDisable(false);	
 				} catch (NullPointerException n) {
 					displayPlayer.getItems().clear();
@@ -719,6 +735,8 @@ public class JavaFXTemplate extends Application {
 		text.setFont(Font.font(null, null, null, 20));
 		StackPane.setAlignment(text, Pos.TOP_CENTER);
 		text.setText("Welcome to  Four!\n"
+				+"\n"
+				+ "How to play Connect four instruction: \n"
 				+ "1. Choose who wants to go first.\n"
 			 	+ "2. Players must connect 4 of the same colored in a horizontal,vertical, diagonal to win.\n"
 			 	+ "3. Only one player at a time.\n"
