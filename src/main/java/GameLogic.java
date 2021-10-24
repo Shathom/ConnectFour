@@ -366,6 +366,7 @@ public class GameLogic {
 			throw new NullPointerException("No more items left to reverse!");
 		} else {
 			popedMove = moves.pop();
+			winnerMoves.pop();
 			System.out.println(popedMove.x + ", " + popedMove.y);
 			Vbutton buttonToReverse = matrix.get(popedMove.x).get(popedMove.y);
 			// is the vertical axis, y is horizontal axis

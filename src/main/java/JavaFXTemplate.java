@@ -286,6 +286,33 @@ public class JavaFXTemplate extends Application {
 			}
 		}
 	}
+	
+	public GameButton setColorOfButtonsGreen(GameButton button) {
+		if (button.getIsReversed() == true) {
+			button.setStyle("-fx-font-size: 50;" 
+					+ "-fx-background-color: green;" 
+					+ "-fx-text-fill:red;");
+		} else {
+			button.setStyle("-fx-font-size: 50;" 
+					+ "-fx-background-color: yellow;" 
+					+ "-fx-text-fill:red;");
+		}
+		return button;
+	}
+	
+    public GameButton setColorOfButtonsPink(GameButton button) {
+    	if (button.getIsReversed() == true) {
+			button.setStyle("-fx-font-size: 50;" 
+					+ "-fx-background-color: pink;" 
+					+ "-fx-text-fill:red;");
+		} else {
+			button.setStyle("-fx-font-size: 50;" 
+					+ "-fx-background-color: yellow;" 
+					+ "-fx-text-fill:red;");
+		}
+		return button;
+		
+	}
 
 	public Scene welcomeScene() {
 		// 1) your program must start with a welcome screen that is it's own JavaFX
@@ -461,7 +488,6 @@ public class JavaFXTemplate extends Application {
 		borderPane.setBottom(displayPlayer);
 		borderPane.setCenter(root1);
 
-		
 		reverseMovehandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				try {
@@ -469,12 +495,11 @@ public class JavaFXTemplate extends Application {
 					GameButton button = getButtonByCoordinates(coord.x, coord.y, grid);
 					button.setIsReversed(true);
 					displayPlayer.getItems().clear();
-					
 					displayPlayer.getItems().add("Player " + button.player + " pressed " 
 					+ button.row + ", " + button.column + ". Valid move.");
-					button.setStyle("-fx-font-size: 50;" 
-					+ "-fx-background-color:yellow;" 
-					+ "-fx-text-fill:red;");
+//					button.setStyle("-fx-font-size: 50;" 
+//					+ "-fx-background-color:yellow;" 
+//					+ "-fx-text-fill:red;");
 					if(button.player == 1) {
 						displayPlayer.getItems().add("The button is reversed. Player 1's turn to go.");
 					} else {
@@ -494,7 +519,7 @@ public class JavaFXTemplate extends Application {
 				for (int col = 0; col < 7; col++) {
 					for (int row = 0; row < 6; row++) {
 						if (getButtonByCoordinates(row, col, grid).getPlayer() == 0) {
-							getButtonByCoordinates(row, col, grid).setStyle("-fx-background-color: Pink");	
+							setColorOfButtonsPink(getButtonByCoordinates(row, col, grid));	
 						}
 					}
 				}
