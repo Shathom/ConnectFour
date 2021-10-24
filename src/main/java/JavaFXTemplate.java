@@ -130,7 +130,7 @@ public class JavaFXTemplate extends Application {
 			for (int i = 0; i < 3; i++) {
 				grid.getChildren().clear();
 			}		
-			buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
+			buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn, gameButton.isReversed);
 			GameLogic.makeBoard();
 			playerTurns = 0;
 			GameLogic.playerTurns = 1;
@@ -267,7 +267,7 @@ public class JavaFXTemplate extends Application {
 		// try resetting the gridpane or the listview 
 		for (int col = 0; col < 7; col++) {
 			for (int row = 0; row < 6; row++) {
-				gameButton = new GameButton(row, col, 0, false, false);
+				gameButton = new GameButton(row, col, 0, false, false, false);
 				gameButton.setMinWidth(90);
 				gameButton.setPrefWidth(90);
 				gameButton.setMaxWidth(90);
@@ -328,10 +328,10 @@ public class JavaFXTemplate extends Application {
 		how = new MenuItem("How to Play");
 		Image winnerStar = new Image("Star_icon_stylized.svg.png");
 		
-		ImageView view = new ImageView(winnerStar);
-		view.setFitHeight(67);
-		view.setFitWidth(69);
- 
+		ImageView view1 = new ImageView(winnerStar);
+		view1.setFitHeight(67);
+		view1.setFitWidth(69);
+
 		mOne.getItems().add(how);
 		mOne.getItems().add(start);
 		mOne.getItems().add(exit);
@@ -351,7 +351,7 @@ public class JavaFXTemplate extends Application {
 		buttonHandler = new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				gameButton = (GameButton)e.getSource();
-				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
+				buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn, gameButton.isReversed);
 				result = GameLogic.makeMove(buttons);
 					
 				if(result==1) {
@@ -368,18 +368,19 @@ public class JavaFXTemplate extends Application {
 						gameButton.setStyle("-fx-background-color: NAVY");
 						gameButton.setDisable(true);
 						winnerPlayer = 1;
-						GameLogic.winnerStack(buttons);
 						System.out.println("WinnerPlayer: " + winnerPlayer);
-                        
-//						gameButton.setOnAction(buttonHandler);
 						for (int col = 0; col < 7; col++) {
 							for (int row = 0; row < 6; row++) {
 								getButtonByCoordinates(row, col, grid).setDisable(true);	
 							}
 						}
-
+						System.out.println("size of winnerMoves: " + GameLogic.winnerMoves.size());
 						for (Coordinate coord : GameLogic.winnerMoves) {
-							getButtonByCoordinates(coord.x, coord.y, grid).setGraphic(view);
+							ImageView view1 = new ImageView(winnerStar);
+							view1.setFitHeight(67);
+							view1.setFitWidth(69);
+							getButtonByCoordinates(coord.x, coord.y, grid).setGraphic(view1);
+							System.out.println("winner moves: " + coord.x + ", " + coord.y);
 						}
 					
 						playerTurns = 0;
@@ -403,7 +404,6 @@ public class JavaFXTemplate extends Application {
 						gameButton.setStyle("-fx-background-color: Pink");
 						gameButton.setDisable(true);
 						winnerPlayer = 2;
-						GameLogic.winnerStack(buttons);
 						System.out.println("WinnerPlayer: " + winnerPlayer);
 						for (int col = 0; col < 7; col++) {
 							for (int row = 0; row < 6; row++) {
@@ -411,7 +411,10 @@ public class JavaFXTemplate extends Application {
 							}
 						}
 						for (Coordinate coord : GameLogic.winnerMoves) {
-							getButtonByCoordinates(coord.x, coord.y, grid).setGraphic(view);
+							ImageView view1 = new ImageView(winnerStar);
+							view1.setFitHeight(67);
+							view1.setFitWidth(69);
+							getButtonByCoordinates(coord.x, coord.y, grid).setGraphic(view1);
 						}
 
 						pauseForWinner.play();
@@ -452,13 +455,8 @@ public class JavaFXTemplate extends Application {
 			public void handle(ActionEvent e) {
 				try {
 					Coordinate coord = GameLogic.reverseMove();
-					//Vbutton revButton = GameLogic.matrix.get(coord.x).get(coord.y);
-					//revButton.setIsValid(false);
-					
 					GameButton button = getButtonByCoordinates(coord.x, coord.y, grid);
-					//Vbutton but = GameLogic.matrix.get(coord.x+1).get(coord.y);
-					//but.setIsValid(false); 
-					
+					button.setIsReversed(true);
 					displayPlayer.getItems().clear();
 					displayPlayer.getItems().add("Player " + button.player + " pressed " 
 					+ button.row + ", " + button.column + ". Valid move.");
@@ -519,7 +517,7 @@ public class JavaFXTemplate extends Application {
 			for (int i = 0; i < 3; i++) {
 				grid.getChildren().clear();
 			}
-			buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn);
+			buttons = new Vbutton(gameButton.row, gameButton.column, gameButton.player, gameButton.isValid, gameButton.playerTurn, gameButton.isReversed);
 			GameLogic.makeBoard(); 
 			GameLogic.playerTurns = 1;			
 			GameLogic.counterDiagonal1 = 1;
@@ -546,7 +544,8 @@ public class JavaFXTemplate extends Application {
 		GameButton buttonToReverse = null;
 		ObservableList<Node> allButtons = grid.getChildren();
 		for (Node node: allButtons) {
-			if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+			GameButton but = (GameButton)node;
+			if (but.getRow() == row && but.getColumn() == column) {
 				buttonToReverse = (GameButton)node;
 				break;
 			}

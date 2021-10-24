@@ -20,13 +20,16 @@ public class Vbutton {
 	private int player;
 	private boolean isValid; 
 	private boolean playerTurn;
+	private boolean isReversed;
 
-	public Vbutton (int row, int column, int player, boolean isValid, boolean playerTurn){
+	public Vbutton (int row, int column, int player, boolean isValid, boolean playerTurn, boolean isReversed) {
 		this.row = row;
 		this.column = column;
 		this.player = player;
 		this.isValid = isValid;
 		this.playerTurn = playerTurn;
+		this.isReversed = isReversed;
+		
 	}
 	
 	public void nowValidButton(int row, int column) {
@@ -63,6 +66,12 @@ public class Vbutton {
 	}
 	public void setPlayerTurn(boolean playerTurn) {
 		this.playerTurn = playerTurn;
+	}
+	public boolean getIsReversed() {
+		return isReversed;
+	}
+	public void setIsReversed(boolean isReversed) {
+		this.isReversed = isReversed;
 	}
 	
 	

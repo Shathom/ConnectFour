@@ -23,7 +23,6 @@ public class GameLogic {
 
 	public static Stack<Coordinate> moves = new Stack<Coordinate>();
 	public static Stack<Coordinate> winnerMoves = new Stack<Coordinate>();
-	//public static Stack<Coordinate> movesPlayer2 = new Stack<Coordinate>();
 	public static Vbutton button, prevButton;
 	public static int winnerButton = 0;
 	public static int playerTurns = 1;
@@ -40,7 +39,7 @@ public class GameLogic {
 		for(int row = 0; row < 6; row++) {
 			ArrayList<Vbutton> matrixRow = new ArrayList<Vbutton>();
 			for(int col = 0; col < 7; col++) {
-				button = new Vbutton(row, col, 0, false, false);
+				button = new Vbutton(row, col, 0, false, false, false);
 				if(row == 5) {					
 					button.setIsValid(true); // setting the 5th row set to valid for the beginning of the game
 //					System.out.println("row and col ... etc" + button.getRow() + ", "+ button.getColumn() + " : valid:" + button.getIsValid());
@@ -66,6 +65,7 @@ public class GameLogic {
 	public static void winnerStack(Vbutton button) {
 	playerMoveForWinner = new Coordinate(button.getRow(), button.getColumn());
 	winnerMoves.push(playerMoveForWinner);
+	
 }
 	
 	
@@ -85,15 +85,21 @@ public class GameLogic {
 		for(int col = 0; col < 7; col++) {
 			Vbutton matrixbutton = matrix.get(button.getRow()).get(col);
 			if(matrixbutton.getPlayer() == buttonPlayer) {
+				winnerStack(matrixbutton);
 				counterHorizontal++;
 			    System.out.print("horizontal count: "+counterHorizontal+ "\n");
 			    System.out.println(col + ", "+ button.getRow() + "\n");
 			} else {
 				counterHorizontal = 0;
+				winnerMoves.clear();
 			}
 			if(counterHorizontal == 4) {
 				isWinner = true;
-			} 
+				break;
+			}
+		}
+		if (isWinner == false) {
+			winnerMoves.clear();
 		}
 		return isWinner;
 	}
@@ -107,18 +113,22 @@ public class GameLogic {
 			Vbutton matrixbutton = matrix.get(row).get(button.getColumn());
 			if(matrixbutton.getPlayer() == buttonPlayer) {
 				counterVerical++;
-//				winnerResultStack(button.getRow(), button.getColumn());
-
+				winnerStack(matrixbutton);
 			    System.out.print("vertical count++: "+counterVerical + "\n");
 
 			} else {
 				counterVerical = 0;
+				winnerMoves.clear();
 			}
 			
 			if(counterVerical == 4) {
 				isWinner = true;
+				break;
 			}			
-		}		
+		}
+		if (isWinner == false) {
+			winnerMoves.clear();
+		}
 		return isWinner;
 	}
 	
@@ -136,13 +146,15 @@ public class GameLogic {
 					buttonRow++;
 					buttonColumn--;
 					counterDiagonal1++;
+					winnerStack(matrixbuttonColumn);
 					System.out.print("DIAGONAL count--: "+counterDiagonal1 + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
 					if (counterDiagonal1 == 4) {
 						isWinner = true;
 						return true;
 					} 
-				}
+				} 
 			} else {
+				winnerMoves.clear();
 				break;
 			}						
 		}
@@ -157,6 +169,7 @@ public class GameLogic {
 					buttonRow--;
 					buttonColumn++;
 					counterDiagonal1++;
+					winnerStack(matrixbuttonColumn);
 					System.out.print("DIAGONAL count--: "+counterDiagonal1 + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
 					if (counterDiagonal1 == 4) {
 						isWinner = true;
@@ -164,9 +177,13 @@ public class GameLogic {
 					} 
 				}
 			} else {
+				winnerMoves.clear();
 				break;
 			}
-	    }	
+	    }
+		if (isWinner == false) {
+			winnerMoves.clear();
+		}
 		return isWinner;
 
 	}
@@ -185,6 +202,7 @@ public class GameLogic {
 					buttonRow++;
 					buttonColumn++;
 					counterDiagonal2++;
+					winnerStack(matrixbuttonColumn);
 					System.out.print("DIAGONAL count--: "+counterDiagonal2 + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
 					if (counterDiagonal2 == 4) {
 						isWinner = true;
@@ -192,6 +210,7 @@ public class GameLogic {
 					} 
 				}
 			} else {
+				winnerMoves.clear();
 				break;
 			}
 		}
@@ -207,6 +226,7 @@ public class GameLogic {
 					buttonRow--;
 					buttonColumn--;
 					counterDiagonal2++;
+					winnerStack(matrixbuttonColumn);
 					System.out.print("DIAGONAL count--: "+counterDiagonal2 + " row: " + button.getRow() + "column: " + button.getColumn() + "\n");	
 					if (counterDiagonal2 == 4) {
 						isWinner = true;
@@ -214,9 +234,13 @@ public class GameLogic {
 					} 
 				}
 			} else {
+				winnerMoves.clear();
 				break;
 			}
-		}		
+		}
+		if (isWinner == false) {
+			winnerMoves.clear();
+		}
 		return isWinner;
 	}	
 	

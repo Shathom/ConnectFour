@@ -22,14 +22,16 @@ public class GameButton extends Button {
 	public int player = 0;
 	public boolean isValid = false; // to check whether the move is valid 
 	public boolean playerTurn = false;
+	public boolean isReversed = false;
 
-	GameButton (int row, int column, int player, boolean isValid, boolean playerTurn){
+	GameButton (int row, int column, int player, boolean isValid, boolean playerTurn, boolean isReversed){
 		Button gameButton = new Button();
 		this.row = row;
 		this.column = column;
 		this.player = player;
 		this.isValid = isValid;
 		this.playerTurn = playerTurn;
+		this.isReversed = isReversed;
 	}
 	
 	public void nowValidButton(int row, int column) {
@@ -67,6 +69,11 @@ public class GameButton extends Button {
 		this.playerTurn = playerTurn;
 	}
 	
-	
+	public boolean getIsReversed() {
+		return isReversed;
+	}
+	public void setIsReversed(boolean isReversed) {
+		this.isReversed = isReversed;
+	}
 
 }

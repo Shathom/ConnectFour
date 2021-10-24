@@ -34,7 +34,7 @@ class MyTest {
 	@Test
 	void makeBoardTest0() {
 		GameLogic.makeBoard();
-		Vbutton button1 = new Vbutton(5, 1, 1, true, false);
+		Vbutton button1 = new Vbutton(5, 1, 1, true, false, false);
 //		GameLogic.setPieceInBoard(button);
 		assertEquals(true, button1.getIsValid(), "incorrecto isValid");  
 	}
@@ -43,7 +43,7 @@ class MyTest {
 	@Test
 	void makeBoardTest2() {
 		GameLogic.makeBoard();
-		button = new Vbutton(5, 1, 1, true, false);
+		button = new Vbutton(5, 1, 1, true, false, false);
 		GameLogic.setPieceInBoard(button);
 		// supposed to be return true.. but it's returning false I don't know why..
 		assertEquals(5, button.getRow(), "correcto row");  
@@ -52,7 +52,7 @@ class MyTest {
 	@Test
 	void makeBoardTest3() {
 		GameLogic.makeBoard();
-		button = new Vbutton(5, 1, 1, true, false);
+		button = new Vbutton(5, 1, 1, true, false, false);
 		GameLogic.setPieceInBoard(button);
 		// supposed to be return true.. but it's returning false I don't know why..
 		assertEquals(false, button.getPlayerTurn(), "correcto row");  
@@ -61,7 +61,7 @@ class MyTest {
 	@Test
 	void makeMoveTest0() {
 		GameLogic.makeBoard();
-		button = new Vbutton(5, 1, 1, true, false);
+		button = new Vbutton(5, 1, 1, true, false, false);
 		GameLogic.setPieceInBoard(button);		
 		assertEquals(1, GameLogic.makeMove(button), "wrong validity of button");
 	}
@@ -69,7 +69,7 @@ class MyTest {
 	@Test
 	void makeMoveTest1() {
 		GameLogic.makeBoard();
-		button = new Vbutton(3, 1, 1, false, false);
+		button = new Vbutton(3, 1, 1, false, false, false);
 		GameLogic.setPieceInBoard(button);		
 		assertEquals(3, GameLogic.makeMove(button), "wrong validity of button");
 	}
