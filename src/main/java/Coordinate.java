@@ -11,6 +11,7 @@
 // development in JavaFx and trying your hand at event driven programming.
 // ****************************************************************************/
 
+// testing
 
 public class Coordinate {
 	public int x;
